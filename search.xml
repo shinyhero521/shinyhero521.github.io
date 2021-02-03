@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2014/12/22/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>mac下安装es</title>
+    <url>/2019/06/24/%E5%AE%89%E8%A3%85es&amp;kibana/</url>
+    <content><![CDATA[<h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在安装es5.6.16，启动时如果报错，<a href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
+<p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
+<h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
+<table>
+<thead>
+<tr>
+<th>header 1</th>
+<th>Elasticsearch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Datebases</td>
+<td>Indices</td>
+</tr>
+<tr>
+<td>Tables</td>
+<td>Types</td>
+</tr>
+<tr>
+<td>Rows</td>
+<td>Documents</td>
+</tr>
+<tr>
+<td>Columns</td>
+<td>Fields</td>
+</tr>
+</tbody></table>
+<p>用命令建立一个索引之后，然后首页填上索引名称，点击下一步就ok了</p>
+<h3 id="elasticsearch-head"><a href="#elasticsearch-head" class="headerlink" title="elasticsearch head"></a>elasticsearch head</h3><p>直接用chrome的插件安装就行，<a href="https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm">ElasticSearch Head</a>，十分简单，开箱即用</p>
+<h3 id="使用java开发"><a href="#使用java开发" class="headerlink" title="使用java开发"></a>使用java开发</h3><h4 id="Spring-Data-Elasticsearch与基础版ES的"><a href="#Spring-Data-Elasticsearch与基础版ES的" class="headerlink" title="Spring Data Elasticsearch与基础版ES的"></a>Spring Data Elasticsearch与基础版ES的</h4><p><a href="https://zhuanlan.zhihu.com/p/34487302">关系</a></p>
+]]></content>
+      <categories>
+        <category>es</category>
+      </categories>
+      <tags>
+        <tag>es</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vocabulary</title>
+    <url>/2018/01/02/%E5%8D%95%E8%AF%8D%E6%9C%AC/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fkgcakidd2j30go0acmxk.jpg"></br></p>
+<ul>
+<li><p><strong>包名：</strong>全部小写，如包名“com.sina.crm”。</p>
+</li>
+<li><p><strong>变量名：</strong>第1个单词首字母小写，其后单词首字母大写。变量名应简单、易于描述，尽量不要以美元符号和下画线开，如变量名“name”、“myHeight”。</p>
+</li>
+<li><p><strong>方法名：</strong>第1个单词小写，以后每个单词首字母大写，例如方法名“getName”。</p>
+</li>
+<li><p><strong>类名或接口名：</strong>每个单词首字母大写，应使用简洁且富于描述的完整名词，不要使用缩写词，如类名“MyData”，接口名“RowSet”。</p>
+</li>
+<li><p><strong>常量：</strong>全大写，用下画线“_”来分隔每个单词，例如“MIN_WIDTH”。</p>
+</li>
+</ul>
+<p><em>简单的说，就是包名全小写，变量名和方法、类名和接口名 非首字母都大写，但是变量名和方法名首字母小写</em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">patchy</span><br><span class="line"></span><br><span class="line">英 [&#39;pætʃɪ]  美 [&#39;pætʃi]</span><br><span class="line">adj. 不调和的；拼凑成的；有补丁的</span><br><span class="line">比较级patchier</span><br><span class="line">最高级patchiest</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>vocabulary</category>
+      </categories>
+      <tags>
+        <tag>vocabulary</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>bind(this)</title>
+    <url>/2019/01/20/bind(this)/</url>
+    <content><![CDATA[<p><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
+<blockquote>
+<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
+</blockquote>
+<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Health</title>
+    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="bad784adffd005676078642d9bd60040430810081b08673c57bf678e6854b48c">f4cc23558ba95030556638b09840cfb7e9092316c5dd8c4c041392241e350a425f3c458c8f9f994f3e23b408931c3fa784d404b89a70650663c7b7e6f8a46e00baa455cca30676a6d1abe3442a74a2e3a441ed028089bee8f5bf2f74966a0d25bda5750593e681c030d0441f5624cca1b46b8b22636388862b8732dbddae997eadce3d94c9584ecae598f39256ca7ed2dd02b4cfbc4716cdcb30a5d2d3fec0cbc1534dfb2a58f7014a5f172d74a8dc16456adf681ef22a24ee3abf32dfcc6286e829c5cb2d62da1a380ff96b65163b13661e2206626c565d6e126eea14cac34c9f043499cb28926d3a8403955681fd8c31ecac7b9a75b1b409f899d2aec0a8ad5f063fe8a5411976a7898902eb4403e342e7ba3f8ac10be93ef0bec774d878c032a6786f4b50fd8e827fddacf6f2baae3ca9f240af134fbcb699c7f5eda1642022994a058e6ff176eb6422c32092cd6f9d2b7e3a123c1a5c60c483574b22320f49f5a6c5002752878b0e85fe3a233fbad116adf29d6862bb1946189832050fa3ac43eb9ae1971c23ed0a66630e4fea5f67605ded05eebf5a090349b937967f6b9b0e6db4ee7cd8dc60f6c45dd40853ce5f864af772c5e3857a73deb1b96f3805aaed4e98bf0e26b86fd3d1f5c38a93127c94db0312f0493a79609c7ed3116e25a8ac1296f37e741536b79cbff2bdacb2c658ffb99fa1f3afb34c91dc8ca8cc0d63b2258fe23206664bb77263d0f88edc83cfd5c7cc4bccb1639eb84a00a4d98446b869f76a7633900b4dd5d6ce953b62200c0f154c1522d25249661592bb48bef4234b03ce662a5542b23265373637e222c264284e089ebe5320e94ff5ef04f8e55b3566d692aa07a9b889437a92b4208e645c4c0773240b521d5bdb7e8120f78634dc74b230d5d7e61b688a4c2c35906613a4e6c926d354d0c73104fce568f58734945fdcea28a4651f438dd6ffb6cec0a86cf35d46efe19f10fc8b003a1ece4036ec15304840ac121f1ac5e34a41d686642d2114a3072e4fd4667555d513ad8c6bfb00b804e68953212079423c67e5681b3cf874cf0f3182441825065e8ecbec944ec3ee850243f5442291f17e834d1a03482e48113eb577aa012bd0fc932aa398ccb51cbb77b0d86aa34a61e9bcf7eaf7b0c05d4f0c0cca38c9168e9afc8c0a7291d9fcc757e6856fb042a825d9e0f1f01f1f718465190ab8b1e36bd497342e3e14de9a5beecca78189ab349f5f1b88ac3e5f19e051d0dd70ce52930746bdf71aa0503cca826862b4c6f14bcac40f3135486f9ab45482a5aecf6ed9b70561ba4d3ce64985cafec9d2518cb90d1f44c0a5ef08463599e1bf22c047d8032851f2bfd453393af4b34c6545768d3efefad6bd0398bd3d80ef3839f147783f627ef5eb1e883a64a1a53ff82ff9ff6ee78cc290912c3c04fbb7dcaeee302c5ec8c4aff563cc07a249597b0033ec91cc8994f843265876d879d00f239a0c03c38cb23e0b4cef0d450365cb84691dde0f87eb70c81a2199ba6f79da70460baadd12365be25146bcc34608913447afd80aae22bc8e50c0382c97c01b7dd00a6f982c930f17e3448ce543d88108627f0121dcc0cb9aeca74dbf46e9b26486f4ab0115ed8c09d0fcf56d211a3222083a0fc6dde33f442c3ca3ea1ce6184bc8eb0c751ab86f5fcb542b0c83f959d23934769645d4d2c30f2d1009d92ee495703bb71c4d262b912b9c2cb80e4f85b739cf56de3e30bd9ec320d4ed79bb3bf085a9bad25b65c15caad6e2b8c50654a94646b8295a52</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">密码输入框上描述性内容</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>diary</category>
+      </categories>
+      <tags>
+        <tag>health</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown示例</title>
+    <url>/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fn94zj31b1j30zk0k0wgu.jpg"></p>
+<h3 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**马克飞象**</span><br></pre></td></tr></table></figure>
+<p><strong>马克飞象</strong></p>
+<h3 id="突出"><a href="#突出" class="headerlink" title="突出"></a>突出</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;Ctrl + &#x2F;&#96;</span><br></pre></td></tr></table></figure>
+<p><code>Ctrl + /</code></p>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 第一项</span><br><span class="line">- 第二项</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+</ul>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; 三人行必有吾师。    —— [孔子](http:&#x2F;&#x2F;baike.baidu.com&#x2F;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>三人行必有吾师。    —— <a href="http://baike.baidu.com/">孔子</a></p>
+</blockquote>
+<h3 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">``</span><span class="string">`Javascript</span></span><br><span class="line"><span class="string">var emp = &#123;	name:&quot;Frank&quot;, age:45 &#125;;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">```Python</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><table>
+<thead>
+<tr>
+<th align="left">Item</th>
+<th align="right">价格</th>
+<th align="center">数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Computer</td>
+<td align="right">5600</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left">Phone</td>
+<td align="right">120</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td align="left">Pipe</td>
+<td align="right">10</td>
+<td align="center">234</td>
+</tr>
+</tbody></table>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">e&#x3D;&gt;end: 结束</span><br><span class="line">op1&#x3D;&gt;operation: 准备数据</span><br><span class="line">op2&#x3D;&gt;operation: 计算处理</span><br><span class="line">cond1&#x3D;&gt;condition: 是否正确?</span><br><span class="line"></span><br><span class="line">st-&gt;op1-&gt;op2-&gt;cond1</span><br><span class="line">cond1(yes)-&gt;e</span><br><span class="line">cond1(no)-&gt;op1</span><br></pre></td></tr></table></figure>
+<h3 id="以及时序图"><a href="#以及时序图" class="headerlink" title="以及时序图:"></a>以及时序图:</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">客户端-&gt;服务端: 给我姓名叫张三的员工信息</span><br><span class="line">Note right of 服务端: 服务端响应</span><br><span class="line">服务端--&gt;客户端: 给你张三的信息</span><br></pre></td></tr></table></figure>
+<h3 id="LaTeX-公式"><a href="#LaTeX-公式" class="headerlink" title="LaTeX 公式"></a>LaTeX 公式</h3><p>可以创建行内公式，例如 $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。或者块级公式：</p>
+<p>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HashMap原理小析</title>
+    <url>/2018/06/07/HashMap/</url>
+    <content><![CDATA[<p>原文：<br><a href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
+<h3 id="HashMap的设计原理"><a href="#HashMap的设计原理" class="headerlink" title="HashMap的设计原理"></a>HashMap的设计原理</h3><p>Map&lt;K,V&gt;是一种以键值对存储数据的容器，而HashMap则是借助了键值Key的hashcode值来组织存储，使得可以非常快速和高效地地根据key进行数据的存取。</p>
+<h4 id="HashMap设计思路"><a href="#HashMap设计思路" class="headerlink" title="HashMap设计思路"></a>HashMap设计思路</h4><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8l746nbj30e80bb0sy.jpg"><br>对于键值对&lt;Key,Value&gt;，HashMap内部会将其封装成一个对应的Entry&lt;Key,Value&gt;对象，即Entry&lt;Key,Value&gt;对象是键值对&lt;Key,Value&gt;的组织形式；<br><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8lqbsgzj30f10co75l.jpg"><br>对于每个对象而言，JVM都会为其生成一个hashcode值。HashMap在存储键值对Entry&lt;Key,Value&gt;的时候，会根据Key的hashcode值，以某种映射关系，决定应当将这对键值对Entry&lt;Key,Value&gt;存储在HashMap中的什么位置上；<br>的Value值存放在什么位置，可以非常高效地将Value值取出。</p>
+<h4 id="HashMap的数据结构"><a href="#HashMap的数据结构" class="headerlink" title="HashMap的数据结构"></a>HashMap的数据结构</h4><p>数据结构中有数组和链表来实现对数据的存储，但这两者各有利弊。</p>
+<p>数组:<br>            数组存储区间是连续的，占用内存严重，故空间复杂度大。但数组的二分查找时间复杂度小，为O(1)；<br>            数组特点：寻址容易，插入和删除困难；</p>
+<p>链表:<br>            链表存储区间离散，占用内存比较宽松，故空间复杂度很小，但时间复杂度很大，达O（N）。<br>            链表特点：寻址困难，插入和删除容易。</p>
+<p>哈希表:<br>              那么我们综合两者的特性，做出一种寻址容易，插入删除也容易的数据结构，这就是哈希表。哈希表（(Hash table）既满足了数据的查找方便，同时不占用太多的内存空间，使用也十分方便。  </p>
+<p>哈希表有多种不同的实现方法，HashMap则使用的是拉链法，也叫作【链地址法】；</p>
+<h4 id="HashMap实现"><a href="#HashMap实现" class="headerlink" title="HashMap实现"></a>HashMap实现</h4><p>哈希表是由数组+链表组成的，一个长度为16的数组中，每个元素存储的是一个链表的头结点。那么这些元素是按照什么样的规则存储到数组中呢?<br>一般情况是通过hash(key)%len获得，也就是元素的key的哈希值对数组长度取模得到。比如上述哈希表中:<br> 12%16=12,   28%16=12,  108%16=12,  140%16=12</p>
+<p>所以12、28、108以及140都存储在数组下标为12的位置。</p>
+<p>　　HashMap其实也是一个线性的数组实现的,所以可以理解为其存储数据的容器就是一个线性数组。这可能让我们很不解，一个线性的数组怎么实现按键值对来存取数据呢？这里HashMap有做一些处理。</p>
+<h2 id="数组和链表"><a href="#数组和链表" class="headerlink" title="数组和链表"></a>数组和链表</h2><h3 id="拿几个人一起去看电影时坐座位为例"><a href="#拿几个人一起去看电影时坐座位为例" class="headerlink" title="拿几个人一起去看电影时坐座位为例"></a>拿几个人一起去看电影时坐座位为例</h3><h4 id="数组的特点"><a href="#数组的特点" class="headerlink" title="数组的特点"></a>数组的特点</h4><p>在内存中，数组是一块连续的区域。 拿上面的看电影来说，这几个人在电影院必须坐在一起。<br>数组需要预留空间，在使用前要先申请占内存的大小，可能会浪费内存空间。 比如看电影时，为了保证10个人能坐在一起，必须提前订好10个连续的位置。这样的好处就是能保证10个人可以在一起。但是这样的缺点是，如果来的人不够10个，那么剩下的位置就浪费了。如果临时有多来了个人，那么10个就不够用了，这时可能需要将第11个位置上的人挪走，或者是他们11个人重新去找一个11连坐的位置，效率都很低。如果没有找到符合要求的作为，那么就没法坐了。</p>
+<blockquote>
+<p>插入数据和删除数据效率低，插入数据时，这个位置后面的数据在内存中都要向后移。删除数据时，这个数据后面的数据都要往前移动。 比如原来去了5个人，然后后来又去了一个人要坐在第三个位置上，那么第三个到第五个都要往后移动一个位子，将第三个位置留给新来的人。 当这个人走了的时候，因为他们要连在一起的，所以他后面几个人要往前移动一个位置，把这个空位补上。<br>随机读取效率很高。因为数组是连续的，知道每一个数据的内存地址，可以直接找到给地址的数据。<br>并且不利于扩展，数组定义的空间不够时要重新定义数组。</p>
+</blockquote>
+<h4 id="链表的特点"><a href="#链表的特点" class="headerlink" title="链表的特点"></a>链表的特点</h4><p>在内存中可以存在任何地方，不要求连续。 在电影院几个人可以随便坐。<br>每一个数据都保存了下一个数据的内存地址，通过这个地址找到下一个数据。 第一个人知道第二个人的座位号，第二个人知道第三个人的座位号……<br>增加数据和删除数据很容易。 再来个人可以随便坐，比如来了个人要做到第三个位置，那他只需要把自己的位置告诉第二个人，然后问第二个人拿到原来第三个人的位置就行了。其他人都不用动。</p>
+<blockquote>
+<p>查找数据时效率低，因为不具有随机访问性，所以访问某个位置的数据都要从第一个数据开始访问，然后根据第一个数据保存的下一个数据的地址找到第二个数据，以此类推。 要找到第三个人，必须从第一个人开始问起。<br>不指定大小，扩展方便。链表大小不用定义，数据随意增删。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">-</th>
+<th align="right">数组</th>
+<th align="center">链表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">读取</td>
+<td align="right">O(1)</td>
+<td align="center">O(n)</td>
+</tr>
+<tr>
+<td align="left">插入、删除</td>
+<td align="right">O(n)</td>
+<td align="center">O(1)</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Java原理</category>
+      </categories>
+      <tags>
+        <tag>HashMap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>含visio的office2013</title>
+    <url>/2018/01/08/office2013%EF%BC%88%E5%90%ABvisio%EF%BC%89%E5%85%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fn94q9xbvcj30zk0k075o.jpg"></p>
+<h4 id="office（零售版）和visio（VOL版）"><a href="#office（零售版）和visio（VOL版）" class="headerlink" title="office（零售版）和visio（VOL版）"></a>office（零售版）和visio（VOL版）</h4><p>链接：<a href="https://pan.baidu.com/s/1o8qpzcu">https://pan.baidu.com/s/1o8qpzcu</a> 密码：cqpu</p>
+<h4 id="office（零售版）转VOL版"><a href="#office（零售版）转VOL版" class="headerlink" title="office（零售版）转VOL版"></a>office（零售版）转VOL版</h4><p>链接： <a href="https://share.weiyun.com/fceb1de31219bb309fb7f7def9080b49">https://share.weiyun.com/fceb1de31219bb309fb7f7def9080b49</a> （密码：Cnep）<br><a href="http://blog.csdn.net/sanoseiichirou/article/details/50292123">使用方法</a></p>
+<h4 id="VOL版office破解"><a href="#VOL版office破解" class="headerlink" title="VOL版office破解"></a>VOL版office破解</h4><p>链接： <a href="https://share.weiyun.com/4caf3a48a0433166e3bc92c40f19e1cf">https://share.weiyun.com/4caf3a48a0433166e3bc92c40f19e1cf</a> （密码：2Zaf）<a href="https://jingyan.baidu.com/article/456c463b60cc380a58314480.html">使用方法</a></p>
+]]></content>
+      <categories>
+        <category>实用工具</category>
+      </categories>
+      <tags>
+        <tag>office2013</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nginx坑</title>
+    <url>/2018/06/07/nginx/</url>
+    <content><![CDATA[<p><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
+<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegrvm16uj30fm0b8dh5.jpg"></p>
+<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
+<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次v，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
+<blockquote>
+<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>java中的坑</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>bind(this)</title>
+    <url>/2020/06/21/vue%E5%AD%90%E7%88%B6%E4%BC%A0%E5%80%BC/</url>
+    <content><![CDATA[<p>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能也很怎么说，其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
+<p>但是经过一下午的努力奋战，<br>我完成了<br>并且我对vue的父子传值有了更深的认识和理解<br>其实就是三把斧<br>很开心</p>
+<h3 id="父传子（父页面调子页面）："><a href="#父传子（父页面调子页面）：" class="headerlink" title="父传子（父页面调子页面）："></a>父传子（父页面调子页面）：</h3><h4 id="就是用父页面"><a href="#就是用父页面" class="headerlink" title="就是用父页面"></a>就是用父页面</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;addModule&quot;</span><br><span class="line">                @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import adminList from &#39;.&#x2F;set-as-admin-list&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">components: &#123;</span><br><span class="line">      adminList</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在方法里，这里一定要别拉下this.$nextTick(()=&gt;{})</p>
+<p>因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined<br>详情原因见</p>
+<p><a href="https://blog.csdn.net/weixin_41888813/article/details/84776896">Vue父组件引用子组件方法显示undefined问题原因及解决方法</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">          this.$refs.addModule.init(this.struId, this.organId, false)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<p>这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</p>
+<h4 id="子页面"><a href="#子页面" class="headerlink" title="子页面"></a>子页面</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">init (struId, organId, isAdmin) &#123;</span><br><span class="line">       debugger</span><br><span class="line">       this.isAdmin &#x3D; isAdmin</span><br><span class="line">       this.struId &#x3D; struId</span><br><span class="line">       this.organId &#x3D; organId</span><br><span class="line">       this.getPersonList(struId)</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
+<p>,上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。</p>
+<p>并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref=”不同的值”</p>
+<h4 id="父页面"><a href="#父页面" class="headerlink" title="父页面"></a>父页面</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;authorizationModal&quot;</span><br><span class="line">                @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="子传父："><a href="#子传父：" class="headerlink" title="子传父："></a>子传父：</h3><p>也很简单，</p>
+<h4 id="子页面-1"><a href="#子页面-1" class="headerlink" title="子页面"></a>子页面</h4><p>在方法里</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$emit(&#39;func&#39;, data)</span><br></pre></td></tr></table></figure>
+<h4 id="父页面去接"><a href="#父页面去接" class="headerlink" title="父页面去接"></a>父页面去接</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;authorizationModal&quot;</span><br><span class="line">               @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br></pre></td></tr></table></figure>
+<p>其中func是要传的key</p>
+<p>value就是用”getmessage”去接收，这里是方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">getmessage (data) &#123;</span><br><span class="line">       this.authorizationVisible &#x3D; data</span><br><span class="line"></span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
+<p>这样就把子页面的data传给了父页面</p>
+]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+</search>
