@@ -3,7 +3,7 @@
   <entry>
     <title>HashMap小析</title>
     <url>/2018/06/07/HashMap/</url>
-    <content><![CDATA[<p>原文：<br><a href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9an9eebj31ts0zwhdw.jpg" alt="bmw.png"><br>原文：<br><a href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
 <h3 id="HashMap的设计原理"><a href="#HashMap的设计原理" class="headerlink" title="HashMap的设计原理"></a>HashMap的设计原理</h3><p>Map&lt;K,V&gt;是一种以键值对存储数据的容器，而HashMap则是借助了键值Key的hashcode值来组织存储，使得可以非常快速和高效地地根据key进行数据的存取。</p>
 <h4 id="HashMap设计思路"><a href="#HashMap设计思路" class="headerlink" title="HashMap设计思路"></a>HashMap设计思路</h4><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8l746nbj30e80bb0sy.jpg"><br>对于键值对&lt;Key,Value&gt;，HashMap内部会将其封装成一个对应的Entry&lt;Key,Value&gt;对象，即Entry&lt;Key,Value&gt;对象是键值对&lt;Key,Value&gt;的组织形式；<br><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8lqbsgzj30f10co75l.jpg"><br>对于每个对象而言，JVM都会为其生成一个hashcode值。HashMap在存储键值对Entry&lt;Key,Value&gt;的时候，会根据Key的hashcode值，以某种映射关系，决定应当将这对键值对Entry&lt;Key,Value&gt;存储在HashMap中的什么位置上；<br>的Value值存放在什么位置，可以非常高效地将Value值取出。</p>
 <h4 id="HashMap的数据结构"><a href="#HashMap的数据结构" class="headerlink" title="HashMap的数据结构"></a>HashMap的数据结构</h4><p>数据结构中有数组和链表来实现对数据的存储，但这两者各有利弊。</p>
@@ -71,7 +71,7 @@
   <entry>
     <title>如何发布blog</title>
     <url>/2014/12/22/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9azfjh0j31di0vke82.jpg" alt="stocking.png"><br>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
@@ -86,6 +86,24 @@
       </categories>
       <tags>
         <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nginx坑</title>
+    <url>/2018/06/07/nginx/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9bi001lj31mi11g4qt.jpg" alt="illustration.png"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
+<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegrvm16uj30fm0b8dh5.jpg"></p>
+<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
+<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次v，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
+<blockquote>
+<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>防坑</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
       </tags>
   </entry>
   <entry>
@@ -193,21 +211,76 @@
       </tags>
   </entry>
   <entry>
-    <title>nginx坑</title>
-    <url>/2018/06/07/nginx/</url>
-    <content><![CDATA[<p><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
-<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegrvm16uj30fm0b8dh5.jpg"></p>
-<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
-<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次v，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
-<blockquote>
-<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
-</blockquote>
-]]></content>
+    <title>Health</title>
+    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="02352f24541dcfcf915a929f7fe3ac6a86e397caf128e776caa8c13c33203025">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e53177535fc0d511812eb6802e9bca9261e16da9695c6ac433f59592964672c776d073fe114c0c1287a8c401823481c8d02e14b56d4ee753a46250ddd3350d9c05b21e1c71d5d76ff48ce77abcb6c30e0617a359a4b725124106d02dba325baf6958bfc5033e7ee7d7bf4fdcbe822c90584ebdbacdbfaec7f13102e2d433bcb3e3bac84c1d307237b68ba29046cfd21bcdb11dd47e2d6cd3edbeb3b778fcf95fcdf6a31089221ce62516a25fd3b598a3cfeb63e1729d5fe27618caafd445dbc6247965ce4ccba24c5648fad121d7382129d36ce1d568f8f1f61c42a8a63728d833bc40e1a8b747376ea768fec66a114051892f72b62b149cd0c7883a8d81b2bdb384f27b1496278b1714d7c7687aa466de11dcd473d0cbb8ef0ac47248bab773389f61441b10d3fd2e1de8134d23d1d2d6e0ff3346869ba2d0acfca3caf89b5c783c37c2a1d8387ee79800d702275a070e5627f54d72e39d2f4070b2396e2a1557a674713d3494d9efe594f85bf26e1ab7b237dbd5122924f60a41af11dd1c65898ad4ae9f7e7860d049434c631a88477b1eb8f9e46f376548e020bf4a2ad457890d9bceecc66853c661632d7f90e02ed45ef8faa4e5c2320626c9f471153eb0d2084229ff038e1b41891d1d5a604a8a84d99ee159394d6ecf46f18bf3fd0b3d30163571891e4d9a118d3990a31b8299466026943c83cd1179723aaa86370cabb9cde11f7b23f773a4853e87f7e7b78c7ba347a126ac1d24fa023e297e2485df2c5ff334b576b6341f66b568457feb080f88c3b51290e4fd5a750274d12cf633254aa645140198dc7a52e329478fa5faca13fc38a80675dcdea6fdd3c6a8489756d5c95a77330954056e8b579ecc0aacb961a7c0a2c65aa9a97d70d70ca72a443f988914c1cd81e3e225b94502ef2ca5e5d4d37ced298ef9df6c84ba88799bd44ce3678affcfc7b0e2604cb6465422af2bf1c581af05ad7e97d8d535c594bdcf431997071a6882ac7bf703bce232b339ab9495e6b129d3c72f158117d83b10ae7eabe47e06fbed817906ce1a5c9f123670e031b59bfdde3a2a8145b077c8ce26701ec559083e5fb7022aca499accf87f11cecfed1007d43c8720b57b51cda99108d8adad1fe85cf17136d18cd39869a157374cee760f47e0877030c4476a12fb23139c15c83cbc21a58ddb8806a30c2510d8fd163429a28368ec3bb4b39e28cb8e8a5be910d50bf8da7bde2015fc30f9f90f7b20ad799bd123b520480f6314b5a776c222945888981467420ff3612ad74703eceaab659db4ade5ac759758d51178f06631568a87c11ec616532614d7e9a3c83db1a1ef51cc0af24528ea2c7b873644693065515c492d5584e77ce45479481d027d8f56f804e74da4a0e4002336139feb3e8feef50540997c817bb34f718753749c74bb37a9a24d005cafdcae312daaa561a3bcf456740487cf3851a9cfac663feb6f3b586033d826fd6482f0ac0636dab040c86f415f801d5ec9ac91857d9e99f6b7b9404925e4c1083427cbe86e777c3b5c68fbac260c5a271b5a7d4ebb083b578d30f789217543e599914b71a1b87515de33329f4444e4debf3131b7f</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">abbreviation of my love</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
-        <category>防坑</category>
+        <category>diary</category>
       </categories>
       <tags>
-        <tag>nginx</tag>
+        <tag>health</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mac下安装es</title>
+    <url>/2019/06/24/%E5%AE%89%E8%A3%85es&amp;kibana/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9d7br1lj321a13y1l1.jpg" alt="Naruto.png"></p>
+<h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在安装es5.6.16，启动时如果报错，<a href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
+<p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
+<h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
+<table>
+<thead>
+<tr>
+<th>header 1</th>
+<th>Elasticsearch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Datebases</td>
+<td>Indices</td>
+</tr>
+<tr>
+<td>Tables</td>
+<td>Types</td>
+</tr>
+<tr>
+<td>Rows</td>
+<td>Documents</td>
+</tr>
+<tr>
+<td>Columns</td>
+<td>Fields</td>
+</tr>
+</tbody></table>
+<p>用命令建立一个索引之后，然后首页填上索引名称，点击下一步就ok了</p>
+<h3 id="elasticsearch-head"><a href="#elasticsearch-head" class="headerlink" title="elasticsearch head"></a>elasticsearch head</h3><p>直接用chrome的插件安装就行，<a href="https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm">ElasticSearch Head</a>，十分简单，开箱即用</p>
+<h3 id="使用java开发"><a href="#使用java开发" class="headerlink" title="使用java开发"></a>使用java开发</h3><h4 id="Spring-Data-Elasticsearch与基础版ES的"><a href="#Spring-Data-Elasticsearch与基础版ES的" class="headerlink" title="Spring Data Elasticsearch与基础版ES的"></a>Spring Data Elasticsearch与基础版ES的</h4><p><a href="https://zhuanlan.zhihu.com/p/34487302">关系</a></p>
+]]></content>
+      <categories>
+        <category>es</category>
+      </categories>
+      <tags>
+        <tag>es</tag>
       </tags>
   </entry>
   <entry>
@@ -321,75 +394,72 @@ components: &#123;
       </tags>
   </entry>
   <entry>
-    <title>mac下安装es</title>
-    <url>/2019/06/24/%E5%AE%89%E8%A3%85es&amp;kibana/</url>
-    <content><![CDATA[<h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>在安装es5.6.16，启动时如果报错，<a href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
-<p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
-<h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
-<table>
-<thead>
-<tr>
-<th>header 1</th>
-<th>Elasticsearch</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Datebases</td>
-<td>Indices</td>
-</tr>
-<tr>
-<td>Tables</td>
-<td>Types</td>
-</tr>
-<tr>
-<td>Rows</td>
-<td>Documents</td>
-</tr>
-<tr>
-<td>Columns</td>
-<td>Fields</td>
-</tr>
-</tbody></table>
-<p>用命令建立一个索引之后，然后首页填上索引名称，点击下一步就ok了</p>
-<h3 id="elasticsearch-head"><a href="#elasticsearch-head" class="headerlink" title="elasticsearch head"></a>elasticsearch head</h3><p>直接用chrome的插件安装就行，<a href="https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm">ElasticSearch Head</a>，十分简单，开箱即用</p>
-<h3 id="使用java开发"><a href="#使用java开发" class="headerlink" title="使用java开发"></a>使用java开发</h3><h4 id="Spring-Data-Elasticsearch与基础版ES的"><a href="#Spring-Data-Elasticsearch与基础版ES的" class="headerlink" title="Spring Data Elasticsearch与基础版ES的"></a>Spring Data Elasticsearch与基础版ES的</h4><p><a href="https://zhuanlan.zhihu.com/p/34487302">关系</a></p>
+    <title>装机心得</title>
+    <url>/2020/12/13/%E8%A3%85%E6%9C%BA%E5%BF%83%E5%BE%97/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng99uo214j31oi15ox6r.jpg" alt="judy.png"><br>用时16h</p>
+<ul>
+<li>小白装机点亮：2020年12月12日 20：00~2020年12月13日 06：00</li>
+<li>软件、超频：2020年12月14日 20：00~2020年12月15日 04：00</li>
+</ul>
+<p>装机</p>
+<ul>
+<li>失误</li>
+<li>问题</li>
+</ul>
+<ol>
+<li>主板2机箱 有两颗螺丝和其他的不一致</li>
+<li>水冷头 用电动螺丝刀 一转手脱了，水冷头甩到主板上，万幸是水冷头仅外侧有个细小划痕，主板没问题</li>
+</ol>
+<ul>
+<li>复盘</li>
+</ul>
+<ol>
+<li>应该提前先把螺丝找到，再无脑安装</li>
+<li>这种容易摔的 应该放稳 或者不用电动螺丝刀</li>
+</ol>
+<ul>
+<li>心得</li>
+</ul>
+<p>总算是一键点亮：cpu、gpu等卡扣‘啪’一声很清脆，舒服了</p>
+<ul>
+<li>插入cpu之前先把那个细铁柱打开</li>
+<li>风扇的argb是可以串联的，套娃警告</li>
+<li>后面理线的确是 一开始能理就理了，因为到后面你线多了 外加累 你搞不清哪个是哪个。所以需要一开始就把一起的给聚到一起：比如开机线那些，一开始就把一起的给绑到一起先</li>
+<li>基本所有的接口都有防呆设计（比如L，3针空一针，一侧多出一点），所有的螺丝只要能拧上 很顺畅就行</li>
+<li>显卡和内存是最好换的；cpu水冷那块应该也还好，所以更新换代的话 显卡-&gt;内存-&gt;cpu</li>
+</ul>
+<p>装系统、超频</p>
+<ul>
+<li>软件方面</li>
+<li>都是去msi官网下载相应驱动</li>
+<li>首先安装wifi，老版本的win10不支持，所以需要下载尽量❤新一点系统，msdn itellyou win10 默认的是2015版的 安装wifi巨难，最后下载2020版的win10搞定</li>
+<li>安装（升级或降级）bios 是从bios flash安装u盘里下载好的微星官网bios，需要注意的是，安装完bios之后，有可能会找不到固态和硬盘，需要点下开启CSM，BIOS设置里 BOOT MODE： Legacy 跟UEFI 区别</li>
+<li>cpu烤机 ：aida64 | cpu-z</li>
+<li>显卡烤机：甜甜圈</li>
+<li>硬件方面</li>
+<li>主板上的电子（电池）是控制主板bios的配置的，如果超频失败，把电池扣下来 就恢复默认了 小时候电脑电子没电 按f1开机就是这么回事</li>
+<li>风扇风速是可以从bios中或者msi主板调灯的地方修改</li>
+<li>电源的最右下角还有个插argb电源的地方，这样可以把argb串联套娃中间再加一环节</li>
+</ul>
+<p>配置</p>
+<p>京东装机大师</p>
+<ul>
+<li>cpu ：AMD5800x</li>
+<li>显卡：技嘉雪鹰3070 OC</li>
+<li>主板：微星x570</li>
+<li>水冷：EK</li>
+<li>电源：振华850w ARGB金牌</li>
+</ul>
+<p>鸣谢</p>
+<p>鸣谢：公开表示谢意</p>
+<p>码码群：装机大神弟弟</p>
+<p>一直陪我安装通宵，其中机箱设计不合理（风扇和水冷头；电源和机械硬盘）；超频；反复直到完美</p>
 ]]></content>
       <categories>
-        <category>es</category>
+        <category>life</category>
       </categories>
       <tags>
-        <tag>es</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Health</title>
-    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="02352f24541dcfcf915a929f7fe3ac6a86e397caf128e776caa8c13c33203025">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e53177535fc0d511812eb6802e9bca9261e16da9695c6ac433f59592964672c776d073fe114c0c1287a8c401823481c8d02e14b56d4ee753a46250ddd3350d9c05b21e1c71d5d76ff48ce77abcb6c30e0617a359a4b725124106d02dba325baf6958bfc5033e7ee7d7bf4fdcbe822c90584ebdbacdbfaec7f13102e2d433bcb3e3bac84c1d307237b68ba29046cfd21bcdb11dd47e2d6cd3edbeb3b778fcf95fcdf6a31089221ce62516a25fd3b598a3cfeb63e1729d5fe27618caafd445dbc6247965ce4ccba24c5648fad121d7382129d36ce1d568f8f1f61c42a8a63728d833bc40e1a8b747376ea768fec66a114051892f72b62b149cd0c7883a8d81b2bdb384f27b1496278b1714d7c7687aa466de11dcd473d0cbb8ef0ac47248bab773389f61441b10d3fd2e1de8134d23d1d2d6e0ff3346869ba2d0acfca3caf89b5c783c37c2a1d8387ee79800d702275a070e5627f54d72e39d2f4070b2396e2a1557a674713d3494d9efe594f85bf26e1ab7b237dbd5122924f60a41af11dd1c65898ad4ae9f7e7860d049434c631a88477b1eb8f9e46f376548e020bf4a2ad457890d9bceecc66853c661632d7f90e02ed45ef8faa4e5c2320626c9f471153eb0d2084229ff038e1b41891d1d5a604a8a84d99ee159394d6ecf46f18bf3fd0b3d30163571891e4d9a118d3990a31b8299466026943c83cd1179723aaa86370cabb9cde11f7b23f773a4853e87f7e7b78c7ba347a126ac1d24fa023e297e2485df2c5ff334b576b6341f66b568457feb080f88c3b51290e4fd5a750274d12cf633254aa645140198dc7a52e329478fa5faca13fc38a80675dcdea6fdd3c6a8489756d5c95a77330954056e8b579ecc0aacb961a7c0a2c65aa9a97d70d70ca72a443f988914c1cd81e3e225b94502ef2ca5e5d4d37ced298ef9df6c84ba88799bd44ce3678affcfc7b0e2604cb6465422af2bf1c581af05ad7e97d8d535c594bdcf431997071a6882ac7bf703bce232b339ab9495e6b129d3c72f158117d83b10ae7eabe47e06fbed817906ce1a5c9f123670e031b59bfdde3a2a8145b077c8ce26701ec559083e5fb7022aca499accf87f11cecfed1007d43c8720b57b51cda99108d8adad1fe85cf17136d18cd39869a157374cee760f47e0877030c4476a12fb23139c15c83cbc21a58ddb8806a30c2510d8fd163429a28368ec3bb4b39e28cb8e8a5be910d50bf8da7bde2015fc30f9f90f7b20ad799bd123b520480f6314b5a776c222945888981467420ff3612ad74703eceaab659db4ade5ac759758d51178f06631568a87c11ec616532614d7e9a3c83db1a1ef51cc0af24528ea2c7b873644693065515c492d5584e77ce45479481d027d8f56f804e74da4a0e4002336139feb3e8feef50540997c817bb34f718753749c74bb37a9a24d005cafdcae312daaa561a3bcf456740487cf3851a9cfac663feb6f3b586033d826fd6482f0ac0636dab040c86f415f801d5ec9ac91857d9e99f6b7b9404925e4c1083427cbe86e777c3b5c68fbac260c5a271b5a7d4ebb083b578d30f789217543e599914b71a1b87515de33329f4444e4debf3131b7f</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">abbreviation of my love</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>diary</category>
-      </categories>
-      <tags>
-        <tag>health</tag>
+        <tag>computer</tag>
       </tags>
   </entry>
 </search>

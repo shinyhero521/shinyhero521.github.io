@@ -32,14 +32,15 @@
 <meta property="og:site_name" content="Hao&#39;s Notes">
 <meta property="og:description" content="原文：HashMap数组和链表 HashMap的设计原理Map&lt;K,V&gt;是一种以键值对存储数据的容器，而HashMap则是借助了键值Key的hashcode值来组织存储，使得可以非常快速和高效地地根据key进行数据的存取。 HashMap设计思路对于键值对&lt;Key,Value&gt;，HashMap内部会将其封装成一个对应的Entry&lt;Key,Value&gt;对象，即En">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006s5QLMly1gng9an9eebj31ts0zwhdw.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8l746nbj30e80bb0sy.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8lqbsgzj30f10co75l.jpg">
 <meta property="article:published_time" content="2018-06-07T15:34:21.164Z">
-<meta property="article:modified_time" content="2021-02-04T03:42:16.461Z">
+<meta property="article:modified_time" content="2021-02-08T09:31:06.406Z">
 <meta property="article:author" content="Patrick">
 <meta property="article:tag" content="HashMap">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8l746nbj30e80bb0sy.jpg">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006s5QLMly1gng9an9eebj31ts0zwhdw.jpg">
 
 
 <link rel="canonical" href="http://example.com/2018/06/07/HashMap/">
@@ -207,20 +208,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -301,7 +302,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-04 11:42:16" itemprop="dateModified" datetime="2021-02-04T11:42:16+08:00">2021-02-04</time>
+        <time title="修改时间：2021-02-08 17:31:06" itemprop="dateModified" datetime="2021-02-08T17:31:06+08:00">2021-02-08</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,7 +324,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>原文：<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
+        <p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9an9eebj31ts0zwhdw.jpg" alt="bmw.png"><br>原文：<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a target="_blank" rel="noopener" href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
 <h3 id="HashMap的设计原理"><a href="#HashMap的设计原理" class="headerlink" title="HashMap的设计原理"></a>HashMap的设计原理</h3><p>Map&lt;K,V&gt;是一种以键值对存储数据的容器，而HashMap则是借助了键值Key的hashcode值来组织存储，使得可以非常快速和高效地地根据key进行数据的存取。</p>
 <h4 id="HashMap设计思路"><a href="#HashMap设计思路" class="headerlink" title="HashMap设计思路"></a>HashMap设计思路</h4><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8l746nbj30e80bb0sy.jpg"><br>对于键值对&lt;Key,Value&gt;，HashMap内部会将其封装成一个对应的Entry&lt;Key,Value&gt;对象，即Entry&lt;Key,Value&gt;对象是键值对&lt;Key,Value&gt;的组织形式；<br><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8lqbsgzj30f10co75l.jpg"><br>对于每个对象而言，JVM都会为其生成一个hashcode值。HashMap在存储键值对Entry&lt;Key,Value&gt;的时候，会根据Key的hashcode值，以某种映射关系，决定应当将这对键值对Entry&lt;Key,Value&gt;存储在HashMap中的什么位置上；<br>的Value值存放在什么位置，可以非常高效地将Value值取出。</p>
 <h4 id="HashMap的数据结构"><a href="#HashMap的数据结构" class="headerlink" title="HashMap的数据结构"></a>HashMap的数据结构</h4><p>数据结构中有数组和链表来实现对数据的存储，但这两者各有利弊。</p>
