@@ -52,7 +52,7 @@
   <entry>
     <title>bind(this)</title>
     <url>/2019/01/20/bind(this)/</url>
-    <content><![CDATA[<p><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpg" alt="beijing1.png"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
 <blockquote>
 <p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
 </blockquote>
@@ -69,7 +69,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
+    <title>如何发布blog</title>
     <url>/2014/12/22/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
@@ -81,6 +81,12 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
   </entry>
   <entry>
     <title>Markdown示例</title>
@@ -142,6 +148,51 @@
       </tags>
   </entry>
   <entry>
+    <title>blog</title>
+    <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg" alt="panan.png"></p>
+<blockquote>
+<p>全程都是基于npm，没有使用git方式（除了hexo deploy）</p>
+</blockquote>
+<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
+<li><a href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+<h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
+<p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
+<li>pjax</li>
+<li>darkmode：可以根据夜晚变黑</li>
+<li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
+<li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
+<li><a href="https://blog.csdn.net/qq_43701912/article/details/107018127">加密</a></li>
+<li><a href="https://github.com/iissnan/hexo-theme-next/issues/1742">顶部按钮跟那个百分比</a></li>
+</ul>
+<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
+<li>如果没写日期，会默认使用创建日期和修改日期</li>
+</ul>
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><ul>
+<li>统计紫薯和阅读量（因为阅读量不多）</li>
+<li>谷歌搜索（等文章量上来）</li>
+<li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
+</ul>
+<h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nginx坑</title>
     <url>/2018/06/07/nginx/</url>
     <content><![CDATA[<p><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
@@ -162,63 +213,111 @@
   <entry>
     <title>vue父子传值</title>
     <url>/2020/06/21/vue%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/</url>
-    <content><![CDATA[<p>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8ipk65ej31rq13ae82.jpg" alt="shenghua.png"><br>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
 <p>但是经过一下午的努力奋战，<br>我完成了<br>并且我对vue的父子传值有了更深的认识和理解<br>其实就是三把斧<br>很开心</p>
-<h3 id="父传子（父页面调子页面）："><a href="#父传子（父页面调子页面）：" class="headerlink" title="父传子（父页面调子页面）："></a>父传子（父页面调子页面）：</h3><h4 id="prop方法"><a href="#prop方法" class="headerlink" title="$prop方法"></a>$prop方法</h4><p><strong>父组件</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;child :activeSon&#x3D;&quot;fatherMethod()&quot;&gt;&lt;&#x2F;child&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  import child from &#39;@&#x2F;components&#x2F;child&#39;;</span><br><span class="line">  export default &#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">      child</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      fatherMethod() &#123;</span><br><span class="line">        console.log(&#39;father组件&#39;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
-<p><strong>子组件</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div @click&#x3D;&quot;activeBtn&quot;&gt; &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">  props:&#123;</span><br><span class="line">    activeSon:  &#123;</span><br><span class="line">        type: Function,</span><br><span class="line">        default: null</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      activeBtn() &#123;</span><br><span class="line">        this.activeSon()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="ref方式"><a href="#ref方式" class="headerlink" title="ref方式"></a>ref方式</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;addModule&quot;</span><br><span class="line">                @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import adminList from &#39;.&#x2F;set-as-admin-list&#39;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">components: &#123;</span><br><span class="line">      adminList</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">在方法里，这里一定要别拉下this.$nextTick(()&#x3D;&gt;&#123;&#125;)</span><br><span class="line"></span><br><span class="line">因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined</span><br><span class="line">详情原因见 </span><br><span class="line"></span><br><span class="line">[Vue父组件引用子组件方法显示undefined问题原因及解决方法](https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_41888813&#x2F;article&#x2F;details&#x2F;84776896)</span><br></pre></td></tr></table></figure>
-<p>this.$nextTick(() =&gt; {<br>          this.$refs.addModule.init(this.struId, this.organId, false)<br>        })</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</span><br><span class="line"></span><br><span class="line">#### 子页面</span><br></pre></td></tr></table></figure>
-<p> init (struId, organId, isAdmin) {<br>        debugger<br>        this.isAdmin = isAdmin<br>        this.struId = struId<br>        this.organId = organId<br>        this.getPersonList(struId)<br>      },</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">,上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。</span><br><span class="line"></span><br><span class="line">并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref&#x3D;&quot;不同的值&quot;</span><br><span class="line">#### 父页面</span><br></pre></td></tr></table></figure>
-<p> &lt;adminList ref=”authorizationModal”<br>                 @func=”getmessage” &gt;</adminList></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">### 子传父：</span><br><span class="line">也很简单，</span><br><span class="line"></span><br><span class="line">#### 子页面</span><br><span class="line">在方法里</span><br></pre></td></tr></table></figure>
-<p>this.$emit(‘func’, data)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 父页面去接</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>&lt;adminList ref=”authorizationModal”<br>               @func=”getmessage” &gt;</adminList></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">其中func是要传的key</span><br><span class="line"></span><br><span class="line">value就是用&quot;getmessage&quot;去接收，这里是方法</span><br></pre></td></tr></table></figure>
-<p> getmessage (data) {<br>        this.authorizationVisible = data</p>
-<pre><code>  &#125;,
+<p>父传子（父页面调子页面）：</p>
+<p>$prop方法</p>
+<p>父组件</p>
+<pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;child :activeSon=&quot;fatherMethod()&quot;&gt;&lt;/child&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+  import child from &#39;@/components/child&#39;;
+  export default &#123;
+    components: &#123;
+      child
+    &#125;,
+    methods: &#123;
+      fatherMethod() &#123;
+        console.log(&#39;father组件&#39;);
+      &#125;
+    &#125;
+  &#125;
+&lt;/script&gt;
+复制代码
 </code></pre>
-<pre><code>这样就把子页面的data传给了父页面
-
-
-
-
-
+<p>子组件</p>
+<pre><code>&lt;template&gt;
+  &lt;div @click=&quot;activeBtn&quot;&gt; &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+  export default &#123;
+  props:&#123;
+    activeSon:  &#123;
+        type: Function,
+        default: null
+      &#125;
+  &#125;,
+    methods: &#123;
+      activeBtn() &#123;
+        this.activeSon()
+      &#125;
+    &#125;
+  &#125;
+&lt;/script&gt;
 </code></pre>
+<p>ref方式</p>
+<pre><code> &lt;adminList ref=&quot;addModule&quot;
+                 @func=&quot;getmessage&quot; &gt;&lt;/adminList&gt;
+
+
+import adminList from &#39;./set-as-admin-list&#39;
+
+components: &#123;
+      adminList
+    &#125;,
+    
+    
+</code></pre>
+<p>在方法里，这里一定要别拉下this.$nextTick(()=&gt;{})</p>
+<p>因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined<br>详情原因见 </p>
+<p>Vue父组件引用子组件方法显示undefined问题原因及解决方法</p>
+<pre><code>this.$nextTick(() =&gt; &#123;
+          this.$refs.addModule.init(this.struId, this.organId, false)
+        &#125;)
+</code></pre>
+<p>这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</p>
+<p>子页面</p>
+<pre><code> init (struId, organId, isAdmin) &#123;
+        debugger
+        this.isAdmin = isAdmin
+        this.struId = struId
+        this.organId = organId
+        this.getPersonList(struId)
+      &#125;,
+</code></pre>
+<p>,上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。</p>
+<p>并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref=”不同的值”</p>
+<p>父页面</p>
+<pre><code> &lt;adminList ref=&quot;authorizationModal&quot;
+                 @func=&quot;getmessage&quot; &gt;&lt;/adminList&gt;
+</code></pre>
+<p>子传父：</p>
+<p>也很简单，</p>
+<p>子页面</p>
+<p>在方法里</p>
+<pre><code>this.$emit(&#39;func&#39;, data)
+</code></pre>
+<p>父页面去接</p>
+<pre><code>&lt;adminList ref=&quot;authorizationModal&quot;
+               @func=&quot;getmessage&quot; &gt;&lt;/adminList&gt;
+</code></pre>
+<p>其中func是要传的key</p>
+<p>value就是用”getmessage”去接收，这里是方法</p>
+<pre><code> getmessage (data) &#123;
+        this.authorizationVisible = data
+   
+      &#125;,
+</code></pre>
+<p>这样就把子页面的data传给了父页面</p>
 ]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
         <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Health</title>
-    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="02352f24541dcfcf915a929f7fe3ac6a86e397caf128e776caa8c13c33203025">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e53177535fc0d511812eb6802e9bca9261e16da9695c6ac433f59592964672c776d073fe114c0c1287a8c401823481c8d02e14b56d4ee753a46250ddd3350d9c05b21e1c71d5d76ff48ce77abcb6c30e0617a359a4b725124106d02dba325baf6958bfc5033e7ee7d7bf4fdcbe822c90584ebdbacdbfaec7f13102e2d433bcb3e3bac84c1d307237b68ba29046cfd21bcdb11dd47e2d6cd3edbeb3b778fcf95fcdf6a31089221ce62516a25fd3b598a3cfeb63e1729d5fe27618caafd445dbc6247965ce4ccba24c5648fad121d7382129d36ce1d568f8f1f61c42a8a63728d833bc40e1a8b747376ea768fec66a114051892f72b62b149cd0c7883a8d81b2bdb384f27b1496278b1714d7c7687aa466de11dcd473d0cbb8ef0ac47248bab773389f61441b10d3fd2e1de8134d23d1d2d6e0ff3346869ba2d0acfca3caf89b5c783c37c2a1d8387ee79800d702275a070e5627f54d72e39d2f4070b2396e2a1557a674713d3494d9efe594f85bf26e1ab7b237dbd5122924f60a41af11dd1c65898ad4ae9f7e7860d049434c631a88477b1eb8f9e46f376548e020bf4a2ad457890d9bceecc66853c661632d7f90e02ed45ef8faa4e5c2320626c9f471153eb0d2084229ff038e1b41891d1d5a604a8a84d99ee159394d6ecf46f18bf3fd0b3d30163571891e4d9a118d3990a31b8299466026943c83cd1179723aaa86370cabb9cde11f7b23f773a4853e87f7e7b78c7ba347a126ac1d24fa023e297e2485df2c5ff334b576b6341f66b568457feb080f88c3b51290e4fd5a750274d12cf633254aa645140198dc7a52e329478fa5faca13fc38a80675dcdea6fdd3c6a8489756d5c95a77330954056e8b579ecc0aacb961a7c0a2c65aa9a97d70d70ca72a443f988914c1cd81e3e225b94502ef2ca5e5d4d37ced298ef9df6c84ba88799bd44ce3678affcfc7b0e2604cb6465422af2bf1c581af05ad7e97d8d535c594bdcf431997071a6882ac7bf703bce232b339ab9495e6b129d3c72f158117d83b10ae7eabe47e06fbed817906ce1a5c9f123670e031b59bfdde3a2a8145b077c8ce26701ec559083e5fb7022aca499accf87f11cecfed1007d43c8720b57b51cda99108d8adad1fe85cf17136d18cd39869a157374cee760f47e0877030c4476a12fb23139c15c83cbc21a58ddb8806a30c2510d8fd163429a28368ec3bb4b39e28cb8e8a5be910d50bf8da7bde2015fc30f9f90f7b20ad799bd123b520480f6314b5a776c222945888981467420ff3612ad74703eceaab659db4ade5ac759758d51178f06631568a87c11ec616532614d7e9a3c83db1a1ef51cc0af24528ea2c7b873644693065515c492d5584e77ce45479481d027d8f56f804e74da4a0e4002336139feb3e8feef50540997c817bb34f718753749c74bb37a9a24d005cafdcae312daaa561a3bcf456740487cf3851a9cfac663feb6f3b586033d826fd6482f0ac0636dab040c86f415f801d5ec9ac91857d9e99f6b7b9404925e4c1083427cbe86e777c3b5c68fbac260c5a271b5a7d4ebb083b578d30f789217543e599914b71a1b87515de33329f4444e4debf3131b7f</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">abbreviation of my love</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>diary</category>
-      </categories>
-      <tags>
-        <tag>health</tag>
       </tags>
   </entry>
   <entry>
@@ -269,6 +368,28 @@
       </categories>
       <tags>
         <tag>es</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Health</title>
+    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="02352f24541dcfcf915a929f7fe3ac6a86e397caf128e776caa8c13c33203025">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e53177535fc0d511812eb6802e9bca9261e16da9695c6ac433f59592964672c776d073fe114c0c1287a8c401823481c8d02e14b56d4ee753a46250ddd3350d9c05b21e1c71d5d76ff48ce77abcb6c30e0617a359a4b725124106d02dba325baf6958bfc5033e7ee7d7bf4fdcbe822c90584ebdbacdbfaec7f13102e2d433bcb3e3bac84c1d307237b68ba29046cfd21bcdb11dd47e2d6cd3edbeb3b778fcf95fcdf6a31089221ce62516a25fd3b598a3cfeb63e1729d5fe27618caafd445dbc6247965ce4ccba24c5648fad121d7382129d36ce1d568f8f1f61c42a8a63728d833bc40e1a8b747376ea768fec66a114051892f72b62b149cd0c7883a8d81b2bdb384f27b1496278b1714d7c7687aa466de11dcd473d0cbb8ef0ac47248bab773389f61441b10d3fd2e1de8134d23d1d2d6e0ff3346869ba2d0acfca3caf89b5c783c37c2a1d8387ee79800d702275a070e5627f54d72e39d2f4070b2396e2a1557a674713d3494d9efe594f85bf26e1ab7b237dbd5122924f60a41af11dd1c65898ad4ae9f7e7860d049434c631a88477b1eb8f9e46f376548e020bf4a2ad457890d9bceecc66853c661632d7f90e02ed45ef8faa4e5c2320626c9f471153eb0d2084229ff038e1b41891d1d5a604a8a84d99ee159394d6ecf46f18bf3fd0b3d30163571891e4d9a118d3990a31b8299466026943c83cd1179723aaa86370cabb9cde11f7b23f773a4853e87f7e7b78c7ba347a126ac1d24fa023e297e2485df2c5ff334b576b6341f66b568457feb080f88c3b51290e4fd5a750274d12cf633254aa645140198dc7a52e329478fa5faca13fc38a80675dcdea6fdd3c6a8489756d5c95a77330954056e8b579ecc0aacb961a7c0a2c65aa9a97d70d70ca72a443f988914c1cd81e3e225b94502ef2ca5e5d4d37ced298ef9df6c84ba88799bd44ce3678affcfc7b0e2604cb6465422af2bf1c581af05ad7e97d8d535c594bdcf431997071a6882ac7bf703bce232b339ab9495e6b129d3c72f158117d83b10ae7eabe47e06fbed817906ce1a5c9f123670e031b59bfdde3a2a8145b077c8ce26701ec559083e5fb7022aca499accf87f11cecfed1007d43c8720b57b51cda99108d8adad1fe85cf17136d18cd39869a157374cee760f47e0877030c4476a12fb23139c15c83cbc21a58ddb8806a30c2510d8fd163429a28368ec3bb4b39e28cb8e8a5be910d50bf8da7bde2015fc30f9f90f7b20ad799bd123b520480f6314b5a776c222945888981467420ff3612ad74703eceaab659db4ade5ac759758d51178f06631568a87c11ec616532614d7e9a3c83db1a1ef51cc0af24528ea2c7b873644693065515c492d5584e77ce45479481d027d8f56f804e74da4a0e4002336139feb3e8feef50540997c817bb34f718753749c74bb37a9a24d005cafdcae312daaa561a3bcf456740487cf3851a9cfac663feb6f3b586033d826fd6482f0ac0636dab040c86f415f801d5ec9ac91857d9e99f6b7b9404925e4c1083427cbe86e777c3b5c68fbac260c5a271b5a7d4ebb083b578d30f789217543e599914b71a1b87515de33329f4444e4debf3131b7f</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">abbreviation of my love</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>diary</category>
+      </categories>
+      <tags>
+        <tag>health</tag>
       </tags>
   </entry>
 </search>
