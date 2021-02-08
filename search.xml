@@ -69,26 +69,6 @@
       </tags>
   </entry>
   <entry>
-    <title>如何发布blog</title>
-    <url>/2014/12/22/hello-world/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9azfjh0j31di0vke82.jpg" alt="stocking.png"><br>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>blog</title>
     <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg" alt="panan.png"></p>
@@ -126,6 +106,26 @@
 <li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
 </ul>
 <h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何发布blog</title>
+    <url>/2014/12/22/hello-world/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9azfjh0j31di0vke82.jpg" alt="stocking.png"><br>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
       <categories>
         <category>blog</category>
       </categories>
@@ -216,25 +216,25 @@
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8ipk65ej31rq13ae82.jpg" alt="shenghua.png"><br>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
 <p>但是经过一下午的努力奋战，<br>我完成了<br>并且我对vue的父子传值有了更深的认识和理解<br>其实就是三把斧<br>很开心</p>
 <h3 id="父传子（父页面调子页面）："><a href="#父传子（父页面调子页面）：" class="headerlink" title="父传子（父页面调子页面）："></a>父传子（父页面调子页面）：</h3><h4 id="prop方法"><a href="#prop方法" class="headerlink" title="$prop方法"></a>$prop方法</h4><p><strong>父组件</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;child :activeSon&#x3D;&quot;fatherMethod()&quot;&gt;&lt;&#x2F;child&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  import child from &#39;@&#x2F;components&#x2F;child&#39;;</span><br><span class="line">  export default &#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">      child</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      fatherMethod() &#123;</span><br><span class="line">        console.log(&#39;father组件&#39;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">child</span> <span class="attr">:activeSon</span>=<span class="string">&quot;fatherMethod()&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> child <span class="keyword">from</span> <span class="string">&#x27;@/components/child&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    components: &#123;</span><br><span class="line">      child</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">fatherMethod</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&#x27;father组件&#x27;</span>);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p><strong>子组件</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div @click&#x3D;&quot;activeBtn&quot;&gt; &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">  props:&#123;</span><br><span class="line">    activeSon:  &#123;</span><br><span class="line">        type: Function,</span><br><span class="line">        default: null</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      activeBtn() &#123;</span><br><span class="line">        this.activeSon()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="ref方式"><a href="#ref方式" class="headerlink" title="ref方式"></a>ref方式</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;addModule&quot;</span><br><span class="line">                @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import adminList from &#39;.&#x2F;set-as-admin-list&#39;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">components: &#123;</span><br><span class="line">      adminList</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">在方法里，这里一定要别拉下this.$nextTick(()&#x3D;&gt;&#123;&#125;)</span><br><span class="line"></span><br><span class="line">因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined</span><br><span class="line">详情原因见 </span><br><span class="line"></span><br><span class="line">[Vue父组件引用子组件方法显示undefined问题原因及解决方法](https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_41888813&#x2F;article&#x2F;details&#x2F;84776896)</span><br><span class="line">&#96;&#96;&#96; vue</span><br><span class="line">this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">          this.$refs.addModule.init(this.struId, this.organId, false)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> @<span class="attr">click</span>=<span class="string">&quot;activeBtn&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">  props:&#123;</span><br><span class="line">    activeSon:  &#123;</span><br><span class="line"><span class="javascript">        type: <span class="built_in">Function</span>,</span></span><br><span class="line"><span class="javascript">        <span class="keyword">default</span>: <span class="literal">null</span></span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">activeBtn</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.activeSon()</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="ref方式"><a href="#ref方式" class="headerlink" title="ref方式"></a>ref方式</h4><p><strong>父页面</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;adminList ref&#x3D;&quot;addModule&quot;</span><br><span class="line">                 @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import adminList from &#39;.&#x2F;set-as-admin-list&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">components: &#123;</span><br><span class="line">      adminList</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">在方法里，这里一定要别拉下this.$nextTick(()&#x3D;&gt;&#123;&#125;)</span><br><span class="line"></span><br><span class="line">因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined</span><br><span class="line">详情原因见 </span><br><span class="line"></span><br><span class="line">[Vue父组件引用子组件方法显示undefined问题原因及解决方法](https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_41888813&#x2F;article&#x2F;details&#x2F;84776896)</span><br><span class="line">&#96;&#96;&#96;vue</span><br><span class="line">this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">          this.$refs.addModule.init(this.struId, this.organId, false)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
 <p>这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</p>
-<h4 id="子页面"><a href="#子页面" class="headerlink" title="子页面"></a>子页面</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">init (struId, organId, isAdmin) &#123;</span><br><span class="line">       debugger</span><br><span class="line">       this.isAdmin &#x3D; isAdmin</span><br><span class="line">       this.struId &#x3D; struId</span><br><span class="line">       this.organId &#x3D; organId</span><br><span class="line">       this.getPersonList(struId)</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
+<p><strong>子页面</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">init (struId, organId, isAdmin) &#123;</span><br><span class="line">       debugger</span><br><span class="line">       this.isAdmin &#x3D; isAdmin</span><br><span class="line">       this.struId &#x3D; struId</span><br><span class="line">       this.organId &#x3D; organId</span><br><span class="line">       this.getPersonList(struId)</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
 <p>,上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。</p>
 <p>并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref=”不同的值”</p>
-<h4 id="父页面"><a href="#父页面" class="headerlink" title="父页面"></a>父页面</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;authorizationModal&quot;</span><br><span class="line">                @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="父页面"><a href="#父页面" class="headerlink" title="父页面"></a>父页面</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">adminList</span> <span class="attr">ref</span>=<span class="string">&quot;authorizationModal&quot;</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">func</span>=<span class="string">&quot;getmessage&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">adminList</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="子传父："><a href="#子传父：" class="headerlink" title="子传父："></a>子传父：</h3><p>也很简单，</p>
-<h4 id="子页面-1"><a href="#子页面-1" class="headerlink" title="子页面"></a>子页面</h4><p>在方法里</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$emit(&#39;func&#39;, data)</span><br></pre></td></tr></table></figure>
-<h4 id="父页面去接"><a href="#父页面去接" class="headerlink" title="父页面去接"></a>父页面去接</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;authorizationModal&quot;</span><br><span class="line">               @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="子页面"><a href="#子页面" class="headerlink" title="子页面"></a>子页面</h4><p>在方法里</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">this.$emit(&#x27;func&#x27;, data)</span><br></pre></td></tr></table></figure>
+<h4 id="父页面去接"><a href="#父页面去接" class="headerlink" title="父页面去接"></a>父页面去接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">adminList</span> <span class="attr">ref</span>=<span class="string">&quot;authorizationModal&quot;</span></span></span><br><span class="line"><span class="tag">               @<span class="attr">func</span>=<span class="string">&quot;getmessage&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">adminList</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>其中func是要传的key</p>
 <p>value就是用”getmessage”去接收，这里是方法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">getmessage (data) &#123;</span><br><span class="line">       this.authorizationVisible &#x3D; data</span><br><span class="line">  </span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">getmessage (data) &#123;</span><br><span class="line">       this.authorizationVisible = data</span><br><span class="line">  </span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
 <p>这样就把子页面的data传给了父页面</p>
 ]]></content>
       <categories>
@@ -264,57 +264,6 @@
       </categories>
       <tags>
         <tag>health</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mac下安装es</title>
-    <url>/2019/06/24/%E5%AE%89%E8%A3%85es&amp;kibana/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9d7br1lj321a13y1l1.jpg" alt="Naruto.png"></p>
-<h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>在安装es5.6.16，启动时如果报错，<a href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
-<p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
-<h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
-<table>
-<thead>
-<tr>
-<th>header 1</th>
-<th>Elasticsearch</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Datebases</td>
-<td>Indices</td>
-</tr>
-<tr>
-<td>Tables</td>
-<td>Types</td>
-</tr>
-<tr>
-<td>Rows</td>
-<td>Documents</td>
-</tr>
-<tr>
-<td>Columns</td>
-<td>Fields</td>
-</tr>
-</tbody></table>
-<p>用命令建立一个索引之后，然后首页填上索引名称，点击下一步就ok了</p>
-<h3 id="elasticsearch-head"><a href="#elasticsearch-head" class="headerlink" title="elasticsearch head"></a>elasticsearch head</h3><p>直接用chrome的插件安装就行，<a href="https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm">ElasticSearch Head</a>，十分简单，开箱即用</p>
-<h3 id="使用java开发"><a href="#使用java开发" class="headerlink" title="使用java开发"></a>使用java开发</h3><h4 id="Spring-Data-Elasticsearch与基础版ES的"><a href="#Spring-Data-Elasticsearch与基础版ES的" class="headerlink" title="Spring Data Elasticsearch与基础版ES的"></a>Spring Data Elasticsearch与基础版ES的</h4><p><a href="https://zhuanlan.zhihu.com/p/34487302">关系</a></p>
-]]></content>
-      <categories>
-        <category>es</category>
-      </categories>
-      <tags>
-        <tag>es</tag>
       </tags>
   </entry>
   <entry>
@@ -384,6 +333,57 @@
       </categories>
       <tags>
         <tag>computer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mac下安装es</title>
+    <url>/2019/06/24/%E5%AE%89%E8%A3%85es&amp;kibana/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9d7br1lj321a13y1l1.jpg" alt="Naruto.png"></p>
+<h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在安装es5.6.16，启动时如果报错，<a href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
+<p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
+<h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
+<table>
+<thead>
+<tr>
+<th>header 1</th>
+<th>Elasticsearch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Datebases</td>
+<td>Indices</td>
+</tr>
+<tr>
+<td>Tables</td>
+<td>Types</td>
+</tr>
+<tr>
+<td>Rows</td>
+<td>Documents</td>
+</tr>
+<tr>
+<td>Columns</td>
+<td>Fields</td>
+</tr>
+</tbody></table>
+<p>用命令建立一个索引之后，然后首页填上索引名称，点击下一步就ok了</p>
+<h3 id="elasticsearch-head"><a href="#elasticsearch-head" class="headerlink" title="elasticsearch head"></a>elasticsearch head</h3><p>直接用chrome的插件安装就行，<a href="https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm">ElasticSearch Head</a>，十分简单，开箱即用</p>
+<h3 id="使用java开发"><a href="#使用java开发" class="headerlink" title="使用java开发"></a>使用java开发</h3><h4 id="Spring-Data-Elasticsearch与基础版ES的"><a href="#Spring-Data-Elasticsearch与基础版ES的" class="headerlink" title="Spring Data Elasticsearch与基础版ES的"></a>Spring Data Elasticsearch与基础版ES的</h4><p><a href="https://zhuanlan.zhihu.com/p/34487302">关系</a></p>
+]]></content>
+      <categories>
+        <category>es</category>
+      </categories>
+      <tags>
+        <tag>es</tag>
       </tags>
   </entry>
 </search>
