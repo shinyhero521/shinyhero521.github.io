@@ -200,20 +200,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -253,101 +253,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/06/21/vue%E5%AD%90%E7%88%B6%E4%BC%A0%E5%80%BC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shinyhero.png">
-      <meta itemprop="name" content="Patrick">
-      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hao's Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/06/21/vue%E5%AD%90%E7%88%B6%E4%BC%A0%E5%80%BC/" class="post-title-link" itemprop="url">bind(this)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-06-21 15:55:36" itemprop="dateCreated datePublished" datetime="2020-06-21T15:55:36+08:00">2020-06-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/js/" itemprop="url" rel="index"><span itemprop="name">js</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能也很怎么说，其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
-<p>但是经过一下午的努力奋战，<br>我完成了<br>并且我对vue的父子传值有了更深的认识和理解<br>其实就是三把斧<br>很开心</p>
-<h3 id="父传子（父页面调子页面）："><a href="#父传子（父页面调子页面）：" class="headerlink" title="父传子（父页面调子页面）："></a>父传子（父页面调子页面）：</h3><h4 id="就是用父页面"><a href="#就是用父页面" class="headerlink" title="就是用父页面"></a>就是用父页面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;addModule&quot;</span><br><span class="line">                @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import adminList from &#39;.&#x2F;set-as-admin-list&#39;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">components: &#123;</span><br><span class="line">      adminList</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>在方法里，这里一定要别拉下this.$nextTick(()=&gt;{})</p>
-<p>因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined<br>详情原因见</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41888813/article/details/84776896">Vue父组件引用子组件方法显示undefined问题原因及解决方法</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">          this.$refs.addModule.init(this.struId, this.organId, false)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
-<p>这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</p>
-<h4 id="子页面"><a href="#子页面" class="headerlink" title="子页面"></a>子页面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">init (struId, organId, isAdmin) &#123;</span><br><span class="line">       debugger</span><br><span class="line">       this.isAdmin &#x3D; isAdmin</span><br><span class="line">       this.struId &#x3D; struId</span><br><span class="line">       this.organId &#x3D; organId</span><br><span class="line">       this.getPersonList(struId)</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
-<p>,上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。</p>
-<p>并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref=”不同的值”</p>
-<h4 id="父页面"><a href="#父页面" class="headerlink" title="父页面"></a>父页面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;authorizationModal&quot;</span><br><span class="line">                @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="子传父："><a href="#子传父：" class="headerlink" title="子传父："></a>子传父：</h3><p>也很简单，</p>
-<h4 id="子页面-1"><a href="#子页面-1" class="headerlink" title="子页面"></a>子页面</h4><p>在方法里</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$emit(&#39;func&#39;, data)</span><br></pre></td></tr></table></figure>
-<h4 id="父页面去接"><a href="#父页面去接" class="headerlink" title="父页面去接"></a>父页面去接</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;authorizationModal&quot;</span><br><span class="line">               @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br></pre></td></tr></table></figure>
-<p>其中func是要传的key</p>
-<p>value就是用”getmessage”去接收，这里是方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getmessage (data) &#123;</span><br><span class="line">       this.authorizationVisible &#x3D; data</span><br><span class="line"></span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
-<p>这样就把子页面的data传给了父页面</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -574,13 +479,20 @@
 
       <time title="创建时间：2018-06-07 23:36:08" itemprop="dateCreated datePublished" datetime="2018-06-07T23:36:08+08:00">2018-06-07</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-08 16:26:11" itemprop="dateModified" datetime="2021-02-08T16:26:11+08:00">2021-02-08</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/java%E4%B8%AD%E7%9A%84%E5%9D%91/" itemprop="url" rel="index"><span itemprop="name">java中的坑</span></a>
+          <a href="/categories/%E9%98%B2%E5%9D%91/" itemprop="url" rel="index"><span itemprop="name">防坑</span></a>
         </span>
     </span>
 
@@ -640,7 +552,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/06/07/HashMap/" class="post-title-link" itemprop="url">HashMap原理小析</a>
+          <a href="/2018/06/07/HashMap/" class="post-title-link" itemprop="url">HashMap小析</a>
         </h2>
 
         <div class="post-meta-container">
@@ -653,6 +565,13 @@
 
       <time title="创建时间：2018-06-07 23:34:21" itemprop="dateCreated datePublished" datetime="2018-06-07T23:34:21+08:00">2018-06-07</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-04 11:42:16" itemprop="dateModified" datetime="2021-02-04T11:42:16+08:00">2021-02-04</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -831,82 +750,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/01/08/office2013%EF%BC%88%E5%90%ABvisio%EF%BC%89%E5%85%A8%E6%95%99%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shinyhero.png">
-      <meta itemprop="name" content="Patrick">
-      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hao's Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/01/08/office2013%EF%BC%88%E5%90%ABvisio%EF%BC%89%E5%85%A8%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">含visio的office2013</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-01-08 13:24:24" itemprop="dateCreated datePublished" datetime="2018-01-08T13:24:24+08:00">2018-01-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">实用工具</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fn94q9xbvcj30zk0k075o.jpg"></p>
-<h4 id="office（零售版）和visio（VOL版）"><a href="#office（零售版）和visio（VOL版）" class="headerlink" title="office（零售版）和visio（VOL版）"></a>office（零售版）和visio（VOL版）</h4><p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1o8qpzcu">https://pan.baidu.com/s/1o8qpzcu</a> 密码：cqpu</p>
-<h4 id="office（零售版）转VOL版"><a href="#office（零售版）转VOL版" class="headerlink" title="office（零售版）转VOL版"></a>office（零售版）转VOL版</h4><p>链接： <a target="_blank" rel="noopener" href="https://share.weiyun.com/fceb1de31219bb309fb7f7def9080b49">https://share.weiyun.com/fceb1de31219bb309fb7f7def9080b49</a> （密码：Cnep）<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/sanoseiichirou/article/details/50292123">使用方法</a></p>
-<h4 id="VOL版office破解"><a href="#VOL版office破解" class="headerlink" title="VOL版office破解"></a>VOL版office破解</h4><p>链接： <a target="_blank" rel="noopener" href="https://share.weiyun.com/4caf3a48a0433166e3bc92c40f19e1cf">https://share.weiyun.com/4caf3a48a0433166e3bc92c40f19e1cf</a> （密码：2Zaf）<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/456c463b60cc380a58314480.html">使用方法</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2018/01/02/%E5%81%A5%E5%BA%B7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -938,7 +781,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-03 16:48:38" itemprop="dateModified" datetime="2021-02-03T16:48:38+08:00">2021-02-03</time>
+        <time title="修改时间：2021-02-08 16:26:11" itemprop="dateModified" datetime="2021-02-08T16:26:11+08:00">2021-02-08</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -960,7 +803,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          Welcome to my blog, enter password to read.
+          enter password to read.
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2018/01/02/%E5%81%A5%E5%BA%B7/#more" rel="contents">
@@ -969,92 +812,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2018/01/02/%E5%8D%95%E8%AF%8D%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shinyhero.png">
-      <meta itemprop="name" content="Patrick">
-      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hao's Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/01/02/%E5%8D%95%E8%AF%8D%E6%9C%AC/" class="post-title-link" itemprop="url">vocabulary</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-01-02 13:50:22" itemprop="dateCreated datePublished" datetime="2018-01-02T13:50:22+08:00">2018-01-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/vocabulary/" itemprop="url" rel="index"><span itemprop="name">vocabulary</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fkgcakidd2j30go0acmxk.jpg"></br></p>
-<ul>
-<li><p><strong>包名：</strong>全部小写，如包名“com.sina.crm”。</p>
-</li>
-<li><p><strong>变量名：</strong>第1个单词首字母小写，其后单词首字母大写。变量名应简单、易于描述，尽量不要以美元符号和下画线开，如变量名“name”、“myHeight”。</p>
-</li>
-<li><p><strong>方法名：</strong>第1个单词小写，以后每个单词首字母大写，例如方法名“getName”。</p>
-</li>
-<li><p><strong>类名或接口名：</strong>每个单词首字母大写，应使用简洁且富于描述的完整名词，不要使用缩写词，如类名“MyData”，接口名“RowSet”。</p>
-</li>
-<li><p><strong>常量：</strong>全大写，用下画线“_”来分隔每个单词，例如“MIN_WIDTH”。</p>
-</li>
-</ul>
-<p><em>简单的说，就是包名全小写，变量名和方法、类名和接口名 非首字母都大写，但是变量名和方法名首字母小写</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">patchy</span><br><span class="line"></span><br><span class="line">英 [&#39;pætʃɪ]  美 [&#39;pætʃi]</span><br><span class="line">adj. 不调和的；拼凑成的；有补丁的</span><br><span class="line">比较级patchier</span><br><span class="line">最高级patchiest</span><br></pre></td></tr></table></figure>
       
     </div>
 
