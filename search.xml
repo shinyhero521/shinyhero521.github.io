@@ -50,6 +50,25 @@
       </tags>
   </entry>
   <entry>
+    <title>bind(this)</title>
+    <url>/2019/01/20/bind(this)/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpg" alt="beijing1.png"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
+<blockquote>
+<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
+</blockquote>
+<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何发布blog</title>
     <url>/2014/12/22/hello-world/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9azfjh0j31di0vke82.jpg" alt="stocking.png"><br>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -67,25 +86,6 @@
       </categories>
       <tags>
         <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>bind(this)</title>
-    <url>/2019/01/20/bind(this)/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpg" alt="beijing1.png"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
-<blockquote>
-<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
-</blockquote>
-<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -110,7 +110,7 @@
 <p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 <h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
-<li>pjax</li>
+<li>pjax：这个暂时关闭，因为与gitalk冲突</li>
 <li>darkmode：可以根据夜晚变黑</li>
 <li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
 <li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
@@ -211,6 +211,40 @@
       </tags>
   </entry>
   <entry>
+    <title>vue父子传值</title>
+    <url>/2020/06/21/vue%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8ipk65ej31rq13ae82.jpg" alt="shenghua.png"><br>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
+<p>但是经过一下午的努力奋战，<br>我完成了<br>并且我对vue的父子传值有了更深的认识和理解<br>其实就是三把斧<br>很开心</p>
+<h3 id="父传子（父页面调子页面）："><a href="#父传子（父页面调子页面）：" class="headerlink" title="父传子（父页面调子页面）："></a>父传子（父页面调子页面）：</h3><h4 id="prop方法"><a href="#prop方法" class="headerlink" title="$prop方法"></a>$prop方法</h4><p><strong>父组件</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;child :activeSon&#x3D;&quot;fatherMethod()&quot;&gt;&lt;&#x2F;child&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  import child from &#39;@&#x2F;components&#x2F;child&#39;;</span><br><span class="line">  export default &#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">      child</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      fatherMethod() &#123;</span><br><span class="line">        console.log(&#39;father组件&#39;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>子组件</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div @click&#x3D;&quot;activeBtn&quot;&gt; &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">  props:&#123;</span><br><span class="line">    activeSon:  &#123;</span><br><span class="line">        type: Function,</span><br><span class="line">        default: null</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">      activeBtn() &#123;</span><br><span class="line">        this.activeSon()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="ref方式"><a href="#ref方式" class="headerlink" title="ref方式"></a>ref方式</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;addModule&quot;</span><br><span class="line">                @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import adminList from &#39;.&#x2F;set-as-admin-list&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">components: &#123;</span><br><span class="line">      adminList</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">在方法里，这里一定要别拉下this.$nextTick(()&#x3D;&gt;&#123;&#125;)</span><br><span class="line"></span><br><span class="line">因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined</span><br><span class="line">详情原因见 </span><br><span class="line"></span><br><span class="line">[Vue父组件引用子组件方法显示undefined问题原因及解决方法](https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_41888813&#x2F;article&#x2F;details&#x2F;84776896)</span><br><span class="line">&#96;&#96;&#96; vue</span><br><span class="line">this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">          this.$refs.addModule.init(this.struId, this.organId, false)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<p>这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</p>
+<h4 id="子页面"><a href="#子页面" class="headerlink" title="子页面"></a>子页面</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">init (struId, organId, isAdmin) &#123;</span><br><span class="line">       debugger</span><br><span class="line">       this.isAdmin &#x3D; isAdmin</span><br><span class="line">       this.struId &#x3D; struId</span><br><span class="line">       this.organId &#x3D; organId</span><br><span class="line">       this.getPersonList(struId)</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
+<p>,上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。</p>
+<p>并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref=”不同的值”</p>
+<h4 id="父页面"><a href="#父页面" class="headerlink" title="父页面"></a>父页面</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;authorizationModal&quot;</span><br><span class="line">                @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="子传父："><a href="#子传父：" class="headerlink" title="子传父："></a>子传父：</h3><p>也很简单，</p>
+<h4 id="子页面-1"><a href="#子页面-1" class="headerlink" title="子页面"></a>子页面</h4><p>在方法里</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$emit(&#39;func&#39;, data)</span><br></pre></td></tr></table></figure>
+<h4 id="父页面去接"><a href="#父页面去接" class="headerlink" title="父页面去接"></a>父页面去接</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;adminList ref&#x3D;&quot;authorizationModal&quot;</span><br><span class="line">               @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br></pre></td></tr></table></figure>
+<p>其中func是要传的key</p>
+<p>value就是用”getmessage”去接收，这里是方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">getmessage (data) &#123;</span><br><span class="line">       this.authorizationVisible &#x3D; data</span><br><span class="line">  </span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
+<p>这样就把子页面的data传给了父页面</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Health</title>
     <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
@@ -230,116 +264,6 @@
       </categories>
       <tags>
         <tag>health</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vue父子传值</title>
-    <url>/2020/06/21/vue%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8ipk65ej31rq13ae82.jpg" alt="shenghua.png"><br>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
-<p>但是经过一下午的努力奋战，<br>我完成了<br>并且我对vue的父子传值有了更深的认识和理解<br>其实就是三把斧<br>很开心</p>
-<p>父传子（父页面调子页面）：</p>
-<p>$prop方法</p>
-<p>父组件</p>
-<pre><code>&lt;template&gt;
-  &lt;div&gt;
-    &lt;child :activeSon=&quot;fatherMethod()&quot;&gt;&lt;/child&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-&lt;script&gt;
-  import child from &#39;@/components/child&#39;;
-  export default &#123;
-    components: &#123;
-      child
-    &#125;,
-    methods: &#123;
-      fatherMethod() &#123;
-        console.log(&#39;father组件&#39;);
-      &#125;
-    &#125;
-  &#125;
-&lt;/script&gt;
-复制代码
-</code></pre>
-<p>子组件</p>
-<pre><code>&lt;template&gt;
-  &lt;div @click=&quot;activeBtn&quot;&gt; &lt;/div&gt;
-&lt;/template&gt;
-&lt;script&gt;
-  export default &#123;
-  props:&#123;
-    activeSon:  &#123;
-        type: Function,
-        default: null
-      &#125;
-  &#125;,
-    methods: &#123;
-      activeBtn() &#123;
-        this.activeSon()
-      &#125;
-    &#125;
-  &#125;
-&lt;/script&gt;
-</code></pre>
-<p>ref方式</p>
-<pre><code> &lt;adminList ref=&quot;addModule&quot;
-                 @func=&quot;getmessage&quot; &gt;&lt;/adminList&gt;
-
-
-import adminList from &#39;./set-as-admin-list&#39;
-
-components: &#123;
-      adminList
-    &#125;,
-    
-    
-</code></pre>
-<p>在方法里，这里一定要别拉下this.$nextTick(()=&gt;{})</p>
-<p>因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined<br>详情原因见 </p>
-<p>Vue父组件引用子组件方法显示undefined问题原因及解决方法</p>
-<pre><code>this.$nextTick(() =&gt; &#123;
-          this.$refs.addModule.init(this.struId, this.organId, false)
-        &#125;)
-</code></pre>
-<p>这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</p>
-<p>子页面</p>
-<pre><code> init (struId, organId, isAdmin) &#123;
-        debugger
-        this.isAdmin = isAdmin
-        this.struId = struId
-        this.organId = organId
-        this.getPersonList(struId)
-      &#125;,
-</code></pre>
-<p>,上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。</p>
-<p>并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref=”不同的值”</p>
-<p>父页面</p>
-<pre><code> &lt;adminList ref=&quot;authorizationModal&quot;
-                 @func=&quot;getmessage&quot; &gt;&lt;/adminList&gt;
-</code></pre>
-<p>子传父：</p>
-<p>也很简单，</p>
-<p>子页面</p>
-<p>在方法里</p>
-<pre><code>this.$emit(&#39;func&#39;, data)
-</code></pre>
-<p>父页面去接</p>
-<pre><code>&lt;adminList ref=&quot;authorizationModal&quot;
-               @func=&quot;getmessage&quot; &gt;&lt;/adminList&gt;
-</code></pre>
-<p>其中func是要传的key</p>
-<p>value就是用”getmessage”去接收，这里是方法</p>
-<pre><code> getmessage (data) &#123;
-        this.authorizationVisible = data
-   
-      &#125;,
-</code></pre>
-<p>这样就把子页面的data传给了父页面</p>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
