@@ -50,6 +50,25 @@
       </tags>
   </entry>
   <entry>
+    <title>bind(this)</title>
+    <url>/2019/01/20/bind(this)/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpg" alt="beijing1.png"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
+<blockquote>
+<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
+</blockquote>
+<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何发布blog</title>
     <url>/2014/12/22/hello-world/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9azfjh0j31di0vke82.jpg" alt="stocking.png"><br>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -67,25 +86,6 @@
       </categories>
       <tags>
         <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>bind(this)</title>
-    <url>/2019/01/20/bind(this)/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpg" alt="beijing1.png"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
-<blockquote>
-<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
-</blockquote>
-<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -210,6 +210,15 @@
 <li>维护客户关系，致力于提高客户满意度。</li>
 </ol>
 <h4 id="【行业业务专家】"><a href="#【行业业务专家】" class="headerlink" title="【行业业务专家】"></a>【行业业务专家】</h4><ul>
+<li>任职要求：</li>
+</ul>
+<ol>
+<li>统招本科及以上学历；</li>
+<li>五年以上政府信息化服务经验，三年以上行业咨询规划设计经验，对行业发展趋势有较深的理解和洞察；</li>
+<li>良好的语言表达能力，呈现能力强，善于捕捉客户需求；</li>
+<li>工作责任心强，团队合作意识强，能适应出差。</li>
+</ol>
+<ul>
 <li>岗位职责：</li>
 </ul>
 <ol>
@@ -218,15 +227,6 @@
 <li>负责行业产品和方向的顶层规划；</li>
 <li>负责行业大项目的规划设计；</li>
 <li>负责行业新方向的研究探索。</li>
-</ol>
-<ul>
-<li>任职要求：</li>
-</ul>
-<ol>
-<li>统招本科及以上学历；</li>
-<li>五年以上政府信息化服务经验，三年以上行业咨询规划设计经验，对行业发展趋势有较深的理解和洞察；</li>
-<li>良好的语言表达能力，呈现能力强，善于捕捉客户需求；</li>
-<li>工作责任心强，团队合作意识强，能适应出差。</li>
 </ol>
 ]]></content>
       <tags>
