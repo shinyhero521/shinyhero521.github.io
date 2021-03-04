@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>bind(this)</title>
+    <url>/2019/01/20/bind(this)/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpg" alt="beijing1.png"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
+<blockquote>
+<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
+</blockquote>
+<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>HashMap小析</title>
     <url>/2018/06/07/HashMap/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9an9eebj31ts0zwhdw.jpg" alt="bmw.png"><br>原文：<br><a href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
@@ -70,26 +90,6 @@
       </tags>
   </entry>
   <entry>
-    <title>bind(this)</title>
-    <url>/2019/01/20/bind(this)/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpg" alt="beijing1.png"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
-<blockquote>
-<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
-</blockquote>
-<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
-<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>blog</title>
     <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg" alt="panan.png"></p>
@@ -138,9 +138,68 @@
       </tags>
   </entry>
   <entry>
+    <title>Markdown示例</title>
+    <url>/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fn94zj31b1j30zk0k0wgu.jpg"></p>
+<h3 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**马克飞象**</span><br></pre></td></tr></table></figure>
+<p><strong>马克飞象</strong></p>
+<h3 id="突出"><a href="#突出" class="headerlink" title="突出"></a>突出</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;Ctrl + &#x2F;&#96;</span><br></pre></td></tr></table></figure>
+<p><code>Ctrl + /</code></p>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 第一项</span><br><span class="line">- 第二项</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+</ul>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; 三人行必有吾师。    —— [孔子](http:&#x2F;&#x2F;baike.baidu.com&#x2F;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>三人行必有吾师。    —— <a href="http://baike.baidu.com/">孔子</a></p>
+</blockquote>
+<h3 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">``</span><span class="string">`Javascript</span></span><br><span class="line"><span class="string">var emp = &#123;	name:&quot;Frank&quot;, age:45 &#125;;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">```Python</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">```Java</span><br></pre></td></tr></table></figure>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><table>
+<thead>
+<tr>
+<th align="left">Item</th>
+<th align="right">价格</th>
+<th align="center">数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Computer</td>
+<td align="right">5600</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left">Phone</td>
+<td align="right">120</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td align="left">Pipe</td>
+<td align="right">10</td>
+<td align="center">234</td>
+</tr>
+</tbody></table>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">e&#x3D;&gt;end: 结束</span><br><span class="line">op1&#x3D;&gt;operation: 准备数据</span><br><span class="line">op2&#x3D;&gt;operation: 计算处理</span><br><span class="line">cond1&#x3D;&gt;condition: 是否正确?</span><br><span class="line"></span><br><span class="line">st-&gt;op1-&gt;op2-&gt;cond1</span><br><span class="line">cond1(yes)-&gt;e</span><br><span class="line">cond1(no)-&gt;op1</span><br></pre></td></tr></table></figure>
+<h3 id="以及时序图"><a href="#以及时序图" class="headerlink" title="以及时序图:"></a>以及时序图:</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">客户端-&gt;服务端: 给我姓名叫张三的员工信息</span><br><span class="line">Note right of 服务端: 服务端响应</span><br><span class="line">服务端--&gt;客户端: 给你张三的信息</span><br></pre></td></tr></table></figure>
+<h3 id="LaTeX-公式"><a href="#LaTeX-公式" class="headerlink" title="LaTeX 公式"></a>LaTeX 公式</h3><p>可以创建行内公式，例如 $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。或者块级公式：</p>
+<p>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>浪潮招聘(坐标济南)</title>
     <url>/2021/02/19/inspur/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1go7y97f2fqj31ek0wwb29.jpg" alt="内推.png"></p>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1go7yekounhj30s60hyalz.jpg" alt="内推.png"></p>
 <blockquote>
 <p>招聘：浪潮云服务，坐标：济南 浪潮<br>欢迎砸简历到：<a href="mailto:haoyunsheng@inspur.com">haoyunsheng@inspur.com</a><br>技术栈：java vue<br>学历要求：全日制统招本科及以上<br>欢迎加入一个乐于分享技术 有爱互助的团队</p>
 </blockquote>
@@ -246,65 +305,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Markdown示例</title>
-    <url>/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fn94zj31b1j30zk0k0wgu.jpg"></p>
-<h3 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**马克飞象**</span><br></pre></td></tr></table></figure>
-<p><strong>马克飞象</strong></p>
-<h3 id="突出"><a href="#突出" class="headerlink" title="突出"></a>突出</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;Ctrl + &#x2F;&#96;</span><br></pre></td></tr></table></figure>
-<p><code>Ctrl + /</code></p>
-<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 第一项</span><br><span class="line">- 第二项</span><br></pre></td></tr></table></figure>
-<ul>
-<li>第一项</li>
-<li>第二项</li>
-</ul>
-<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; 三人行必有吾师。    —— [孔子](http:&#x2F;&#x2F;baike.baidu.com&#x2F;)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>三人行必有吾师。    —— <a href="http://baike.baidu.com/">孔子</a></p>
-</blockquote>
-<h3 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">``</span><span class="string">`Javascript</span></span><br><span class="line"><span class="string">var emp = &#123;	name:&quot;Frank&quot;, age:45 &#125;;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">```Python</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">```Java</span><br></pre></td></tr></table></figure>
-<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><table>
-<thead>
-<tr>
-<th align="left">Item</th>
-<th align="right">价格</th>
-<th align="center">数量</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Computer</td>
-<td align="right">5600</td>
-<td align="center">5</td>
-</tr>
-<tr>
-<td align="left">Phone</td>
-<td align="right">120</td>
-<td align="center">12</td>
-</tr>
-<tr>
-<td align="left">Pipe</td>
-<td align="right">10</td>
-<td align="center">234</td>
-</tr>
-</tbody></table>
-<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">e&#x3D;&gt;end: 结束</span><br><span class="line">op1&#x3D;&gt;operation: 准备数据</span><br><span class="line">op2&#x3D;&gt;operation: 计算处理</span><br><span class="line">cond1&#x3D;&gt;condition: 是否正确?</span><br><span class="line"></span><br><span class="line">st-&gt;op1-&gt;op2-&gt;cond1</span><br><span class="line">cond1(yes)-&gt;e</span><br><span class="line">cond1(no)-&gt;op1</span><br></pre></td></tr></table></figure>
-<h3 id="以及时序图"><a href="#以及时序图" class="headerlink" title="以及时序图:"></a>以及时序图:</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">客户端-&gt;服务端: 给我姓名叫张三的员工信息</span><br><span class="line">Note right of 服务端: 服务端响应</span><br><span class="line">服务端--&gt;客户端: 给你张三的信息</span><br></pre></td></tr></table></figure>
-<h3 id="LaTeX-公式"><a href="#LaTeX-公式" class="headerlink" title="LaTeX 公式"></a>LaTeX 公式</h3><p>可以创建行内公式，例如 $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。或者块级公式：</p>
-<p>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>nginx坑</title>
     <url>/2018/06/07/nginx/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9bi001lj31mi11g4qt.jpg" alt="illustration.png"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
@@ -359,28 +359,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Health</title>
-    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="哦，这是无效的密码,请检查并重试." data-whm="哦，这些解密的内容无法验证，但是您仍然可以看看.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="02352f24541dcfcf915a929f7fe3ac6a86e397caf128e776caa8c13c33203025">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e53177535fc0d511812eb6802e9bca9261e16da9695c6ac433f59592964672c776d073fe114c0c1287a8c401823481c8d02e14b56d4ee753a46250ddd3350d9c05b21e1c71d5d76ff48ce77abcb6c30e0617a359a4b725124106d02dba325baf6958bfc5033e7ee7d7bf4fdcbe822c90584ebdbacdbfaec7f13102e2d433bcb3e3bac84c1d307237b68ba29046cfd21bcdb11dd47e2d6cd3edbeb3b778fcf95fcdf6a31089221ce62516a25fd3b598a3cfeb63e1729d5fe27618caafd445dbc6247965ce4ccba24c5648fad121d7382129d36ce1d568f8f1f61c42a8a63728d833bc40e1a8b747376ea768fec66a114051892f72b62b149cd0c7883a8d81b2bdb384f27b1496278b1714d7c7687aa466de11dcd473d0cbb8ef0ac47248bab773389f61441b10d3fd2e1de8134d23d1d2d6e0ff3346869ba2d0acfca3caf89b5c783c37c2a1d8387ee79800d702275a070e5627f54d72e39d2f4070b2396e2a1557a674713d3494d9efe594f85bf26e1ab7b237dbd5122924f60a41af11dd1c65898ad4ae9f7e7860d049434c631a88477b1eb8f9e46f376548e020bf4a2ad457890d9bceecc66853c661632d7f90e02ed45ef8faa4e5c2320626c9f471153eb0d2084229ff038e1b41891d1d5a604a8a84d99ee159394d6ecf46f18bf3fd0b3d30163571891e4d9a118d3990a31b8299466026943c83cd1179723aaa86370cabb9cde11f7b23f773a4853e87f7e7b78c7ba347a126ac1d24fa023e297e2485df2c5ff334b576b6341f66b568457feb080f88c3b51290e4fd5a750274d12cf633254aa645140198dc7a52e329478fa5faca13fc38a80675dcdea6fdd3c6a8489756d5c95a77330954056e8b579ecc0aacb961a7c0a2c65aa9a97d70d70ca72a443f988914c1cd81e3e225b94502ef2ca5e5d4d37ced298ef9df6c84ba88799bd44ce3678affcfc7b0e2604cb6465422af2bf1c581af05ad7e97d8d535c594bdcf431997071a6882ac7bf703bce232b339ab9495e6b129d3c72f158117d83b10ae7eabe47e06fbed817906ce1a5c9f123670e031b59bfdde3a2a8145b077c8ce26701ec559083e5fb7022aca499accf87f11cecfed1007d43c8720b57b51cda99108d8adad1fe85cf17136d18cd39869a157374cee760f47e0877030c4476a12fb23139c15c83cbc21a58ddb8806a30c2510d8fd163429a28368ec3bb4b39e28cb8e8a5be910d50bf8da7bde2015fc30f9f90f7b20ad799bd123b520480f6314b5a776c222945888981467420ff3612ad74703eceaab659db4ade5ac759758d51178f06631568a87c11ec616532614d7e9a3c83db1a1ef51cc0af24528ea2c7b873644693065515c492d5584e77ce45479481d027d8f56f804e74da4a0e4002336139feb3e8feef50540997c817bb34f718753749c74bb37a9a24d005cafdcae312daaa561a3bcf456740487cf3851a9cfac663feb6f3b586033d826fd6482f0ac0636dab040c86f415f801d5ec9ac91857d9e99f6b7b9404925e4c1083427cbe86e777c3b5c68fbac260c5a271b5a7d4ebb083b578d30f789217543e599914b71a1b87515de33329f4444e4debf3131b7f</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Abbreviation of my love.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>diary</category>
-      </categories>
-      <tags>
-        <tag>health</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>mac下安装es</title>
     <url>/2019/06/24/%E5%AE%89%E8%A3%85es&amp;kibana/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9d7br1lj321a13y1l1.jpg" alt="Naruto.png"></p>
@@ -429,6 +407,28 @@
       </categories>
       <tags>
         <tag>es</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Health</title>
+    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="哦，这是无效的密码,请检查并重试." data-whm="哦，这些解密的内容无法验证，但是您仍然可以看看.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="02352f24541dcfcf915a929f7fe3ac6a86e397caf128e776caa8c13c33203025">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e53177535fc0d511812eb6802e9bca9261e16da9695c6ac433f59592964672c776d073fe114c0c1287a8c401823481c8d02e14b56d4ee753a46250ddd3350d9c05b21e1c71d5d76ff48ce77abcb6c30e0617a359a4b725124106d02dba325baf6958bfc5033e7ee7d7bf4fdcbe822c90584ebdbacdbfaec7f13102e2d433bcb3e3bac84c1d307237b68ba29046cfd21bcdb11dd47e2d6cd3edbeb3b778fcf95fcdf6a31089221ce62516a25fd3b598a3cfeb63e1729d5fe27618caafd445dbc6247965ce4ccba24c5648fad121d7382129d36ce1d568f8f1f61c42a8a63728d833bc40e1a8b747376ea768fec66a114051892f72b62b149cd0c7883a8d81b2bdb384f27b1496278b1714d7c7687aa466de11dcd473d0cbb8ef0ac47248bab773389f61441b10d3fd2e1de8134d23d1d2d6e0ff3346869ba2d0acfca3caf89b5c783c37c2a1d8387ee79800d702275a070e5627f54d72e39d2f4070b2396e2a1557a674713d3494d9efe594f85bf26e1ab7b237dbd5122924f60a41af11dd1c65898ad4ae9f7e7860d049434c631a88477b1eb8f9e46f376548e020bf4a2ad457890d9bceecc66853c661632d7f90e02ed45ef8faa4e5c2320626c9f471153eb0d2084229ff038e1b41891d1d5a604a8a84d99ee159394d6ecf46f18bf3fd0b3d30163571891e4d9a118d3990a31b8299466026943c83cd1179723aaa86370cabb9cde11f7b23f773a4853e87f7e7b78c7ba347a126ac1d24fa023e297e2485df2c5ff334b576b6341f66b568457feb080f88c3b51290e4fd5a750274d12cf633254aa645140198dc7a52e329478fa5faca13fc38a80675dcdea6fdd3c6a8489756d5c95a77330954056e8b579ecc0aacb961a7c0a2c65aa9a97d70d70ca72a443f988914c1cd81e3e225b94502ef2ca5e5d4d37ced298ef9df6c84ba88799bd44ce3678affcfc7b0e2604cb6465422af2bf1c581af05ad7e97d8d535c594bdcf431997071a6882ac7bf703bce232b339ab9495e6b129d3c72f158117d83b10ae7eabe47e06fbed817906ce1a5c9f123670e031b59bfdde3a2a8145b077c8ce26701ec559083e5fb7022aca499accf87f11cecfed1007d43c8720b57b51cda99108d8adad1fe85cf17136d18cd39869a157374cee760f47e0877030c4476a12fb23139c15c83cbc21a58ddb8806a30c2510d8fd163429a28368ec3bb4b39e28cb8e8a5be910d50bf8da7bde2015fc30f9f90f7b20ad799bd123b520480f6314b5a776c222945888981467420ff3612ad74703eceaab659db4ade5ac759758d51178f06631568a87c11ec616532614d7e9a3c83db1a1ef51cc0af24528ea2c7b873644693065515c492d5584e77ce45479481d027d8f56f804e74da4a0e4002336139feb3e8feef50540997c817bb34f718753749c74bb37a9a24d005cafdcae312daaa561a3bcf456740487cf3851a9cfac663feb6f3b586033d826fd6482f0ac0636dab040c86f415f801d5ec9ac91857d9e99f6b7b9404925e4c1083427cbe86e777c3b5c68fbac260c5a271b5a7d4ebb083b578d30f789217543e599914b71a1b87515de33329f4444e4debf3131b7f</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Abbreviation of my love.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>diary</category>
+      </categories>
+      <tags>
+        <tag>health</tag>
       </tags>
   </entry>
   <entry>
