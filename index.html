@@ -200,7 +200,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -213,7 +213,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -253,6 +253,124 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2021/05/11/java%E5%8F%AA%E6%9C%89%E5%80%BC%E4%BC%A0%E9%80%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shinyhero.png">
+      <meta itemprop="name" content="Patrick">
+      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hao's Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/05/11/java%E5%8F%AA%E6%9C%89%E5%80%BC%E4%BC%A0%E9%80%92/" class="post-title-link" itemprop="url">java只有值传递</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-05-11 09:58:58 / 修改时间：11:09:14" itemprop="dateCreated datePublished" datetime="2021-05-11T09:58:58+08:00">2021-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">Java原理</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Java中只有值传递</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Coding_Zhu/article/details/53096178">基本数据类型</a>参数传值：就是你cv我</li>
+<li>引用数据类型参数传值：你cv了我的”对象的地址”：具体点就是你复制我的指针指向的堆内容</li>
+</ol>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li><strong>值传递</strong>（pass by value）是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。</li>
+</ul>
+<ul>
+<li><p><strong>引用传递</strong>（pass by reference）是指在调用函数时将实际参数的地址直接传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
+</li>
+<li><p>简单粗暴</p>
+<blockquote>
+<p>值传递： 就是我不变，你cv了我，你和我同值，你模仿我</p>
+</blockquote>
+<blockquote>
+<p>引用传递：就是把我给你了</p>
+</blockquote>
+</li>
+<li><p>理解</p>
+</li>
+</ul>
+<blockquote>
+<p>你有一把钥匙，当你的朋友想要去你家的时候，如果你直接把你的钥匙给他了，这就是<code>引用传递</code>。这种情况下，如果他对这把钥匙做了什么事情，比如他在钥匙上刻下了自己名字，那么这把钥匙还给你的时候，你自己的钥匙上也会多出他刻的名字。</p>
+</blockquote>
+<blockquote>
+<p>你有一把钥匙，当你的朋友想要去你家的时候，你复刻了一把新钥匙给他，自己的还在自己手里，这就是<code>值传递</code>。这种情况下，他对这把钥匙做什么都不会影响你手里的这把钥匙。</p>
+</blockquote>
+<blockquote>
+<p>但是在引用数据类型传值时：你的朋友拿着你给他的钥匙，进到你的家里，把你家的电视砸了。那你说你会不会受到影响？而我们在pass方法中，改变user对象的name属性的值的时候，不就是在“砸电视”么。你改变的不是那把钥匙，而是钥匙打开的房子。</p>
+</blockquote>
+<h3 id="题海"><a href="#题海" class="headerlink" title="题海"></a>题海</h3><h4 id="1"><a href="#1" class="headerlink" title="1"></a>1</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">   pt.pass(i );</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , i is &quot;</span> + i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">   j = <span class="number">20</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , j is &quot;</span> + j);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// print in pass , j is 20</span></span><br><span class="line"><span class="comment">// print in main , i is 10</span></span><br></pre></td></tr></table></figure>
+<h4 id="2"><a href="#2" class="headerlink" title="2"></a>2</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3"><a href="#3" class="headerlink" title="3"></a>3</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   String name = <span class="string">&quot;Hollis&quot;</span>;</span><br><span class="line">   pt.pass(name);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">   name = <span class="string">&quot;hollischuang&quot;</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , name is hollischuang</span></span><br><span class="line"><span class="comment">//print in main , name is Hollis</span></span><br></pre></td></tr></table></figure>
+<h4 id="4"><a href="#4" class="headerlink" title="4"></a>4</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user = <span class="keyword">new</span> User();</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   user.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;Hollis&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="5"><a href="#5" class="headerlink" title="5"></a>5</h4><p>  <img src="http://ww1.sinaimg.cn/mw690/006s5QLMly1gqea9d2d6ej32c03404r6.jpg" alt="image.png"></p>
+<h4 id="6"><a href="#6" class="headerlink" title="6"></a>6</h4><p>  <img src="http://ww1.sinaimg.cn/large/006s5QLMly1gqeaadsan8j30ot0j1di6.jpg" alt="1E8A031C0E93464DBE0C529325EFD0E2.jpeg"></p>
+<h4 id="7"><a href="#7" class="headerlink" title="7"></a>7</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> X = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateVlue</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;  <span class="comment">// 传入基本数据类型</span></span><br><span class="line">       value = value + <span class="number">1</span>;</span><br><span class="line">       System.out.println(<span class="string">&quot;变量value: &quot;</span>+value);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateObject</span><span class="params">(Person person)</span></span>&#123; <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person E = person;</span><br><span class="line">       E.setAge(<span class="number">21</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swapObject</span><span class="params">(Person A,Person B)</span></span>&#123;  <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person C = A;</span><br><span class="line">       A = B;</span><br><span class="line">       B = C;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 例子 1</span></span><br><span class="line">       Main main = <span class="keyword">new</span> Main();</span><br><span class="line">       <span class="keyword">int</span> X = <span class="number">1</span>;</span><br><span class="line">       main.updateVlue(X);</span><br><span class="line">       System.out.println(<span class="string">&quot;X 的值：&quot;</span>+X); <span class="comment">// X = 1</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 2</span></span><br><span class="line">       Person A = <span class="keyword">new</span> Person(<span class="string">&quot;张三&quot;</span>,<span class="number">20</span>);</span><br><span class="line">       main.updateObject(A);</span><br><span class="line">       System.out.println(<span class="string">&quot;A: &quot;</span>+A.toString());  <span class="comment">// A: Person&#123;name=&#x27;张三&#x27;, age=21&#125;</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 3</span></span><br><span class="line">       Person C = <span class="keyword">new</span> Person(<span class="string">&quot;C&quot;</span>,<span class="number">10</span>);</span><br><span class="line">       Person D = <span class="keyword">new</span> Person(<span class="string">&quot;D&quot;</span>,<span class="number">15</span>);</span><br><span class="line">       main.swapObject(C,D);</span><br><span class="line">       System.out.println(<span class="string">&quot;C: &quot;</span>+ C.toString());  <span class="comment">// C: Person&#123;name=&#x27;C&#x27;, age=10&#125;</span></span><br><span class="line">       System.out.println(<span class="string">&quot;D: &quot;</span>+ D.toString());  <span class="comment">// D: Person&#123;name=&#x27;D&#x27;, age=15&#125;</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="8"><a href="#8" class="headerlink" title="8"></a>8</h4><p>  <img src="http://ww1.sinaimg.cn/mw690/006s5QLMly1gqeak3tmi4j30tz140tda.jpg" alt="1591620700970_.pic.jpg"></p>
+<h4 id="9"><a href="#9" class="headerlink" title="9"></a>9</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">test3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String a = <span class="string">&quot;123&quot;</span>;</span><br><span class="line">        doTest3(a);</span><br><span class="line">        <span class="keyword">return</span> TextUtils.equals(<span class="string">&quot;123&quot;</span>, a);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doTest3</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        str = str + <span class="string">&quot;123&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// true :return TextUtils.equals(&quot;123&quot;, &quot;123&quot;);</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a220315410/article/details/27743607">String是引用类型</a></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OfkwrsoE6OPagWiFlaGcVg">为什么说Java中只有值传递</a></li>
+<li><a href="%E4%B9%A6">实战java程序设计</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1421,100 +1539,6 @@
 </tr>
 </tbody></table>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shinyhero.png">
-      <meta itemprop="name" content="Patrick">
-      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hao's Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="post-title-link" itemprop="url">Markdown示例</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-01-08 13:31:30" itemprop="dateCreated datePublished" datetime="2018-01-08T13:31:30+08:00">2018-01-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Markdown/" itemprop="url" rel="index"><span itemprop="name">Markdown</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fn94zj31b1j30zk0k0wgu.jpg"></p>
-<h3 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**马克飞象**</span><br></pre></td></tr></table></figure>
-<p><strong>马克飞象</strong></p>
-<h3 id="突出"><a href="#突出" class="headerlink" title="突出"></a>突出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;Ctrl + &#x2F;&#96;</span><br></pre></td></tr></table></figure>
-<p><code>Ctrl + /</code></p>
-<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- 第一项</span><br><span class="line">- 第二项</span><br></pre></td></tr></table></figure>
-<ul>
-<li>第一项</li>
-<li>第二项</li>
-</ul>
-<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 三人行必有吾师。    —— [孔子](http:&#x2F;&#x2F;baike.baidu.com&#x2F;)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>三人行必有吾师。    —— <a target="_blank" rel="noopener" href="http://baike.baidu.com/">孔子</a></p>
-</blockquote>
-<h3 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
