@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -25,12 +25,12 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"shinyhero521.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.2.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="安装es&amp;kibana12345$ brew update$ brew install elasticsearch$ brew install kibana 12345brew list &#x2F;&#x2F;查看brew列表brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsea">
+<meta name="description" content="安装es&amp;kibana12345$ brew update$ brew install elasticsearch$ brew install kibana  12345brew list &#x2F;&#x2F;查看brew列表brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticse">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mac下安装es">
 <meta property="og:url" content="https://shinyhero521.github.io/2019/06/24/%E5%AE%89%E8%A3%85es&kibana/index.html">
 <meta property="og:site_name" content="Hao&#39;s Notes">
-<meta property="og:description" content="安装es&amp;kibana12345$ brew update$ brew install elasticsearch$ brew install kibana 12345brew list &#x2F;&#x2F;查看brew列表brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsea">
+<meta property="og:description" content="安装es&amp;kibana12345$ brew update$ brew install elasticsearch$ brew install kibana  12345brew list &#x2F;&#x2F;查看brew列表brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticse">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006s5QLMly1gng9d7br1lj321a13y1l1.jpg">
 <meta property="article:published_time" content="2019-06-24T00:17:28.059Z">
@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -324,15 +324,21 @@
     <div class="post-body" itemprop="articleBody">
         <p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9d7br1lj321a13y1l1.jpg" alt="Naruto.png"></p>
 <h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>在安装es5.6.16，启动时如果报错，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
 
 
+
 <h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
+
 <p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
 <h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
 <table>
@@ -460,7 +466,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

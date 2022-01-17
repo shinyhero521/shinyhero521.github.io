@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -200,7 +200,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -262,6 +262,109 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2022/01/17/post/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shinyhero.png">
+      <meta itemprop="name" content="Patrick">
+      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hao's Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/17/post/" class="post-title-link" itemprop="url">Nginx upstream配置说明负载均衡</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-01-17 09:48:36 / 修改时间：09:51:55" itemprop="dateCreated datePublished" datetime="2022-01-17T09:48:36+08:00">2022-01-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="http://tva1.sinaimg.cn/mw690/006s5QLMly1gygfkmfk8nj31hc0u07ij.jpg" alt="wallhaven-mp8dmm.jpeg"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
+<blockquote>
+<p>假设Nginx只能代理一台服务器的话，那它也不可能像今天这么火。Nginx能够配置代理多台服务器。当一台服务器宕机之后。仍能保持系统可用。详细配置步骤例如以下：</p>
+</blockquote>
+<ol>
+<li>在http节点下，加入upstream节点。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream linuxidc &#123; </span><br><span class="line">      server 10.0.6.108:7080; </span><br><span class="line">      server 10.0.0.85:8980; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>将server节点下的location节点中的proxy_pass配置为：http:// + upstream名称，即</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location / &#123; </span><br><span class="line">            root  html; </span><br><span class="line">            index  index.html index.htm; </span><br><span class="line">            proxy_pass http:<span class="comment">//linuxidc; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>如今负载均衡初步完毕了。upstream依照轮询（默认）方式进行负载，每一个请求按时间顺序逐一分配到不同的后端服务器。假设后端服务器down掉。能自己主动剔除。尽管这样的方式简便、成本低廉。但缺点是：可靠性低和负载分配不均衡。</li>
+</ol>
+<p>适用于图片服务器集群和纯静态页面服务器集群。 除此之外，upstream还有其他的分配策略，分别例如以下：<strong>weight（权重）</strong>指定轮询几率，weight和訪问比率成正比，用于后端服务器性能不均的情况。例如以下所看到的。10.0.0.88的訪问比率要比10.0.0.77的訪问比率高一倍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream linuxidc&#123; </span><br><span class="line">      server 10.0.0.77 weight&#x3D;5; </span><br><span class="line">      server 10.0.0.88 weight&#x3D;10; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ip_hash（访问ip）</strong>， 每一个请求按訪问ip的hash结果分配。这样每一个訪客固定訪问一个后端服务器，能够解决session的问题。</p>
+<blockquote>
+<p> ip_hash还能和weight共用，详见最下面。但是在nginx版本1.3.1之前，不能在ip_hash中使用权重（weight）。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream favresin&#123; </span><br><span class="line">     ip_hash; </span><br><span class="line">     server 10.0.0.10:8080; </span><br><span class="line">     server 10.0.0.11:8080; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>fair（第三方）</strong>，按后端服务器的响应时间来分配请求。响应时间短的优先分配。与weight分配策略相似。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> upstream favresin&#123;      </span><br><span class="line">      server 10.0.0.10:8080; </span><br><span class="line">      server 10.0.0.11:8080; </span><br><span class="line">      fair; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>所有方式</strong></p>
+<p>![image-20220106164710362](/Users/boom_hao/Library/Application Support/typora-user-images/image-20220106164710362.png)</p>
+<p>upstream还能够为每一个设备设置状态值，这些状态值的含义分别例如以下：</p>
+<ol>
+<li>down 表示单前的server临时不參与负载.</li>
+<li>weight 默觉得1.weight越大，负载的权重就越大。</li>
+<li>max_fails ：同意请求失败的次数默觉得1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误.</li>
+<li>fail_timeout : max_fails次失败后。暂停的时间。</li>
+</ol>
+<p><strong>backup：</strong> 其他全部的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">upstream bakend&#123; <span class="comment">#定义负载均衡设备的Ip及设备状态 </span></span><br><span class="line">      ip_hash; </span><br><span class="line">      server 10.0.0.11:9090 down; </span><br><span class="line">      server 10.0.0.11:8080 weight=2; </span><br><span class="line">      server 10.0.0.11:6060; </span><br><span class="line">      server 10.0.0.11:7070 backup; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2021/05/11/java%E5%8F%AA%E6%9C%89%E5%80%BC%E4%BC%A0%E9%80%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -285,10 +388,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-05-11 09:58:58 / 修改时间：11:25:31" itemprop="dateCreated datePublished" datetime="2021-05-11T09:58:58+08:00">2021-05-11</time>
+      <time title="创建时间：2021-05-11 09:58:58" itemprop="dateCreated datePublished" datetime="2021-05-11T09:58:58+08:00">2021-05-11</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-01-17 09:46:43" itemprop="dateModified" datetime="2022-01-17T09:46:43+08:00">2022-01-17</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -309,7 +418,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Java中只有值传递</p>
+          <p><img src="http://tva1.sinaimg.cn/mw690/006s5QLMly1gygfeof883j31hc0u148a.jpg" alt="wallhaven-3zgk8d.jpeg"></p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Java中只有值传递</p>
 <ol>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/Coding_Zhu/article/details/53096178">基本数据类型</a>参数传值：就是你cv我</li>
 <li>引用数据类型参数传值：你cv了我的”对象的地址”：<blockquote>
@@ -445,18 +555,22 @@
 </blockquote>
 <h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
 <h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a target="_blank" rel="noopener" href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+
 <h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
 <p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
+
 <h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
 <li>pjax：这个暂时关闭，因为与gitalk冲突</li>
 <li>darkmode：可以根据夜晚变黑</li>
@@ -939,23 +1053,29 @@
 <p>但是经过一下午的努力奋战，<br>我完成了<br>并且我对vue的父子传值有了更深的认识和理解<br>其实就是三把斧<br>很开心</p>
 <h3 id="父传子（父页面调子页面）："><a href="#父传子（父页面调子页面）：" class="headerlink" title="父传子（父页面调子页面）："></a>父传子（父页面调子页面）：</h3><h4 id="prop方法"><a href="#prop方法" class="headerlink" title="$prop方法"></a>$prop方法</h4><p><strong>父组件</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">child</span> <span class="attr">:activeSon</span>=<span class="string">&quot;fatherMethod()&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> child <span class="keyword">from</span> <span class="string">&#x27;@/components/child&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    components: &#123;</span><br><span class="line">      child</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">fatherMethod</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&#x27;father组件&#x27;</span>);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p><strong>子组件</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> @<span class="attr">click</span>=<span class="string">&quot;activeBtn&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">  props:&#123;</span><br><span class="line">    activeSon:  &#123;</span><br><span class="line"><span class="javascript">        type: <span class="built_in">Function</span>,</span></span><br><span class="line"><span class="javascript">        <span class="keyword">default</span>: <span class="literal">null</span></span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">activeBtn</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.activeSon()</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h4 id="ref方式"><a href="#ref方式" class="headerlink" title="ref方式"></a>ref方式</h4><p><strong>父页面</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> &lt;adminList ref&#x3D;&quot;addModule&quot;</span><br><span class="line">                 @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import adminList from &#39;.&#x2F;set-as-admin-list&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">components: &#123;</span><br><span class="line">      adminList</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
 <p>在方法里，这里一定要别拉下this.$nextTick(()=&gt;{})</p>
 <p>因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined<br>详情原因见 </p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41888813/article/details/84776896">Vue父组件引用子组件方法显示undefined问题原因及解决方法</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">          this.$refs.addModule.init(this.struId, this.organId, false)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
 <p>这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</p>
 <p><strong>子页面</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">init (struId, organId, isAdmin) &#123;</span><br><span class="line">       debugger</span><br><span class="line">       this.isAdmin &#x3D; isAdmin</span><br><span class="line">       this.struId &#x3D; struId</span><br><span class="line">       this.organId &#x3D; organId</span><br><span class="line">       this.getPersonList(struId)</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
 <p>上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。<br>并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref=”不同的值”。</p>
 <h5 id="父页面"><a href="#父页面" class="headerlink" title="父页面"></a>父页面</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">adminList</span> <span class="attr">ref</span>=<span class="string">&quot;authorizationModal&quot;</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">func</span>=<span class="string">&quot;getmessage&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">adminList</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+
 <h3 id="子传父"><a href="#子传父" class="headerlink" title="子传父"></a>子传父</h3><h4 id="子页面"><a href="#子页面" class="headerlink" title="子页面"></a>子页面</h4><p>在方法里</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$emit(&#x27;func&#x27;, data)</span><br></pre></td></tr></table></figure>
+
 <h4 id="父页面去接"><a href="#父页面去接" class="headerlink" title="父页面去接"></a>父页面去接</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">adminList</span> <span class="attr">ref</span>=<span class="string">&quot;authorizationModal&quot;</span></span></span><br><span class="line"><span class="tag">               @<span class="attr">func</span>=<span class="string">&quot;getmessage&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">adminList</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>其中func是要传的key</p>
 <p>value就是用”getmessage”去接收，这里是方法</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getmessage (data) &#123;</span><br><span class="line">       this.authorizationVisible = data</span><br><span class="line">  </span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
@@ -1041,15 +1161,21 @@
     <div class="post-body" itemprop="articleBody">
           <p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9d7br1lj321a13y1l1.jpg" alt="Naruto.png"></p>
 <h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>在安装es5.6.16，启动时如果报错，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
 
 
+
 <h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
+
 <p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
 <h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
 <table>
@@ -1167,6 +1293,7 @@
 <p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
 <h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a target="_blank" rel="noopener" href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>
       
     </div>
@@ -1206,7 +1333,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/06/07/nginx/" class="post-title-link" itemprop="url">nginx坑</a>
+          <a href="/2018/06/07/nginx/" class="post-title-link" itemprop="url">计算机网络</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1224,7 +1351,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-02-08 17:31:57" itemprop="dateModified" datetime="2021-02-08T17:31:57+08:00">2021-02-08</time>
+        <time title="修改时间：2022-01-17 09:51:09" itemprop="dateModified" datetime="2022-01-17T09:51:09+08:00">2022-01-17</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1232,7 +1359,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%98%B2%E5%9D%91/" itemprop="url" rel="index"><span itemprop="name">防坑</span></a>
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">计算机原理</span></a>
         </span>
     </span>
 
@@ -1246,7 +1373,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9bi001lj31mi11g4qt.jpg" alt="illustration.png"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
+          <p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9bi001lj31mi11g4qt.jpg" alt="illustration.png"></p>
 <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegrvm16uj30fm0b8dh5.jpg"></p>
 <h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
 <h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次v，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
@@ -1388,100 +1515,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shinyhero.png">
-      <meta itemprop="name" content="Patrick">
-      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hao's Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="post-title-link" itemprop="url">Markdown示例</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-01-08 13:31:30" itemprop="dateCreated datePublished" datetime="2018-01-08T13:31:30+08:00">2018-01-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Markdown/" itemprop="url" rel="index"><span itemprop="name">Markdown</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fn94zj31b1j30zk0k0wgu.jpg"></p>
-<h3 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**马克飞象**</span><br></pre></td></tr></table></figure>
-<p><strong>马克飞象</strong></p>
-<h3 id="突出"><a href="#突出" class="headerlink" title="突出"></a>突出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;Ctrl + &#x2F;&#96;</span><br></pre></td></tr></table></figure>
-<p><code>Ctrl + /</code></p>
-<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- 第一项</span><br><span class="line">- 第二项</span><br></pre></td></tr></table></figure>
-<ul>
-<li>第一项</li>
-<li>第二项</li>
-</ul>
-<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 三人行必有吾师。    —— [孔子](http:&#x2F;&#x2F;baike.baidu.com&#x2F;)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>三人行必有吾师。    —— <a target="_blank" rel="noopener" href="http://baike.baidu.com/">孔子</a></p>
-</blockquote>
-<h3 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1517,7 +1550,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

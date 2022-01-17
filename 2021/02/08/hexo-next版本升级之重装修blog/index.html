@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -331,18 +331,22 @@
 </blockquote>
 <h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
 <h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a target="_blank" rel="noopener" href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+
 <h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
 <p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
+
 <h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
 <li>pjax：这个暂时关闭，因为与gitalk冲突</li>
 <li>darkmode：可以根据夜晚变黑</li>
@@ -457,7 +461,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
