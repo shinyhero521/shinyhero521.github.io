@@ -71,6 +71,18 @@
       </tags>
   </entry>
   <entry>
+    <title>计算机网络</title>
+    <url>/2018/06/07/computer/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9bi001lj31mi11g4qt.jpg" alt="illustration.png"></p>
+<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegrvm16uj30fm0b8dh5.jpg"></p>
+<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
+<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次v，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
+<blockquote>
+<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
     <title>如何发布blog</title>
     <url>/2014/12/22/hello-world/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9azfjh0j31di0vke82.jpg" alt="stocking.png"><br>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -87,58 +99,6 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>blog</title>
-    <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg" alt="panan.png"></p>
-<blockquote>
-<p>全程都是基于npm，没有使用git方式（除了hexo deploy）</p>
-</blockquote>
-<blockquote>
-<p>基于最新的hexo和next主题升级博客，主要是把配置分离_config.yml 和 _config.next.yml；这样就可以方便hexo和next升级，解决之前升级版本得调很多东西，并且更加简单使用。</p>
-</blockquote>
-<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
-<li><a href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
-<li><a href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><a href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
-
-<h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
-<p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
-<li>pjax：这个暂时关闭，因为与gitalk冲突</li>
-<li>darkmode：可以根据夜晚变黑</li>
-<li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
-<li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
-<li><a href="https://blog.csdn.net/qq_43701912/article/details/107018127">加密</a><br><a href="https://github.com/D0n9X1n/hexo-blog-encrypt#encrypt-theme">改进后官方方法</a><br>为了适配微信内置浏览器，只能使用默认主题</li>
-<li><a href="https://github.com/iissnan/hexo-theme-next/issues/1742">顶部按钮跟那个百分比</a></li>
-</ul>
-<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
-<li>如果没写日期，会默认使用创建日期和修改日期</li>
-</ul>
-<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><ul>
-<li>统计紫薯和阅读量（因为阅读量不多）</li>
-<li>谷歌搜索（等文章量上来）</li>
-<li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
-</ul>
-<h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>blog</category>
       </categories>
@@ -207,21 +167,55 @@
       </tags>
   </entry>
   <entry>
-    <title>计算机网络</title>
-    <url>/2018/06/07/nginx/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9bi001lj31mi11g4qt.jpg" alt="illustration.png"></p>
-<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegrvm16uj30fm0b8dh5.jpg"></p>
-<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
-<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次v，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
+    <title>blog</title>
+    <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg" alt="panan.png"></p>
 <blockquote>
-<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
+<p>全程都是基于npm，没有使用git方式（除了hexo deploy）</p>
 </blockquote>
-]]></content>
+<blockquote>
+<p>基于最新的hexo和next主题升级博客，主要是把配置分离_config.yml 和 _config.next.yml；这样就可以方便hexo和next升级，解决之前升级版本得调很多东西，并且更加简单使用。</p>
+</blockquote>
+<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
+<li><a href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
+<p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
+<li>pjax：这个暂时关闭，因为与gitalk冲突</li>
+<li>darkmode：可以根据夜晚变黑</li>
+<li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
+<li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
+<li><a href="https://blog.csdn.net/qq_43701912/article/details/107018127">加密</a><br><a href="https://github.com/D0n9X1n/hexo-blog-encrypt#encrypt-theme">改进后官方方法</a><br>为了适配微信内置浏览器，只能使用默认主题</li>
+<li><a href="https://github.com/iissnan/hexo-theme-next/issues/1742">顶部按钮跟那个百分比</a></li>
+</ul>
+<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
+<li>如果没写日期，会默认使用创建日期和修改日期</li>
+</ul>
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><ul>
+<li>统计紫薯和阅读量（因为阅读量不多）</li>
+<li>谷歌搜索（等文章量上来）</li>
+<li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
+</ul>
+<h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>计算机原理</category>
+        <category>blog</category>
       </categories>
       <tags>
-        <tag>nginx</tag>
+        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
@@ -288,72 +282,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Nginx upstream配置说明负载均衡</title>
-    <url>/2022/01/17/post/</url>
-    <content><![CDATA[<p><img src="http://tva1.sinaimg.cn/mw690/006s5QLMly1gygfkmfk8nj31hc0u07ij.jpg" alt="wallhaven-mp8dmm.jpeg"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
-<blockquote>
-<p>假设Nginx只能代理一台服务器的话，那它也不可能像今天这么火。Nginx能够配置代理多台服务器。当一台服务器宕机之后。仍能保持系统可用。详细配置步骤例如以下：</p>
-</blockquote>
-<ol>
-<li>在http节点下，加入upstream节点。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc &#123; </span><br><span class="line">      server 10.0.6.108:7080; </span><br><span class="line">      server 10.0.0.85:8980; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>将server节点下的location节点中的proxy_pass配置为：http:// + upstream名称，即</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">location / &#123; </span><br><span class="line">            root  html; </span><br><span class="line">            index  index.html index.htm; </span><br><span class="line">            proxy_pass http:<span class="comment">//linuxidc; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>如今负载均衡初步完毕了。upstream依照轮询（默认）方式进行负载，每一个请求按时间顺序逐一分配到不同的后端服务器。假设后端服务器down掉。能自己主动剔除。尽管这样的方式简便、成本低廉。但缺点是：可靠性低和负载分配不均衡。</li>
-</ol>
-<p>适用于图片服务器集群和纯静态页面服务器集群。 除此之外，upstream还有其他的分配策略，分别例如以下：<strong>weight（权重）</strong>指定轮询几率，weight和訪问比率成正比，用于后端服务器性能不均的情况。例如以下所看到的。10.0.0.88的訪问比率要比10.0.0.77的訪问比率高一倍。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc&#123; </span><br><span class="line">      server 10.0.0.77 weight&#x3D;5; </span><br><span class="line">      server 10.0.0.88 weight&#x3D;10; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>ip_hash（访问ip）</strong>， 每一个请求按訪问ip的hash结果分配。这样每一个訪客固定訪问一个后端服务器，能够解决session的问题。</p>
-<blockquote>
-<p> ip_hash还能和weight共用，详见最下面。但是在nginx版本1.3.1之前，不能在ip_hash中使用权重（weight）。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream favresin&#123; </span><br><span class="line">     ip_hash; </span><br><span class="line">     server 10.0.0.10:8080; </span><br><span class="line">     server 10.0.0.11:8080; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>fair（第三方）</strong>，按后端服务器的响应时间来分配请求。响应时间短的优先分配。与weight分配策略相似。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> upstream favresin&#123;      </span><br><span class="line">      server 10.0.0.10:8080; </span><br><span class="line">      server 10.0.0.11:8080; </span><br><span class="line">      fair; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>所有方式</strong></p>
-<p>![image-20220106164710362](/Users/boom_hao/Library/Application Support/typora-user-images/image-20220106164710362.png)</p>
-<p>upstream还能够为每一个设备设置状态值，这些状态值的含义分别例如以下：</p>
-<ol>
-<li>down 表示单前的server临时不參与负载.</li>
-<li>weight 默觉得1.weight越大，负载的权重就越大。</li>
-<li>max_fails ：同意请求失败的次数默觉得1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误.</li>
-<li>fail_timeout : max_fails次失败后。暂停的时间。</li>
-</ol>
-<p><strong>backup：</strong> 其他全部的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream bakend&#123; <span class="comment">#定义负载均衡设备的Ip及设备状态 </span></span><br><span class="line">      ip_hash; </span><br><span class="line">      server 10.0.0.11:9090 down; </span><br><span class="line">      server 10.0.0.11:8080 weight=2; </span><br><span class="line">      server 10.0.0.11:6060; </span><br><span class="line">      server 10.0.0.11:7070 backup; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-  </entry>
-  <entry>
-    <title>Health</title>
-    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="哦，这是无效的密码,请检查并重试." data-whm="哦，这些解密的内容无法验证，但是您仍然可以看看.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="02352f24541dcfcf915a929f7fe3ac6a86e397caf128e776caa8c13c33203025">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e53177535fc0d511812eb6802e9bca9261e16da9695c6ac433f59592964672c776d073fe114c0c1287a8c401823481c8d02e14b56d4ee753a46250ddd3350d9c05b21e1c71d5d76ff48ce77abcb6c30e0617a359a4b725124106d02dba325baf6958bfc5033e7ee7d7bf4fdcbe822c90584ebdbacdbfaec7f13102e2d433bcb3e3bac84c1d307237b68ba29046cfd21bcdb11dd47e2d6cd3edbeb3b778fcf95fcdf6a31089221ce62516a25fd3b598a3cfeb63e1729d5fe27618caafd445dbc6247965ce4ccba24c5648fad121d7382129d36ce1d568f8f1f61c42a8a63728d833bc40e1a8b747376ea768fec66a114051892f72b62b149cd0c7883a8d81b2bdb384f27b1496278b1714d7c7687aa466de11dcd473d0cbb8ef0ac47248bab773389f61441b10d3fd2e1de8134d23d1d2d6e0ff3346869ba2d0acfca3caf89b5c783c37c2a1d8387ee79800d702275a070e5627f54d72e39d2f4070b2396e2a1557a674713d3494d9efe594f85bf26e1ab7b237dbd5122924f60a41af11dd1c65898ad4ae9f7e7860d049434c631a88477b1eb8f9e46f376548e020bf4a2ad457890d9bceecc66853c661632d7f90e02ed45ef8faa4e5c2320626c9f471153eb0d2084229ff038e1b41891d1d5a604a8a84d99ee159394d6ecf46f18bf3fd0b3d30163571891e4d9a118d3990a31b8299466026943c83cd1179723aaa86370cabb9cde11f7b23f773a4853e87f7e7b78c7ba347a126ac1d24fa023e297e2485df2c5ff334b576b6341f66b568457feb080f88c3b51290e4fd5a750274d12cf633254aa645140198dc7a52e329478fa5faca13fc38a80675dcdea6fdd3c6a8489756d5c95a77330954056e8b579ecc0aacb961a7c0a2c65aa9a97d70d70ca72a443f988914c1cd81e3e225b94502ef2ca5e5d4d37ced298ef9df6c84ba88799bd44ce3678affcfc7b0e2604cb6465422af2bf1c581af05ad7e97d8d535c594bdcf431997071a6882ac7bf703bce232b339ab9495e6b129d3c72f158117d83b10ae7eabe47e06fbed817906ce1a5c9f123670e031b59bfdde3a2a8145b077c8ce26701ec559083e5fb7022aca499accf87f11cecfed1007d43c8720b57b51cda99108d8adad1fe85cf17136d18cd39869a157374cee760f47e0877030c4476a12fb23139c15c83cbc21a58ddb8806a30c2510d8fd163429a28368ec3bb4b39e28cb8e8a5be910d50bf8da7bde2015fc30f9f90f7b20ad799bd123b520480f6314b5a776c222945888981467420ff3612ad74703eceaab659db4ade5ac759758d51178f06631568a87c11ec616532614d7e9a3c83db1a1ef51cc0af24528ea2c7b873644693065515c492d5584e77ce45479481d027d8f56f804e74da4a0e4002336139feb3e8feef50540997c817bb34f718753749c74bb37a9a24d005cafdcae312daaa561a3bcf456740487cf3851a9cfac663feb6f3b586033d826fd6482f0ac0636dab040c86f415f801d5ec9ac91857d9e99f6b7b9404925e4c1083427cbe86e777c3b5c68fbac260c5a271b5a7d4ebb083b578d30f789217543e599914b71a1b87515de33329f4444e4debf3131b7f</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Abbreviation of my love.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>diary</category>
-      </categories>
-      <tags>
-        <tag>health</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>vue父子传值</title>
     <url>/2020/06/21/vue%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8ipk65ej31rq13ae82.jpg" alt="shenghua.png"><br>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
@@ -393,6 +321,28 @@
       </categories>
       <tags>
         <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Health</title>
+    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="哦，这是无效的密码,请检查并重试." data-whm="哦，这些解密的内容无法验证，但是您仍然可以看看.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="02352f24541dcfcf915a929f7fe3ac6a86e397caf128e776caa8c13c33203025">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e53177535fc0d511812eb6802e9bca9261e16da9695c6ac433f59592964672c776d073fe114c0c1287a8c401823481c8d02e14b56d4ee753a46250ddd3350d9c05b21e1c71d5d76ff48ce77abcb6c30e0617a359a4b725124106d02dba325baf6958bfc5033e7ee7d7bf4fdcbe822c90584ebdbacdbfaec7f13102e2d433bcb3e3bac84c1d307237b68ba29046cfd21bcdb11dd47e2d6cd3edbeb3b778fcf95fcdf6a31089221ce62516a25fd3b598a3cfeb63e1729d5fe27618caafd445dbc6247965ce4ccba24c5648fad121d7382129d36ce1d568f8f1f61c42a8a63728d833bc40e1a8b747376ea768fec66a114051892f72b62b149cd0c7883a8d81b2bdb384f27b1496278b1714d7c7687aa466de11dcd473d0cbb8ef0ac47248bab773389f61441b10d3fd2e1de8134d23d1d2d6e0ff3346869ba2d0acfca3caf89b5c783c37c2a1d8387ee79800d702275a070e5627f54d72e39d2f4070b2396e2a1557a674713d3494d9efe594f85bf26e1ab7b237dbd5122924f60a41af11dd1c65898ad4ae9f7e7860d049434c631a88477b1eb8f9e46f376548e020bf4a2ad457890d9bceecc66853c661632d7f90e02ed45ef8faa4e5c2320626c9f471153eb0d2084229ff038e1b41891d1d5a604a8a84d99ee159394d6ecf46f18bf3fd0b3d30163571891e4d9a118d3990a31b8299466026943c83cd1179723aaa86370cabb9cde11f7b23f773a4853e87f7e7b78c7ba347a126ac1d24fa023e297e2485df2c5ff334b576b6341f66b568457feb080f88c3b51290e4fd5a750274d12cf633254aa645140198dc7a52e329478fa5faca13fc38a80675dcdea6fdd3c6a8489756d5c95a77330954056e8b579ecc0aacb961a7c0a2c65aa9a97d70d70ca72a443f988914c1cd81e3e225b94502ef2ca5e5d4d37ced298ef9df6c84ba88799bd44ce3678affcfc7b0e2604cb6465422af2bf1c581af05ad7e97d8d535c594bdcf431997071a6882ac7bf703bce232b339ab9495e6b129d3c72f158117d83b10ae7eabe47e06fbed817906ce1a5c9f123670e031b59bfdde3a2a8145b077c8ce26701ec559083e5fb7022aca499accf87f11cecfed1007d43c8720b57b51cda99108d8adad1fe85cf17136d18cd39869a157374cee760f47e0877030c4476a12fb23139c15c83cbc21a58ddb8806a30c2510d8fd163429a28368ec3bb4b39e28cb8e8a5be910d50bf8da7bde2015fc30f9f90f7b20ad799bd123b520480f6314b5a776c222945888981467420ff3612ad74703eceaab659db4ade5ac759758d51178f06631568a87c11ec616532614d7e9a3c83db1a1ef51cc0af24528ea2c7b873644693065515c492d5584e77ce45479481d027d8f56f804e74da4a0e4002336139feb3e8feef50540997c817bb34f718753749c74bb37a9a24d005cafdcae312daaa561a3bcf456740487cf3851a9cfac663feb6f3b586033d826fd6482f0ac0636dab040c86f415f801d5ec9ac91857d9e99f6b7b9404925e4c1083427cbe86e777c3b5c68fbac260c5a271b5a7d4ebb083b578d30f789217543e599914b71a1b87515de33329f4444e4debf3131b7f</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Abbreviation of my love.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>diary</category>
+      </categories>
+      <tags>
+        <tag>health</tag>
       </tags>
   </entry>
   <entry>
@@ -450,6 +400,80 @@
       </categories>
       <tags>
         <tag>es</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx upstream配置说明负载均衡</title>
+    <url>/2022/01/17/nginx/</url>
+    <content><![CDATA[<p><img src="http://tva1.sinaimg.cn/mw690/006s5QLMly1gygfkmfk8nj31hc0u07ij.jpg" alt="wallhaven-mp8dmm.jpeg"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
+<blockquote>
+<p>假设Nginx只能代理一台服务器的话，那它也不可能像今天这么火。Nginx能够配置代理多台服务器。当一台服务器宕机之后。仍能保持系统可用。详细配置步骤例如以下：</p>
+</blockquote>
+<ol>
+<li>在http节点下，加入upstream节点。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc &#123; </span><br><span class="line">      server 10.0.6.108:7080; </span><br><span class="line">      server 10.0.0.85:8980; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>将server节点下的location节点中的proxy_pass配置为：http:// + upstream名称，即</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">location / &#123; </span><br><span class="line">            root  html; </span><br><span class="line">            index  index.html index.htm; </span><br><span class="line">            proxy_pass http:<span class="comment">//linuxidc; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>如今负载均衡初步完毕了。upstream依照轮询（默认）方式进行负载，每一个请求按时间顺序逐一分配到不同的后端服务器。假设后端服务器down掉。能自己主动剔除。尽管这样的方式简便、成本低廉。但缺点是：可靠性低和负载分配不均衡。</li>
+</ol>
+<p>适用于图片服务器集群和纯静态页面服务器集群。 除此之外，upstream还有其他的分配策略，分别例如以下：<strong>weight（权重）</strong>指定轮询几率，weight和訪问比率成正比，用于后端服务器性能不均的情况。例如以下所看到的。10.0.0.88的訪问比率要比10.0.0.77的訪问比率高一倍。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc&#123; </span><br><span class="line">      server 10.0.0.77 weight&#x3D;5; </span><br><span class="line">      server 10.0.0.88 weight&#x3D;10; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ip_hash（访问ip）</strong>， 每一个请求按訪问ip的hash结果分配。这样每一个訪客固定訪问一个后端服务器，能够解决session的问题。</p>
+<blockquote>
+<p> ip_hash还能和weight共用，详见最下面。但是在nginx版本1.3.1之前，不能在ip_hash中使用权重（weight）。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream favresin&#123; </span><br><span class="line">     ip_hash; </span><br><span class="line">     server 10.0.0.10:8080; </span><br><span class="line">     server 10.0.0.11:8080; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>fair（第三方）</strong>，按后端服务器的响应时间来分配请求。响应时间短的优先分配。与weight分配策略相似。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> upstream favresin&#123;      </span><br><span class="line">      server 10.0.0.10:8080; </span><br><span class="line">      server 10.0.0.11:8080; </span><br><span class="line">      fair; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>所有方式</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">轮询</th>
+<th align="center">方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">weight</td>
+<td align="center">权重方式</td>
+</tr>
+<tr>
+<td align="center">ip_hash</td>
+<td align="center">依据ip分配方式</td>
+</tr>
+<tr>
+<td align="center">least_conn</td>
+<td align="center">最少连接方式</td>
+</tr>
+<tr>
+<td align="center">fair(第三方)</td>
+<td align="center">相应时间方式</td>
+</tr>
+<tr>
+<td align="center">url_hash(第三方)</td>
+<td align="center">依据url分配方式</td>
+</tr>
+</tbody></table>
+<p>upstream还能够为每一个设备设置状态值，这些状态值的含义分别例如以下：</p>
+<ol>
+<li>down 表示单前的server临时不參与负载.</li>
+<li>weight 默觉得1.weight越大，负载的权重就越大。</li>
+<li>max_fails ：同意请求失败的次数默觉得1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误.</li>
+<li>fail_timeout : max_fails次失败后。暂停的时间。</li>
+</ol>
+<p><strong>backup：</strong> 其他全部的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream bakend&#123; <span class="comment">#定义负载均衡设备的Ip及设备状态 </span></span><br><span class="line">      ip_hash; </span><br><span class="line">      server 10.0.0.11:9090 down; </span><br><span class="line">      server 10.0.0.11:8080 weight=2; </span><br><span class="line">      server 10.0.0.11:6060; </span><br><span class="line">      server 10.0.0.11:7070 backup; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>nginx</tag>
       </tags>
   </entry>
   <entry>
