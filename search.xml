@@ -1,55 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>HashMap小析</title>
-    <url>/2018/06/07/HashMap/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9an9eebj31ts0zwhdw.jpg" alt="bmw.png"><br>原文：<br><a href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
-<h3 id="HashMap的设计原理"><a href="#HashMap的设计原理" class="headerlink" title="HashMap的设计原理"></a>HashMap的设计原理</h3><p>Map&lt;K,V&gt;是一种以键值对存储数据的容器，而HashMap则是借助了键值Key的hashcode值来组织存储，使得可以非常快速和高效地地根据key进行数据的存取。</p>
-<h4 id="HashMap设计思路"><a href="#HashMap设计思路" class="headerlink" title="HashMap设计思路"></a>HashMap设计思路</h4><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8l746nbj30e80bb0sy.jpg"><br>对于键值对&lt;Key,Value&gt;，HashMap内部会将其封装成一个对应的Entry&lt;Key,Value&gt;对象，即Entry&lt;Key,Value&gt;对象是键值对&lt;Key,Value&gt;的组织形式；<br><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8lqbsgzj30f10co75l.jpg"><br>对于每个对象而言，JVM都会为其生成一个hashcode值。HashMap在存储键值对Entry&lt;Key,Value&gt;的时候，会根据Key的hashcode值，以某种映射关系，决定应当将这对键值对Entry&lt;Key,Value&gt;存储在HashMap中的什么位置上；<br>的Value值存放在什么位置，可以非常高效地将Value值取出。</p>
-<h4 id="HashMap的数据结构"><a href="#HashMap的数据结构" class="headerlink" title="HashMap的数据结构"></a>HashMap的数据结构</h4><p>数据结构中有数组和链表来实现对数据的存储，但这两者各有利弊。</p>
-<p>数组:<br>            数组存储区间是连续的，占用内存严重，故空间复杂度大。但数组的二分查找时间复杂度小，为O(1)；<br>            数组特点：寻址容易，插入和删除困难；</p>
-<p>链表:<br>            链表存储区间离散，占用内存比较宽松，故空间复杂度很小，但时间复杂度很大，达O（N）。<br>            链表特点：寻址困难，插入和删除容易。</p>
-<p>哈希表:<br>              那么我们综合两者的特性，做出一种寻址容易，插入删除也容易的数据结构，这就是哈希表。哈希表（(Hash table）既满足了数据的查找方便，同时不占用太多的内存空间，使用也十分方便。  </p>
-<p>哈希表有多种不同的实现方法，HashMap则使用的是拉链法，也叫作【链地址法】；</p>
-<h4 id="HashMap实现"><a href="#HashMap实现" class="headerlink" title="HashMap实现"></a>HashMap实现</h4><p>哈希表是由数组+链表组成的，一个长度为16的数组中，每个元素存储的是一个链表的头结点。那么这些元素是按照什么样的规则存储到数组中呢?<br>一般情况是通过hash(key)%len获得，也就是元素的key的哈希值对数组长度取模得到。比如上述哈希表中:<br> 12%16=12,   28%16=12,  108%16=12,  140%16=12</p>
-<p>所以12、28、108以及140都存储在数组下标为12的位置。</p>
-<p>　　HashMap其实也是一个线性的数组实现的,所以可以理解为其存储数据的容器就是一个线性数组。这可能让我们很不解，一个线性的数组怎么实现按键值对来存取数据呢？这里HashMap有做一些处理。</p>
-<h2 id="数组和链表"><a href="#数组和链表" class="headerlink" title="数组和链表"></a>数组和链表</h2><h3 id="拿几个人一起去看电影时坐座位为例"><a href="#拿几个人一起去看电影时坐座位为例" class="headerlink" title="拿几个人一起去看电影时坐座位为例"></a>拿几个人一起去看电影时坐座位为例</h3><h4 id="数组的特点"><a href="#数组的特点" class="headerlink" title="数组的特点"></a>数组的特点</h4><p>在内存中，数组是一块连续的区域。 拿上面的看电影来说，这几个人在电影院必须坐在一起。<br>数组需要预留空间，在使用前要先申请占内存的大小，可能会浪费内存空间。 比如看电影时，为了保证10个人能坐在一起，必须提前订好10个连续的位置。这样的好处就是能保证10个人可以在一起。但是这样的缺点是，如果来的人不够10个，那么剩下的位置就浪费了。如果临时有多来了个人，那么10个就不够用了，这时可能需要将第11个位置上的人挪走，或者是他们11个人重新去找一个11连坐的位置，效率都很低。如果没有找到符合要求的作为，那么就没法坐了。</p>
-<blockquote>
-<p>插入数据和删除数据效率低，插入数据时，这个位置后面的数据在内存中都要向后移。删除数据时，这个数据后面的数据都要往前移动。 比如原来去了5个人，然后后来又去了一个人要坐在第三个位置上，那么第三个到第五个都要往后移动一个位子，将第三个位置留给新来的人。 当这个人走了的时候，因为他们要连在一起的，所以他后面几个人要往前移动一个位置，把这个空位补上。<br>随机读取效率很高。因为数组是连续的，知道每一个数据的内存地址，可以直接找到给地址的数据。<br>并且不利于扩展，数组定义的空间不够时要重新定义数组。</p>
-</blockquote>
-<h4 id="链表的特点"><a href="#链表的特点" class="headerlink" title="链表的特点"></a>链表的特点</h4><p>在内存中可以存在任何地方，不要求连续。 在电影院几个人可以随便坐。<br>每一个数据都保存了下一个数据的内存地址，通过这个地址找到下一个数据。 第一个人知道第二个人的座位号，第二个人知道第三个人的座位号……<br>增加数据和删除数据很容易。 再来个人可以随便坐，比如来了个人要做到第三个位置，那他只需要把自己的位置告诉第二个人，然后问第二个人拿到原来第三个人的位置就行了。其他人都不用动。</p>
-<blockquote>
-<p>查找数据时效率低，因为不具有随机访问性，所以访问某个位置的数据都要从第一个数据开始访问，然后根据第一个数据保存的下一个数据的地址找到第二个数据，以此类推。 要找到第三个人，必须从第一个人开始问起。<br>不指定大小，扩展方便。链表大小不用定义，数据随意增删。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="left">-</th>
-<th align="right">数组</th>
-<th align="center">链表</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">读取</td>
-<td align="right">O(1)</td>
-<td align="center">O(n)</td>
-</tr>
-<tr>
-<td align="left">插入、删除</td>
-<td align="right">O(n)</td>
-<td align="center">O(1)</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>Java原理</category>
-      </categories>
-      <tags>
-        <tag>HashMap</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>bind(this)</title>
     <url>/2019/01/20/bind(this)/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpg" alt="beijing1.png"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
@@ -71,18 +22,6 @@
       </tags>
   </entry>
   <entry>
-    <title>计算机网络</title>
-    <url>/2018/06/07/computer/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9bi001lj31mi11g4qt.jpg" alt="illustration.png"></p>
-<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegrvm16uj30fm0b8dh5.jpg"></p>
-<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
-<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次v，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
-<blockquote>
-<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
-</blockquote>
-]]></content>
-  </entry>
-  <entry>
     <title>如何发布blog</title>
     <url>/2014/12/22/hello-world/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9azfjh0j31di0vke82.jpg" alt="stocking.png"><br>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -99,6 +38,70 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络</title>
+    <url>/2018/06/07/computer/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9bi001lj31mi11g4qt.jpg" alt="illustration.png"></p>
+<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegrvm16uj30fm0b8dh5.jpg"></p>
+<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
+<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次v，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
+<blockquote>
+<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
+    <title>blog</title>
+    <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg" alt="panan.png"></p>
+<blockquote>
+<p>全程都是基于npm，没有使用git方式（除了hexo deploy）</p>
+</blockquote>
+<blockquote>
+<p>基于最新的hexo和next主题升级博客，主要是把配置分离_config.yml 和 _config.next.yml；这样就可以方便hexo和next升级，解决之前升级版本得调很多东西，并且更加简单使用。</p>
+</blockquote>
+<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
+<li><a href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
+<p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
+<li>pjax：这个暂时关闭，因为与gitalk冲突</li>
+<li>darkmode：可以根据夜晚变黑</li>
+<li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
+<li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
+<li><a href="https://blog.csdn.net/qq_43701912/article/details/107018127">加密</a><br><a href="https://github.com/D0n9X1n/hexo-blog-encrypt#encrypt-theme">改进后官方方法</a><br>为了适配微信内置浏览器，只能使用默认主题</li>
+<li><a href="https://github.com/iissnan/hexo-theme-next/issues/1742">顶部按钮跟那个百分比</a></li>
+</ul>
+<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
+<li>如果没写日期，会默认使用创建日期和修改日期</li>
+</ul>
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><ul>
+<li>统计紫薯和阅读量（因为阅读量不多）</li>
+<li>谷歌搜索（等文章量上来）</li>
+<li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
+</ul>
+<h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>blog</category>
       </categories>
@@ -167,58 +170,6 @@
       </tags>
   </entry>
   <entry>
-    <title>blog</title>
-    <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg" alt="panan.png"></p>
-<blockquote>
-<p>全程都是基于npm，没有使用git方式（除了hexo deploy）</p>
-</blockquote>
-<blockquote>
-<p>基于最新的hexo和next主题升级博客，主要是把配置分离_config.yml 和 _config.next.yml；这样就可以方便hexo和next升级，解决之前升级版本得调很多东西，并且更加简单使用。</p>
-</blockquote>
-<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
-<li><a href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
-<li><a href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><a href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
-
-<h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
-<p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
-<li>pjax：这个暂时关闭，因为与gitalk冲突</li>
-<li>darkmode：可以根据夜晚变黑</li>
-<li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
-<li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
-<li><a href="https://blog.csdn.net/qq_43701912/article/details/107018127">加密</a><br><a href="https://github.com/D0n9X1n/hexo-blog-encrypt#encrypt-theme">改进后官方方法</a><br>为了适配微信内置浏览器，只能使用默认主题</li>
-<li><a href="https://github.com/iissnan/hexo-theme-next/issues/1742">顶部按钮跟那个百分比</a></li>
-</ul>
-<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
-<li>如果没写日期，会默认使用创建日期和修改日期</li>
-</ul>
-<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><ul>
-<li>统计紫薯和阅读量（因为阅读量不多）</li>
-<li>谷歌搜索（等文章量上来）</li>
-<li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
-</ul>
-<h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Markdown示例</title>
     <url>/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fn94zj31b1j30zk0k0wgu.jpg"></p>
@@ -282,80 +233,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Nginx upstream配置说明负载均衡</title>
-    <url>/2022/01/17/nginx/</url>
-    <content><![CDATA[<p><img src="http://tva1.sinaimg.cn/mw690/006s5QLMly1gygfkmfk8nj31hc0u07ij.jpg" alt="wallhaven-mp8dmm.jpeg"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
-<blockquote>
-<p>假设Nginx只能代理一台服务器的话，那它也不可能像今天这么火。Nginx能够配置代理多台服务器。当一台服务器宕机之后。仍能保持系统可用。详细配置步骤例如以下：</p>
-</blockquote>
-<ol>
-<li>在http节点下，加入upstream节点。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc &#123; </span><br><span class="line">      server 10.0.6.108:7080; </span><br><span class="line">      server 10.0.0.85:8980; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>将server节点下的location节点中的proxy_pass配置为：http:// + upstream名称，即</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">location / &#123; </span><br><span class="line">            root  html; </span><br><span class="line">            index  index.html index.htm; </span><br><span class="line">            proxy_pass http:<span class="comment">//linuxidc; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>如今负载均衡初步完毕了。upstream依照轮询（默认）方式进行负载，每一个请求按时间顺序逐一分配到不同的后端服务器。假设后端服务器down掉。能自己主动剔除。尽管这样的方式简便、成本低廉。但缺点是：可靠性低和负载分配不均衡。</li>
-</ol>
-<p>适用于图片服务器集群和纯静态页面服务器集群。 除此之外，upstream还有其他的分配策略，分别例如以下：<strong>weight（权重）</strong>指定轮询几率，weight和訪问比率成正比，用于后端服务器性能不均的情况。例如以下所看到的。10.0.0.88的訪问比率要比10.0.0.77的訪问比率高一倍。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc&#123; </span><br><span class="line">      server 10.0.0.77 weight&#x3D;5; </span><br><span class="line">      server 10.0.0.88 weight&#x3D;10; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>ip_hash（访问ip）</strong>， 每一个请求按訪问ip的hash结果分配。这样每一个訪客固定訪问一个后端服务器，能够解决session的问题。</p>
-<blockquote>
-<p> ip_hash还能和weight共用，详见最下面。但是在nginx版本1.3.1之前，不能在ip_hash中使用权重（weight）。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream favresin&#123; </span><br><span class="line">     ip_hash; </span><br><span class="line">     server 10.0.0.10:8080; </span><br><span class="line">     server 10.0.0.11:8080; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>fair（第三方）</strong>，按后端服务器的响应时间来分配请求。响应时间短的优先分配。与weight分配策略相似。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> upstream favresin&#123;      </span><br><span class="line">      server 10.0.0.10:8080; </span><br><span class="line">      server 10.0.0.11:8080; </span><br><span class="line">      fair; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>所有方式</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">轮询</th>
-<th align="center">方式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">weight</td>
-<td align="center">权重方式</td>
-</tr>
-<tr>
-<td align="center">ip_hash</td>
-<td align="center">依据ip分配方式</td>
-</tr>
-<tr>
-<td align="center">least_conn</td>
-<td align="center">最少连接方式</td>
-</tr>
-<tr>
-<td align="center">fair(第三方)</td>
-<td align="center">相应时间方式</td>
-</tr>
-<tr>
-<td align="center">url_hash(第三方)</td>
-<td align="center">依据url分配方式</td>
-</tr>
-</tbody></table>
-<p>upstream还能够为每一个设备设置状态值，这些状态值的含义分别例如以下：</p>
-<ol>
-<li>down 表示单前的server临时不參与负载.</li>
-<li>weight 默觉得1.weight越大，负载的权重就越大。</li>
-<li>max_fails ：同意请求失败的次数默觉得1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误.</li>
-<li>fail_timeout : max_fails次失败后。暂停的时间。</li>
-</ol>
-<p><strong>backup：</strong> 其他全部的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream bakend&#123; <span class="comment">#定义负载均衡设备的Ip及设备状态 </span></span><br><span class="line">      ip_hash; </span><br><span class="line">      server 10.0.0.11:9090 down; </span><br><span class="line">      server 10.0.0.11:8080 weight=2; </span><br><span class="line">      server 10.0.0.11:6060; </span><br><span class="line">      server 10.0.0.11:7070 backup; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>vue父子传值</title>
     <url>/2020/06/21/vue%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/</url>
     <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8ipk65ej31rq13ae82.jpg" alt="shenghua.png"><br>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
@@ -395,6 +272,55 @@
       </categories>
       <tags>
         <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HashMap小析</title>
+    <url>/2018/06/07/HashMap/</url>
+    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9an9eebj31ts0zwhdw.jpg" alt="bmw.png"><br>原文：<br><a href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
+<h3 id="HashMap的设计原理"><a href="#HashMap的设计原理" class="headerlink" title="HashMap的设计原理"></a>HashMap的设计原理</h3><p>Map&lt;K,V&gt;是一种以键值对存储数据的容器，而HashMap则是借助了键值Key的hashcode值来组织存储，使得可以非常快速和高效地地根据key进行数据的存取。</p>
+<h4 id="HashMap设计思路"><a href="#HashMap设计思路" class="headerlink" title="HashMap设计思路"></a>HashMap设计思路</h4><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8l746nbj30e80bb0sy.jpg"><br>对于键值对&lt;Key,Value&gt;，HashMap内部会将其封装成一个对应的Entry&lt;Key,Value&gt;对象，即Entry&lt;Key,Value&gt;对象是键值对&lt;Key,Value&gt;的组织形式；<br><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8lqbsgzj30f10co75l.jpg"><br>对于每个对象而言，JVM都会为其生成一个hashcode值。HashMap在存储键值对Entry&lt;Key,Value&gt;的时候，会根据Key的hashcode值，以某种映射关系，决定应当将这对键值对Entry&lt;Key,Value&gt;存储在HashMap中的什么位置上；<br>的Value值存放在什么位置，可以非常高效地将Value值取出。</p>
+<h4 id="HashMap的数据结构"><a href="#HashMap的数据结构" class="headerlink" title="HashMap的数据结构"></a>HashMap的数据结构</h4><p>数据结构中有数组和链表来实现对数据的存储，但这两者各有利弊。</p>
+<p>数组:<br>            数组存储区间是连续的，占用内存严重，故空间复杂度大。但数组的二分查找时间复杂度小，为O(1)；<br>            数组特点：寻址容易，插入和删除困难；</p>
+<p>链表:<br>            链表存储区间离散，占用内存比较宽松，故空间复杂度很小，但时间复杂度很大，达O（N）。<br>            链表特点：寻址困难，插入和删除容易。</p>
+<p>哈希表:<br>              那么我们综合两者的特性，做出一种寻址容易，插入删除也容易的数据结构，这就是哈希表。哈希表（(Hash table）既满足了数据的查找方便，同时不占用太多的内存空间，使用也十分方便。  </p>
+<p>哈希表有多种不同的实现方法，HashMap则使用的是拉链法，也叫作【链地址法】；</p>
+<h4 id="HashMap实现"><a href="#HashMap实现" class="headerlink" title="HashMap实现"></a>HashMap实现</h4><p>哈希表是由数组+链表组成的，一个长度为16的数组中，每个元素存储的是一个链表的头结点。那么这些元素是按照什么样的规则存储到数组中呢?<br>一般情况是通过hash(key)%len获得，也就是元素的key的哈希值对数组长度取模得到。比如上述哈希表中:<br> 12%16=12,   28%16=12,  108%16=12,  140%16=12</p>
+<p>所以12、28、108以及140都存储在数组下标为12的位置。</p>
+<p>　　HashMap其实也是一个线性的数组实现的,所以可以理解为其存储数据的容器就是一个线性数组。这可能让我们很不解，一个线性的数组怎么实现按键值对来存取数据呢？这里HashMap有做一些处理。</p>
+<h2 id="数组和链表"><a href="#数组和链表" class="headerlink" title="数组和链表"></a>数组和链表</h2><h3 id="拿几个人一起去看电影时坐座位为例"><a href="#拿几个人一起去看电影时坐座位为例" class="headerlink" title="拿几个人一起去看电影时坐座位为例"></a>拿几个人一起去看电影时坐座位为例</h3><h4 id="数组的特点"><a href="#数组的特点" class="headerlink" title="数组的特点"></a>数组的特点</h4><p>在内存中，数组是一块连续的区域。 拿上面的看电影来说，这几个人在电影院必须坐在一起。<br>数组需要预留空间，在使用前要先申请占内存的大小，可能会浪费内存空间。 比如看电影时，为了保证10个人能坐在一起，必须提前订好10个连续的位置。这样的好处就是能保证10个人可以在一起。但是这样的缺点是，如果来的人不够10个，那么剩下的位置就浪费了。如果临时有多来了个人，那么10个就不够用了，这时可能需要将第11个位置上的人挪走，或者是他们11个人重新去找一个11连坐的位置，效率都很低。如果没有找到符合要求的作为，那么就没法坐了。</p>
+<blockquote>
+<p>插入数据和删除数据效率低，插入数据时，这个位置后面的数据在内存中都要向后移。删除数据时，这个数据后面的数据都要往前移动。 比如原来去了5个人，然后后来又去了一个人要坐在第三个位置上，那么第三个到第五个都要往后移动一个位子，将第三个位置留给新来的人。 当这个人走了的时候，因为他们要连在一起的，所以他后面几个人要往前移动一个位置，把这个空位补上。<br>随机读取效率很高。因为数组是连续的，知道每一个数据的内存地址，可以直接找到给地址的数据。<br>并且不利于扩展，数组定义的空间不够时要重新定义数组。</p>
+</blockquote>
+<h4 id="链表的特点"><a href="#链表的特点" class="headerlink" title="链表的特点"></a>链表的特点</h4><p>在内存中可以存在任何地方，不要求连续。 在电影院几个人可以随便坐。<br>每一个数据都保存了下一个数据的内存地址，通过这个地址找到下一个数据。 第一个人知道第二个人的座位号，第二个人知道第三个人的座位号……<br>增加数据和删除数据很容易。 再来个人可以随便坐，比如来了个人要做到第三个位置，那他只需要把自己的位置告诉第二个人，然后问第二个人拿到原来第三个人的位置就行了。其他人都不用动。</p>
+<blockquote>
+<p>查找数据时效率低，因为不具有随机访问性，所以访问某个位置的数据都要从第一个数据开始访问，然后根据第一个数据保存的下一个数据的地址找到第二个数据，以此类推。 要找到第三个人，必须从第一个人开始问起。<br>不指定大小，扩展方便。链表大小不用定义，数据随意增删。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">-</th>
+<th align="right">数组</th>
+<th align="center">链表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">读取</td>
+<td align="right">O(1)</td>
+<td align="center">O(n)</td>
+</tr>
+<tr>
+<td align="left">插入、删除</td>
+<td align="right">O(n)</td>
+<td align="center">O(1)</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>Java原理</category>
+      </categories>
+      <tags>
+        <tag>HashMap</tag>
       </tags>
   </entry>
   <entry>
@@ -483,6 +409,80 @@
       </categories>
       <tags>
         <tag>computer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx upstream配置说明负载均衡</title>
+    <url>/2022/01/17/nginx/</url>
+    <content><![CDATA[<p><img src="http://tva1.sinaimg.cn/mw690/006s5QLMly1gygfkmfk8nj31hc0u07ij.jpg" alt="wallhaven-mp8dmm.jpeg"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
+<blockquote>
+<p>假设Nginx只能代理一台服务器的话，那它也不可能像今天这么火。Nginx能够配置代理多台服务器。当一台服务器宕机之后。仍能保持系统可用。详细配置步骤例如以下：</p>
+</blockquote>
+<ol>
+<li>在http节点下，加入upstream节点。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc &#123; </span><br><span class="line">      server 10.0.6.108:7080; </span><br><span class="line">      server 10.0.0.85:8980; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>将server节点下的location节点中的proxy_pass配置为：http:// + upstream名称，即</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">location / &#123; </span><br><span class="line">            root  html; </span><br><span class="line">            index  index.html index.htm; </span><br><span class="line">            proxy_pass http:<span class="comment">//linuxidc; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>如今负载均衡初步完毕了。upstream依照轮询（默认）方式进行负载，每一个请求按时间顺序逐一分配到不同的后端服务器。假设后端服务器down掉。能自己主动剔除。尽管这样的方式简便、成本低廉。但缺点是：可靠性低和负载分配不均衡。</li>
+</ol>
+<p>适用于图片服务器集群和纯静态页面服务器集群。 除此之外，upstream还有其他的分配策略，分别例如以下：<strong>weight（权重）</strong>指定轮询几率，weight和訪问比率成正比，用于后端服务器性能不均的情况。例如以下所看到的。10.0.0.88的訪问比率要比10.0.0.77的訪问比率高一倍。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc&#123; </span><br><span class="line">      server 10.0.0.77 weight&#x3D;5; </span><br><span class="line">      server 10.0.0.88 weight&#x3D;10; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ip_hash（访问ip）</strong>， 每一个请求按訪问ip的hash结果分配。这样每一个訪客固定訪问一个后端服务器，能够解决session的问题。</p>
+<blockquote>
+<p> ip_hash还能和weight共用，详见最下面。但是在nginx版本1.3.1之前，不能在ip_hash中使用权重（weight）。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream favresin&#123; </span><br><span class="line">     ip_hash; </span><br><span class="line">     server 10.0.0.10:8080; </span><br><span class="line">     server 10.0.0.11:8080; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>fair（第三方）</strong>，按后端服务器的响应时间来分配请求。响应时间短的优先分配。与weight分配策略相似。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> upstream favresin&#123;      </span><br><span class="line">      server 10.0.0.10:8080; </span><br><span class="line">      server 10.0.0.11:8080; </span><br><span class="line">      fair; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>所有方式</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">轮询</th>
+<th align="center">方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">weight</td>
+<td align="center">权重方式</td>
+</tr>
+<tr>
+<td align="center">ip_hash</td>
+<td align="center">依据ip分配方式</td>
+</tr>
+<tr>
+<td align="center">least_conn</td>
+<td align="center">最少连接方式</td>
+</tr>
+<tr>
+<td align="center">fair(第三方)</td>
+<td align="center">相应时间方式</td>
+</tr>
+<tr>
+<td align="center">url_hash(第三方)</td>
+<td align="center">依据url分配方式</td>
+</tr>
+</tbody></table>
+<p>upstream还能够为每一个设备设置状态值，这些状态值的含义分别例如以下：</p>
+<ol>
+<li>down 表示单前的server临时不參与负载.</li>
+<li>weight 默觉得1.weight越大，负载的权重就越大。</li>
+<li>max_fails ：同意请求失败的次数默觉得1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误.</li>
+<li>fail_timeout : max_fails次失败后。暂停的时间。</li>
+</ol>
+<p><strong>backup：</strong> 其他全部的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream bakend&#123; <span class="comment">#定义负载均衡设备的Ip及设备状态 </span></span><br><span class="line">      ip_hash; </span><br><span class="line">      server 10.0.0.11:9090 down; </span><br><span class="line">      server 10.0.0.11:8080 weight=2; </span><br><span class="line">      server 10.0.0.11:6060; </span><br><span class="line">      server 10.0.0.11:7070 backup; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>nginx</tag>
       </tags>
   </entry>
   <entry>
