@@ -1,285 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>bind(this)</title>
-    <url>/2019/01/20/bind(this)/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpg" alt="beijing1.png"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
-<blockquote>
-<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
-</blockquote>
-<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
-<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>如何发布blog</title>
-    <url>/2014/12/22/hello-world/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9azfjh0j31di0vke82.jpg" alt="stocking.png"><br>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机网络</title>
-    <url>/2018/06/07/computer/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9bi001lj31mi11g4qt.jpg" alt="illustration.png"></p>
-<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegrvm16uj30fm0b8dh5.jpg"></p>
-<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
-<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次v，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
-<blockquote>
-<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
-</blockquote>
-]]></content>
-  </entry>
-  <entry>
-    <title>blog</title>
-    <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg" alt="panan.png"></p>
-<blockquote>
-<p>全程都是基于npm，没有使用git方式（除了hexo deploy）</p>
-</blockquote>
-<blockquote>
-<p>基于最新的hexo和next主题升级博客，主要是把配置分离_config.yml 和 _config.next.yml；这样就可以方便hexo和next升级，解决之前升级版本得调很多东西，并且更加简单使用。</p>
-</blockquote>
-<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
-<li><a href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
-<li><a href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><a href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
-
-<h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
-<p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
-<li>pjax：这个暂时关闭，因为与gitalk冲突</li>
-<li>darkmode：可以根据夜晚变黑</li>
-<li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
-<li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
-<li><a href="https://blog.csdn.net/qq_43701912/article/details/107018127">加密</a><br><a href="https://github.com/D0n9X1n/hexo-blog-encrypt#encrypt-theme">改进后官方方法</a><br>为了适配微信内置浏览器，只能使用默认主题</li>
-<li><a href="https://github.com/iissnan/hexo-theme-next/issues/1742">顶部按钮跟那个百分比</a></li>
-</ul>
-<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
-<li>如果没写日期，会默认使用创建日期和修改日期</li>
-</ul>
-<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><ul>
-<li>统计紫薯和阅读量（因为阅读量不多）</li>
-<li>谷歌搜索（等文章量上来）</li>
-<li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
-</ul>
-<h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java只有值传递</title>
-    <url>/2021/05/11/java%E5%8F%AA%E6%9C%89%E5%80%BC%E4%BC%A0%E9%80%92/</url>
-    <content><![CDATA[<p><img src="http://tva1.sinaimg.cn/mw690/006s5QLMly1gygfeof883j31hc0u148a.jpg" alt="wallhaven-3zgk8d.jpeg"></p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Java中只有值传递</p>
-<ol>
-<li><a href="https://blog.csdn.net/Coding_Zhu/article/details/53096178">基本数据类型</a>参数传值：就是你cv我</li>
-<li>引用数据类型参数传值：你cv了我的”对象的地址”：<blockquote>
-<p>具体点就是你复制了一个新的栈，但指针指向相同的堆内容，只要你不拆我家，那么咱俩都不变；你若改了，那我也改了。有点像引用传递，但是不是(咱俩是两个栈)只是恰好这种机制用了一个堆内存。</p>
-</blockquote>
-</li>
-</ol>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
-<li><strong>值传递</strong>（pass by value）是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。</li>
-</ul>
-<ul>
-<li><p><strong>引用传递</strong>（pass by reference）是指在调用函数时将实际参数的地址直接传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
-</li>
-<li><p>简单粗暴</p>
-<blockquote>
-<p>值传递： 就是我不变，你cv了我，你和我同值，你模仿我</p>
-</blockquote>
-<blockquote>
-<p>引用传递：就是把我给你了</p>
-</blockquote>
-</li>
-<li><p>理解</p>
-</li>
-</ul>
-<blockquote>
-<p>你有一把钥匙，当你的朋友想要去你家的时候，如果你直接把你的钥匙给他了，这就是<code>引用传递</code>。这种情况下，如果他对这把钥匙做了什么事情，比如他在钥匙上刻下了自己名字，那么这把钥匙还给你的时候，你自己的钥匙上也会多出他刻的名字。</p>
-</blockquote>
-<blockquote>
-<p>你有一把钥匙，当你的朋友想要去你家的时候，你复刻了一把新钥匙给他，自己的还在自己手里，这就是<code>值传递</code>。这种情况下，他对这把钥匙做什么都不会影响你手里的这把钥匙。</p>
-</blockquote>
-<blockquote>
-<p>但是在引用数据类型传值时：你的朋友拿着你给他的钥匙，进到你的家里，把你家的电视砸了。那你说你会不会受到影响？而我们在pass方法中，改变user对象的name属性的值的时候，不就是在“砸电视”么。你改变的不是那把钥匙，而是钥匙打开的房子。</p>
-</blockquote>
-<h3 id="题海"><a href="#题海" class="headerlink" title="题海"></a>题海</h3><h4 id="1"><a href="#1" class="headerlink" title="1"></a>1</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">   pt.pass(i );</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , i is &quot;</span> + i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">   j = <span class="number">20</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , j is &quot;</span> + j);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// print in pass , j is 20</span></span><br><span class="line"><span class="comment">// print in main , i is 10</span></span><br></pre></td></tr></table></figure>
-<h4 id="2"><a href="#2" class="headerlink" title="2"></a>2</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
-<h4 id="3"><a href="#3" class="headerlink" title="3"></a>3</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   String name = <span class="string">&quot;Hollis&quot;</span>;</span><br><span class="line">   pt.pass(name);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">   name = <span class="string">&quot;hollischuang&quot;</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , name is hollischuang</span></span><br><span class="line"><span class="comment">//print in main , name is Hollis</span></span><br></pre></td></tr></table></figure>
-<h4 id="4"><a href="#4" class="headerlink" title="4"></a>4</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user = <span class="keyword">new</span> User();</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   user.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;Hollis&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
-<h4 id="5"><a href="#5" class="headerlink" title="5"></a>5</h4><p>  <img src="http://ww1.sinaimg.cn/mw690/006s5QLMly1gqea9d2d6ej32c03404r6.jpg" alt="image.png"></p>
-<h4 id="6"><a href="#6" class="headerlink" title="6"></a>6</h4><p>  <img src="http://ww1.sinaimg.cn/large/006s5QLMly1gqeaadsan8j30ot0j1di6.jpg" alt="1E8A031C0E93464DBE0C529325EFD0E2.jpeg"></p>
-<h4 id="7"><a href="#7" class="headerlink" title="7"></a>7</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> X = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateVlue</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;  <span class="comment">// 传入基本数据类型</span></span><br><span class="line">       value = value + <span class="number">1</span>;</span><br><span class="line">       System.out.println(<span class="string">&quot;变量value: &quot;</span>+value);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateObject</span><span class="params">(Person person)</span></span>&#123; <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person E = person;</span><br><span class="line">       E.setAge(<span class="number">21</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swapObject</span><span class="params">(Person A,Person B)</span></span>&#123;  <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person C = A;</span><br><span class="line">       A = B;</span><br><span class="line">       B = C;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 例子 1</span></span><br><span class="line">       Main main = <span class="keyword">new</span> Main();</span><br><span class="line">       <span class="keyword">int</span> X = <span class="number">1</span>;</span><br><span class="line">       main.updateVlue(X);</span><br><span class="line">       System.out.println(<span class="string">&quot;X 的值：&quot;</span>+X); <span class="comment">// X = 1</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 2</span></span><br><span class="line">       Person A = <span class="keyword">new</span> Person(<span class="string">&quot;张三&quot;</span>,<span class="number">20</span>);</span><br><span class="line">       main.updateObject(A);</span><br><span class="line">       System.out.println(<span class="string">&quot;A: &quot;</span>+A.toString());  <span class="comment">// A: Person&#123;name=&#x27;张三&#x27;, age=21&#125;</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 3</span></span><br><span class="line">       Person C = <span class="keyword">new</span> Person(<span class="string">&quot;C&quot;</span>,<span class="number">10</span>);</span><br><span class="line">       Person D = <span class="keyword">new</span> Person(<span class="string">&quot;D&quot;</span>,<span class="number">15</span>);</span><br><span class="line">       main.swapObject(C,D);</span><br><span class="line">       System.out.println(<span class="string">&quot;C: &quot;</span>+ C.toString());  <span class="comment">// C: Person&#123;name=&#x27;C&#x27;, age=10&#125;</span></span><br><span class="line">       System.out.println(<span class="string">&quot;D: &quot;</span>+ D.toString());  <span class="comment">// D: Person&#123;name=&#x27;D&#x27;, age=15&#125;</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="8"><a href="#8" class="headerlink" title="8"></a>8</h4><p>  <img src="http://ww1.sinaimg.cn/mw690/006s5QLMly1gqeak3tmi4j30tz140tda.jpg" alt="1591620700970_.pic.jpg"></p>
-<h4 id="9"><a href="#9" class="headerlink" title="9"></a>9</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">test3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String a = <span class="string">&quot;123&quot;</span>;</span><br><span class="line">        doTest3(a);</span><br><span class="line">        <span class="keyword">return</span> TextUtils.equals(<span class="string">&quot;123&quot;</span>, a);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doTest3</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        str = str + <span class="string">&quot;123&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// true :return TextUtils.equals(&quot;123&quot;, &quot;123&quot;);</span></span><br><span class="line"><span class="comment">//因为你没改变我 str（第二个 ：str + &quot;123&quot;;），第一个str（str = ） 相当于一个新的</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://blog.csdn.net/a220315410/article/details/27743607">String是引用类型</a></p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
-<li><a href="https://mp.weixin.qq.com/s/OfkwrsoE6OPagWiFlaGcVg">为什么说Java中只有值传递</a></li>
-<li>《实战java程序设计》</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java原理</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown示例</title>
-    <url>/2018/01/08/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fn94zj31b1j30zk0k0wgu.jpg"></p>
-<h3 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**马克飞象**</span><br></pre></td></tr></table></figure>
-<p><strong>马克飞象</strong></p>
-<h3 id="突出"><a href="#突出" class="headerlink" title="突出"></a>突出</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;Ctrl + &#x2F;&#96;</span><br></pre></td></tr></table></figure>
-<p><code>Ctrl + /</code></p>
-<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 第一项</span><br><span class="line">- 第二项</span><br></pre></td></tr></table></figure>
-<ul>
-<li>第一项</li>
-<li>第二项</li>
-</ul>
-<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; 三人行必有吾师。    —— [孔子](http:&#x2F;&#x2F;baike.baidu.com&#x2F;)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>三人行必有吾师。    —— <a href="http://baike.baidu.com/">孔子</a></p>
-</blockquote>
-<h3 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">``</span><span class="string">`Javascript</span></span><br><span class="line"><span class="string">var emp = &#123;	name:&quot;Frank&quot;, age:45 &#125;;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">```Python</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">```Java</span><br></pre></td></tr></table></figure>
-
-<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><table>
-<thead>
-<tr>
-<th align="left">Item</th>
-<th align="right">价格</th>
-<th align="center">数量</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">Computer</td>
-<td align="right">5600</td>
-<td align="center">5</td>
-</tr>
-<tr>
-<td align="left">Phone</td>
-<td align="right">120</td>
-<td align="center">12</td>
-</tr>
-<tr>
-<td align="left">Pipe</td>
-<td align="right">10</td>
-<td align="center">234</td>
-</tr>
-</tbody></table>
-<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">e&#x3D;&gt;end: 结束</span><br><span class="line">op1&#x3D;&gt;operation: 准备数据</span><br><span class="line">op2&#x3D;&gt;operation: 计算处理</span><br><span class="line">cond1&#x3D;&gt;condition: 是否正确?</span><br><span class="line"></span><br><span class="line">st-&gt;op1-&gt;op2-&gt;cond1</span><br><span class="line">cond1(yes)-&gt;e</span><br><span class="line">cond1(no)-&gt;op1</span><br></pre></td></tr></table></figure>
-
-<h3 id="以及时序图"><a href="#以及时序图" class="headerlink" title="以及时序图:"></a>以及时序图:</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">客户端-&gt;服务端: 给我姓名叫张三的员工信息</span><br><span class="line">Note right of 服务端: 服务端响应</span><br><span class="line">服务端--&gt;客户端: 给你张三的信息</span><br></pre></td></tr></table></figure>
-
-<h3 id="LaTeX-公式"><a href="#LaTeX-公式" class="headerlink" title="LaTeX 公式"></a>LaTeX 公式</h3><p>可以创建行内公式，例如 $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。或者块级公式：</p>
-<p>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>vue父子传值</title>
-    <url>/2020/06/21/vue%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng8ipk65ej31rq13ae82.jpg" alt="shenghua.png"><br>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
-<p>但是经过一下午的努力奋战，<br>我完成了<br>并且我对vue的父子传值有了更深的认识和理解<br>其实就是三把斧<br>很开心</p>
-<h3 id="父传子（父页面调子页面）："><a href="#父传子（父页面调子页面）：" class="headerlink" title="父传子（父页面调子页面）："></a>父传子（父页面调子页面）：</h3><h4 id="prop方法"><a href="#prop方法" class="headerlink" title="$prop方法"></a>$prop方法</h4><p><strong>父组件</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">child</span> <span class="attr">:activeSon</span>=<span class="string">&quot;fatherMethod()&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> child <span class="keyword">from</span> <span class="string">&#x27;@/components/child&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    components: &#123;</span><br><span class="line">      child</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">fatherMethod</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&#x27;father组件&#x27;</span>);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>子组件</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> @<span class="attr">click</span>=<span class="string">&quot;activeBtn&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">  props:&#123;</span><br><span class="line">    activeSon:  &#123;</span><br><span class="line"><span class="javascript">        type: <span class="built_in">Function</span>,</span></span><br><span class="line"><span class="javascript">        <span class="keyword">default</span>: <span class="literal">null</span></span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">activeBtn</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.activeSon()</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="ref方式"><a href="#ref方式" class="headerlink" title="ref方式"></a>ref方式</h4><p><strong>父页面</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;adminList ref&#x3D;&quot;addModule&quot;</span><br><span class="line">                 @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import adminList from &#39;.&#x2F;set-as-admin-list&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">components: &#123;</span><br><span class="line">      adminList</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-<p>在方法里，这里一定要别拉下this.$nextTick(()=&gt;{})</p>
-<p>因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined<br>详情原因见 </p>
-<p><a href="https://blog.csdn.net/weixin_41888813/article/details/84776896">Vue父组件引用子组件方法显示undefined问题原因及解决方法</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">          this.$refs.addModule.init(this.struId, this.organId, false)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
-
-<p>这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</p>
-<p><strong>子页面</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">init (struId, organId, isAdmin) &#123;</span><br><span class="line">       debugger</span><br><span class="line">       this.isAdmin &#x3D; isAdmin</span><br><span class="line">       this.struId &#x3D; struId</span><br><span class="line">       this.organId &#x3D; organId</span><br><span class="line">       this.getPersonList(struId)</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
-<p>上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。<br>并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref=”不同的值”。</p>
-<h5 id="父页面"><a href="#父页面" class="headerlink" title="父页面"></a>父页面</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">adminList</span> <span class="attr">ref</span>=<span class="string">&quot;authorizationModal&quot;</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">func</span>=<span class="string">&quot;getmessage&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">adminList</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="子传父"><a href="#子传父" class="headerlink" title="子传父"></a>子传父</h3><h4 id="子页面"><a href="#子页面" class="headerlink" title="子页面"></a>子页面</h4><p>在方法里</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">this.$emit(&#x27;func&#x27;, data)</span><br></pre></td></tr></table></figure>
-
-<h4 id="父页面去接"><a href="#父页面去接" class="headerlink" title="父页面去接"></a>父页面去接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">adminList</span> <span class="attr">ref</span>=<span class="string">&quot;authorizationModal&quot;</span></span></span><br><span class="line"><span class="tag">               @<span class="attr">func</span>=<span class="string">&quot;getmessage&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">adminList</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>其中func是要传的key</p>
-<p>value就是用”getmessage”去接收，这里是方法</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">getmessage (data) &#123;</span><br><span class="line">       this.authorizationVisible = data</span><br><span class="line">  </span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
-<p>这样就把子页面的data传给了父页面</p>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HashMap小析</title>
-    <url>/2018/06/07/HashMap/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9an9eebj31ts0zwhdw.jpg" alt="bmw.png"><br>原文：<br><a href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
+    <url>/2017/12/13/HashMap/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-zypy2w_1280x800.png"><br>原文：<br><a href="http://blog.csdn.net/csdn_terence/article/details/77711687">HashMap</a><br><a href="http://blog.csdn.net/qq_25806863/article/details/70607204">数组和链表</a></p>
 <h3 id="HashMap的设计原理"><a href="#HashMap的设计原理" class="headerlink" title="HashMap的设计原理"></a>HashMap的设计原理</h3><p>Map&lt;K,V&gt;是一种以键值对存储数据的容器，而HashMap则是借助了键值Key的hashcode值来组织存储，使得可以非常快速和高效地地根据key进行数据的存取。</p>
-<h4 id="HashMap设计思路"><a href="#HashMap设计思路" class="headerlink" title="HashMap设计思路"></a>HashMap设计思路</h4><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8l746nbj30e80bb0sy.jpg"><br>对于键值对&lt;Key,Value&gt;，HashMap内部会将其封装成一个对应的Entry&lt;Key,Value&gt;对象，即Entry&lt;Key,Value&gt;对象是键值对&lt;Key,Value&gt;的组织形式；<br><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpi8lqbsgzj30f10co75l.jpg"><br>对于每个对象而言，JVM都会为其生成一个hashcode值。HashMap在存储键值对Entry&lt;Key,Value&gt;的时候，会根据Key的hashcode值，以某种映射关系，决定应当将这对键值对Entry&lt;Key,Value&gt;存储在HashMap中的什么位置上；<br>的Value值存放在什么位置，可以非常高效地将Value值取出。</p>
+<h4 id="HashMap设计思路"><a href="#HashMap设计思路" class="headerlink" title="HashMap设计思路"></a>HashMap设计思路</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1fpi8l746nbj30e80bb0sy.jpg"><br>对于键值对&lt;Key,Value&gt;，HashMap内部会将其封装成一个对应的Entry&lt;Key,Value&gt;对象，即Entry&lt;Key,Value&gt;对象是键值对&lt;Key,Value&gt;的组织形式；<br><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1fpi8lqbsgzj30f10co75l.jpg"><br>对于每个对象而言，JVM都会为其生成一个hashcode值。HashMap在存储键值对Entry&lt;Key,Value&gt;的时候，会根据Key的hashcode值，以某种映射关系，决定应当将这对键值对Entry&lt;Key,Value&gt;存储在HashMap中的什么位置上；<br>的Value值存放在什么位置，可以非常高效地将Value值取出。</p>
 <h4 id="HashMap的数据结构"><a href="#HashMap的数据结构" class="headerlink" title="HashMap的数据结构"></a>HashMap的数据结构</h4><p>数据结构中有数组和链表来实现对数据的存储，但这两者各有利弊。</p>
 <p>数组:<br>            数组存储区间是连续的，占用内存严重，故空间复杂度大。但数组的二分查找时间复杂度小，为O(1)；<br>            数组特点：寻址容易，插入和删除困难；</p>
 <p>链表:<br>            链表存储区间离散，占用内存比较宽松，故空间复杂度很小，但时间复杂度很大，达O（N）。<br>            链表特点：寻址困难，插入和删除容易。</p>
@@ -324,228 +50,9 @@
       </tags>
   </entry>
   <entry>
-    <title>Health</title>
-    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="哦，这是无效的密码,请检查并重试." data-whm="哦，这些解密的内容无法验证，但是您仍然可以看看.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="02352f24541dcfcf915a929f7fe3ac6a86e397caf128e776caa8c13c33203025">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e53177535fc0d511812eb6802e9bca9261e16da9695c6ac433f59592964672c776d073fe114c0c1287a8c401823481c8d02e14b56d4ee753a46250ddd3350d9c05b21e1c71d5d76ff48ce77abcb6c30e0617a359a4b725124106d02dba325baf6958bfc5033e7ee7d7bf4fdcbe822c90584ebdbacdbfaec7f13102e2d433bcb3e3bac84c1d307237b68ba29046cfd21bcdb11dd47e2d6cd3edbeb3b778fcf95fcdf6a31089221ce62516a25fd3b598a3cfeb63e1729d5fe27618caafd445dbc6247965ce4ccba24c5648fad121d7382129d36ce1d568f8f1f61c42a8a63728d833bc40e1a8b747376ea768fec66a114051892f72b62b149cd0c7883a8d81b2bdb384f27b1496278b1714d7c7687aa466de11dcd473d0cbb8ef0ac47248bab773389f61441b10d3fd2e1de8134d23d1d2d6e0ff3346869ba2d0acfca3caf89b5c783c37c2a1d8387ee79800d702275a070e5627f54d72e39d2f4070b2396e2a1557a674713d3494d9efe594f85bf26e1ab7b237dbd5122924f60a41af11dd1c65898ad4ae9f7e7860d049434c631a88477b1eb8f9e46f376548e020bf4a2ad457890d9bceecc66853c661632d7f90e02ed45ef8faa4e5c2320626c9f471153eb0d2084229ff038e1b41891d1d5a604a8a84d99ee159394d6ecf46f18bf3fd0b3d30163571891e4d9a118d3990a31b8299466026943c83cd1179723aaa86370cabb9cde11f7b23f773a4853e87f7e7b78c7ba347a126ac1d24fa023e297e2485df2c5ff334b576b6341f66b568457feb080f88c3b51290e4fd5a750274d12cf633254aa645140198dc7a52e329478fa5faca13fc38a80675dcdea6fdd3c6a8489756d5c95a77330954056e8b579ecc0aacb961a7c0a2c65aa9a97d70d70ca72a443f988914c1cd81e3e225b94502ef2ca5e5d4d37ced298ef9df6c84ba88799bd44ce3678affcfc7b0e2604cb6465422af2bf1c581af05ad7e97d8d535c594bdcf431997071a6882ac7bf703bce232b339ab9495e6b129d3c72f158117d83b10ae7eabe47e06fbed817906ce1a5c9f123670e031b59bfdde3a2a8145b077c8ce26701ec559083e5fb7022aca499accf87f11cecfed1007d43c8720b57b51cda99108d8adad1fe85cf17136d18cd39869a157374cee760f47e0877030c4476a12fb23139c15c83cbc21a58ddb8806a30c2510d8fd163429a28368ec3bb4b39e28cb8e8a5be910d50bf8da7bde2015fc30f9f90f7b20ad799bd123b520480f6314b5a776c222945888981467420ff3612ad74703eceaab659db4ade5ac759758d51178f06631568a87c11ec616532614d7e9a3c83db1a1ef51cc0af24528ea2c7b873644693065515c492d5584e77ce45479481d027d8f56f804e74da4a0e4002336139feb3e8feef50540997c817bb34f718753749c74bb37a9a24d005cafdcae312daaa561a3bcf456740487cf3851a9cfac663feb6f3b586033d826fd6482f0ac0636dab040c86f415f801d5ec9ac91857d9e99f6b7b9404925e4c1083427cbe86e777c3b5c68fbac260c5a271b5a7d4ebb083b578d30f789217543e599914b71a1b87515de33329f4444e4debf3131b7f</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Abbreviation of my love.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>diary</category>
-      </categories>
-      <tags>
-        <tag>health</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>装机心得</title>
-    <url>/2020/12/13/%E8%A3%85%E6%9C%BA%E5%BF%83%E5%BE%97/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng99uo214j31oi15ox6r.jpg" alt="judy.png"></p>
-<h3 id="用时16h"><a href="#用时16h" class="headerlink" title="用时16h"></a>用时16h</h3><ul>
-<li>小白装机点亮：2020年12月12日 20：00~2020年12月13日 06：00</li>
-<li>软件、超频：2020年12月14日 20：00~2020年12月15日 04：00</li>
-</ul>
-<h3 id="装机"><a href="#装机" class="headerlink" title="装机"></a>装机</h3><ul>
-<li>失误/问题</li>
-</ul>
-<ol>
-<li>主板2机箱 有两颗螺丝和其他的不一致</li>
-<li>水冷头 用电动螺丝刀 一转手脱了，水冷头甩到主板上，万幸是水冷头仅外侧有个细小划痕，主板没问题</li>
-</ol>
-<ul>
-<li>复盘</li>
-</ul>
-<ol>
-<li>应该提前先把螺丝找到，再无脑安装</li>
-<li>这种容易摔的 应该放稳 或者不用电动螺丝刀</li>
-</ol>
-<ul>
-<li>心得</li>
-</ul>
-<p><code>总算是一键点亮：cpu、gpu等卡扣‘啪’一声很清脆，舒服了</code></p>
-<ul>
-<li>插入cpu之前先把那个细铁柱打开</li>
-<li>风扇的argb是可以串联的，套娃警告</li>
-<li>后面理线的确是 一开始能理就理了，因为到后面你线多了 外加累 你搞不清哪个是哪个。所以需要一开始就把一起的给聚到一起：比如开机线那些，一开始就把一起的给绑到一起先</li>
-<li>基本所有的接口都有防呆设计（比如L，3针空一针，一侧多出一点），所有的螺丝只要能拧上 很顺畅就行</li>
-<li>显卡和内存是最好换的；cpu水冷那块应该也还好，所以更新换代的话 显卡-&gt;内存-&gt;cpu</li>
-</ul>
-<h3 id="装系统、超频"><a href="#装系统、超频" class="headerlink" title="装系统、超频"></a>装系统、超频</h3><ul>
-<li>软件方面</li>
-<li>都是去msi官网下载相应驱动</li>
-<li>首先安装wifi，老版本的win10不支持，所以需要下载尽量❤新一点系统，msdn itellyou win10 默认的是2015版的 安装wifi巨难，最后下载2020版的win10搞定</li>
-<li>安装（升级或降级）bios 是从bios flash安装u盘里下载好的微星官网bios，需要注意的是，安装完bios之后，有可能会找不到固态和硬盘，需要点下开启CSM，BIOS设置里 BOOT MODE： Legacy 跟UEFI 区别</li>
-<li>cpu烤机 ：aida64 | cpu-z</li>
-<li>显卡烤机：甜甜圈</li>
-<li>硬件方面</li>
-<li>主板上的电子（电池）是控制主板bios的配置的，如果超频失败，把电池扣下来 就恢复默认了 小时候电脑电子没电 按f1开机就是这么回事</li>
-<li>风扇风速是可以从bios中或者msi主板调灯的地方修改</li>
-<li>电源的最右下角还有个插argb电源的地方，这样可以把argb串联套娃中间再加一环节</li>
-</ul>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>京东装机大师</p>
-<ul>
-<li>cpu ：AMD5800x</li>
-<li>显卡：技嘉雪鹰3070 OC (由于高频尖啸 退了 入了 影驰大将 1066)</li>
-<li>主板：微星x570</li>
-<li>水冷：EK</li>
-<li>电源：振华850w ARGB金牌</li>
-</ul>
-<h3 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h3><blockquote>
-<p>鸣谢：公开表示谢意</p>
-</blockquote>
-<p>码码群：装机大神弟弟</p>
-<p>一直陪我安装通宵，其中机箱设计不合理（风扇和水冷头；电源和机械硬盘）；超频；反复直到完美</p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>computer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Nginx upstream配置说明负载均衡</title>
-    <url>/2022/01/17/nginx/</url>
-    <content><![CDATA[<p><img src="http://tva1.sinaimg.cn/mw690/006s5QLMly1gygfkmfk8nj31hc0u07ij.jpg" alt="wallhaven-mp8dmm.jpeg"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
-<blockquote>
-<p>假设Nginx只能代理一台服务器的话，那它也不可能像今天这么火。Nginx能够配置代理多台服务器。当一台服务器宕机之后。仍能保持系统可用。详细配置步骤例如以下：</p>
-</blockquote>
-<ol>
-<li>在http节点下，加入upstream节点。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc &#123; </span><br><span class="line">      server 10.0.6.108:7080; </span><br><span class="line">      server 10.0.0.85:8980; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>将server节点下的location节点中的proxy_pass配置为：http:// + upstream名称，即</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">location / &#123; </span><br><span class="line">            root  html; </span><br><span class="line">            index  index.html index.htm; </span><br><span class="line">            proxy_pass http:<span class="comment">//linuxidc; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>如今负载均衡初步完毕了。upstream依照轮询（默认）方式进行负载，每一个请求按时间顺序逐一分配到不同的后端服务器。假设后端服务器down掉。能自己主动剔除。尽管这样的方式简便、成本低廉。但缺点是：可靠性低和负载分配不均衡。</li>
-</ol>
-<p>适用于图片服务器集群和纯静态页面服务器集群。 除此之外，upstream还有其他的分配策略，分别例如以下：<strong>weight（权重）</strong>指定轮询几率，weight和訪问比率成正比，用于后端服务器性能不均的情况。例如以下所看到的。10.0.0.88的訪问比率要比10.0.0.77的訪问比率高一倍。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc&#123; </span><br><span class="line">      server 10.0.0.77 weight&#x3D;5; </span><br><span class="line">      server 10.0.0.88 weight&#x3D;10; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>ip_hash（访问ip）</strong>， 每一个请求按訪问ip的hash结果分配。这样每一个訪客固定訪问一个后端服务器，能够解决session的问题。</p>
-<blockquote>
-<p> ip_hash还能和weight共用，详见最下面。但是在nginx版本1.3.1之前，不能在ip_hash中使用权重（weight）。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream favresin&#123; </span><br><span class="line">     ip_hash; </span><br><span class="line">     server 10.0.0.10:8080; </span><br><span class="line">     server 10.0.0.11:8080; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>fair（第三方）</strong>，按后端服务器的响应时间来分配请求。响应时间短的优先分配。与weight分配策略相似。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> upstream favresin&#123;      </span><br><span class="line">      server 10.0.0.10:8080; </span><br><span class="line">      server 10.0.0.11:8080; </span><br><span class="line">      fair; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>所有方式</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">轮询</th>
-<th align="center">方式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">weight</td>
-<td align="center">权重方式</td>
-</tr>
-<tr>
-<td align="center">ip_hash</td>
-<td align="center">依据ip分配方式</td>
-</tr>
-<tr>
-<td align="center">least_conn</td>
-<td align="center">最少连接方式</td>
-</tr>
-<tr>
-<td align="center">fair(第三方)</td>
-<td align="center">相应时间方式</td>
-</tr>
-<tr>
-<td align="center">url_hash(第三方)</td>
-<td align="center">依据url分配方式</td>
-</tr>
-</tbody></table>
-<p>upstream还能够为每一个设备设置状态值，这些状态值的含义分别例如以下：</p>
-<ol>
-<li>down 表示单前的server临时不參与负载.</li>
-<li>weight 默觉得1.weight越大，负载的权重就越大。</li>
-<li>max_fails ：同意请求失败的次数默觉得1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误.</li>
-<li>fail_timeout : max_fails次失败后。暂停的时间。</li>
-</ol>
-<p><strong>backup：</strong> 其他全部的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream bakend&#123; <span class="comment">#定义负载均衡设备的Ip及设备状态 </span></span><br><span class="line">      ip_hash; </span><br><span class="line">      server 10.0.0.11:9090 down; </span><br><span class="line">      server 10.0.0.11:8080 weight=2; </span><br><span class="line">      server 10.0.0.11:6060; </span><br><span class="line">      server 10.0.0.11:7070 backup; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mac下安装es</title>
-    <url>/2019/06/24/%E5%AE%89%E8%A3%85es&amp;kibana/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1gng9d7br1lj321a13y1l1.jpg" alt="Naruto.png"></p>
-<h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在安装es5.6.16，启动时如果报错，<a href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
-
-<p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
-<h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
-<table>
-<thead>
-<tr>
-<th>header 1</th>
-<th>Elasticsearch</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Datebases</td>
-<td>Indices</td>
-</tr>
-<tr>
-<td>Tables</td>
-<td>Types</td>
-</tr>
-<tr>
-<td>Rows</td>
-<td>Documents</td>
-</tr>
-<tr>
-<td>Columns</td>
-<td>Fields</td>
-</tr>
-</tbody></table>
-<p>用命令建立一个索引之后，然后首页填上索引名称，点击下一步就ok了</p>
-<h3 id="elasticsearch-head"><a href="#elasticsearch-head" class="headerlink" title="elasticsearch head"></a>elasticsearch head</h3><p>直接用chrome的插件安装就行，<a href="https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm">ElasticSearch Head</a>，十分简单，开箱即用</p>
-<h3 id="使用java开发"><a href="#使用java开发" class="headerlink" title="使用java开发"></a>使用java开发</h3><h4 id="Spring-Data-Elasticsearch与基础版ES的"><a href="#Spring-Data-Elasticsearch与基础版ES的" class="headerlink" title="Spring Data Elasticsearch与基础版ES的"></a>Spring Data Elasticsearch与基础版ES的</h4><p><a href="https://zhuanlan.zhihu.com/p/34487302">关系</a></p>
-]]></content>
-      <categories>
-        <category>es</category>
-      </categories>
-      <tags>
-        <tag>es</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>TENET</title>
     <url>/2020/09/03/TENET/</url>
-    <content><![CDATA[<p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1goeqgik8qoj30h308kmxs.jpg" alt="English-Horizontal---Tenet.jpeg"></p>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1goeqgik8qoj30h308kmxs.jpg"></p>
 <blockquote>
 <p>个人最喜欢的电影：时空三部曲：《盗梦空间》、《星际穿越》、《TENET》，都是值得看好几遍的电影</p>
 </blockquote>
@@ -727,6 +234,542 @@
 ]]></content>
       <tags>
         <tag>movie</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>bind(this)</title>
+    <url>/2017/12/13/bind(this)/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpeg"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
+<blockquote>
+<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
+</blockquote>
+<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何发布blog</title>
+    <url>/2014/12/22/hello-world/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng9azfjh0j31di0vke82.jpg"><br>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络</title>
+    <url>/2018/12/13/computer/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-qzzdwl_1280x800.png"></p>
+<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"></p>
+<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
+<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次 &gt; ，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
+<blockquote>
+<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
+    <title>blog</title>
+    <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg"></p>
+<blockquote>
+<p>全程都是基于npm，没有使用git方式（除了hexo deploy）</p>
+</blockquote>
+<blockquote>
+<p>基于最新的hexo和next主题升级博客，主要是把配置分离_config.yml 和 _config.next.yml；这样就可以方便hexo和next升级，解决之前升级版本得调很多东西，并且更加简单使用。</p>
+</blockquote>
+<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
+<li><a href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
+<p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
+<h3 id="如果迁移need"><a href="#如果迁移need" class="headerlink" title="如果迁移need"></a>如果迁移need</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb &#x2F;&#x2F;next 的本地搜索</span><br><span class="line">npm install hexo-deployer-git --save &#x2F;&#x2F;开启hexo deploy</span><br><span class="line">npm install hexo-blog-encrypt &#x2F;&#x2F;开启加密</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
+<li>pjax：这个暂时关闭，因为与gitalk冲突</li>
+<li>darkmode：可以根据夜晚变黑</li>
+<li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
+<li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
+<li><a href="https://blog.csdn.net/qq_43701912/article/details/107018127">加密</a><br><a href="https://github.com/D0n9X1n/hexo-blog-encrypt#encrypt-theme">改进后官方方法</a><br>为了适配微信内置浏览器，只能使用默认主题</li>
+<li><a href="https://github.com/iissnan/hexo-theme-next/issues/1742">顶部按钮跟那个百分比</a></li>
+</ul>
+<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
+<li>如果没写日期，会默认使用创建日期和修改日期</li>
+<li>添加密码功能后，只能在https下才可以使用</li>
+</ul>
+<h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><ul>
+<li>统计紫薯和阅读量（因为阅读量不多）</li>
+<li>谷歌搜索（等文章量上来）</li>
+<li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
+<li>评论系统有bug</li>
+</ul>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java只有值传递</title>
+    <url>/2021/05/11/java%E5%8F%AA%E6%9C%89%E5%80%BC%E4%BC%A0%E9%80%92/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gygfeof883j31hc0u148a.jpg"></p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Java中只有值传递</p>
+<ol>
+<li><a href="https://blog.csdn.net/Coding_Zhu/article/details/53096178">基本数据类型</a>参数传值：就是你cv我</li>
+<li>引用数据类型参数传值：你cv了我的”对象的地址”：<blockquote>
+<p>具体点就是你复制了一个新的栈，但指针指向相同的堆内容，只要你不拆我家，那么咱俩都不变；你若改了，那我也改了。有点像引用传递，但是不是(咱俩是两个栈)只是恰好这种机制用了一个堆内存。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li><strong>值传递</strong>（pass by value）是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。</li>
+</ul>
+<ul>
+<li><p><strong>引用传递</strong>（pass by reference）是指在调用函数时将实际参数的地址直接传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
+</li>
+<li><p>简单粗暴</p>
+<blockquote>
+<p>值传递： 就是我不变，你cv了我，你和我同值，你模仿我</p>
+</blockquote>
+<blockquote>
+<p>引用传递：就是把我给你了</p>
+</blockquote>
+</li>
+<li><p>理解</p>
+</li>
+</ul>
+<blockquote>
+<p>你有一把钥匙，当你的朋友想要去你家的时候，如果你直接把你的钥匙给他了，这就是<code>引用传递</code>。这种情况下，如果他对这把钥匙做了什么事情，比如他在钥匙上刻下了自己名字，那么这把钥匙还给你的时候，你自己的钥匙上也会多出他刻的名字。</p>
+</blockquote>
+<blockquote>
+<p>你有一把钥匙，当你的朋友想要去你家的时候，你复刻了一把新钥匙给他，自己的还在自己手里，这就是<code>值传递</code>。这种情况下，他对这把钥匙做什么都不会影响你手里的这把钥匙。</p>
+</blockquote>
+<blockquote>
+<p>但是在引用数据类型传值时：你的朋友拿着你给他的钥匙，进到你的家里，把你家的电视砸了。那你说你会不会受到影响？而我们在pass方法中，改变user对象的name属性的值的时候，不就是在“砸电视”么。你改变的不是那把钥匙，而是钥匙打开的房子。</p>
+</blockquote>
+<h3 id="题海"><a href="#题海" class="headerlink" title="题海"></a>题海</h3><h4 id="1"><a href="#1" class="headerlink" title="1"></a>1</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">   pt.pass(i );</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , i is &quot;</span> + i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">   j = <span class="number">20</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , j is &quot;</span> + j);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// print in pass , j is 20</span></span><br><span class="line"><span class="comment">// print in main , i is 10</span></span><br></pre></td></tr></table></figure>
+<h4 id="2"><a href="#2" class="headerlink" title="2"></a>2</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3"><a href="#3" class="headerlink" title="3"></a>3</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   String name = <span class="string">&quot;Hollis&quot;</span>;</span><br><span class="line">   pt.pass(name);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">   name = <span class="string">&quot;hollischuang&quot;</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , name is hollischuang</span></span><br><span class="line"><span class="comment">//print in main , name is Hollis</span></span><br></pre></td></tr></table></figure>
+<h4 id="4"><a href="#4" class="headerlink" title="4"></a>4</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user = <span class="keyword">new</span> User();</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   user.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;Hollis&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="5"><a href="#5" class="headerlink" title="5"></a>5</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gqea9d2d6ej32c03404r6.jpg"></p>
+<h4 id="6"><a href="#6" class="headerlink" title="6"></a>6</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gqeaadsan8j30ot0j1di6.jpg"></p>
+<h4 id="7"><a href="#7" class="headerlink" title="7"></a>7</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> X = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateVlue</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;  <span class="comment">// 传入基本数据类型</span></span><br><span class="line">       value = value + <span class="number">1</span>;</span><br><span class="line">       System.out.println(<span class="string">&quot;变量value: &quot;</span>+value);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateObject</span><span class="params">(Person person)</span></span>&#123; <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person E = person;</span><br><span class="line">       E.setAge(<span class="number">21</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swapObject</span><span class="params">(Person A,Person B)</span></span>&#123;  <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person C = A;</span><br><span class="line">       A = B;</span><br><span class="line">       B = C;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 例子 1</span></span><br><span class="line">       Main main = <span class="keyword">new</span> Main();</span><br><span class="line">       <span class="keyword">int</span> X = <span class="number">1</span>;</span><br><span class="line">       main.updateVlue(X);</span><br><span class="line">       System.out.println(<span class="string">&quot;X 的值：&quot;</span>+X); <span class="comment">// X = 1</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 2</span></span><br><span class="line">       Person A = <span class="keyword">new</span> Person(<span class="string">&quot;张三&quot;</span>,<span class="number">20</span>);</span><br><span class="line">       main.updateObject(A);</span><br><span class="line">       System.out.println(<span class="string">&quot;A: &quot;</span>+A.toString());  <span class="comment">// A: Person&#123;name=&#x27;张三&#x27;, age=21&#125;</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 3</span></span><br><span class="line">       Person C = <span class="keyword">new</span> Person(<span class="string">&quot;C&quot;</span>,<span class="number">10</span>);</span><br><span class="line">       Person D = <span class="keyword">new</span> Person(<span class="string">&quot;D&quot;</span>,<span class="number">15</span>);</span><br><span class="line">       main.swapObject(C,D);</span><br><span class="line">       System.out.println(<span class="string">&quot;C: &quot;</span>+ C.toString());  <span class="comment">// C: Person&#123;name=&#x27;C&#x27;, age=10&#125;</span></span><br><span class="line">       System.out.println(<span class="string">&quot;D: &quot;</span>+ D.toString());  <span class="comment">// D: Person&#123;name=&#x27;D&#x27;, age=15&#125;</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="8"><a href="#8" class="headerlink" title="8"></a>8</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gqeak3tmi4j30tz140tda.jpg"></p>
+<h4 id="9"><a href="#9" class="headerlink" title="9"></a>9</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">test3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String a = <span class="string">&quot;123&quot;</span>;</span><br><span class="line">        doTest3(a);</span><br><span class="line">        <span class="keyword">return</span> TextUtils.equals(<span class="string">&quot;123&quot;</span>, a);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doTest3</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        str = str + <span class="string">&quot;123&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// true :return TextUtils.equals(&quot;123&quot;, &quot;123&quot;);</span></span><br><span class="line"><span class="comment">//因为你没改变我 str（第二个 ：str + &quot;123&quot;;），第一个str（str = ） 相当于一个新的</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/a220315410/article/details/27743607">String是引用类型</a></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://mp.weixin.qq.com/s/OfkwrsoE6OPagWiFlaGcVg">为什么说Java中只有值传递</a></li>
+<li>《实战java程序设计》</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java原理</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown示例</title>
+    <url>/2018/12/13/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1fn94zj31b1j30zk0k0wgu.jpg"></p>
+<h3 id="粗体"><a href="#粗体" class="headerlink" title="粗体"></a>粗体</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">**马克飞象**</span><br></pre></td></tr></table></figure>
+<p><strong>马克飞象</strong></p>
+<h3 id="突出"><a href="#突出" class="headerlink" title="突出"></a>突出</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;Ctrl + &#x2F;&#96;</span><br></pre></td></tr></table></figure>
+<p><code>Ctrl + /</code></p>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 第一项</span><br><span class="line">- 第二项</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一项</li>
+<li>第二项</li>
+</ul>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; 三人行必有吾师。    —— [孔子](http:&#x2F;&#x2F;baike.baidu.com&#x2F;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>三人行必有吾师。    —— <a href="http://baike.baidu.com/">孔子</a></p>
+</blockquote>
+<h3 id="折叠"><a href="#折叠" class="headerlink" title="折叠"></a>折叠</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="string">``</span><span class="string">`Javascript</span></span><br><span class="line"><span class="string">var emp = &#123;	name:&quot;Frank&quot;, age:45 &#125;;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">```Python</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">```Java</span><br></pre></td></tr></table></figure>
+
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><table>
+<thead>
+<tr>
+<th align="left">Item</th>
+<th align="right">价格</th>
+<th align="center">数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Computer</td>
+<td align="right">5600</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left">Phone</td>
+<td align="right">120</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td align="left">Pipe</td>
+<td align="right">10</td>
+<td align="center">234</td>
+</tr>
+</tbody></table>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">e&#x3D;&gt;end: 结束</span><br><span class="line">op1&#x3D;&gt;operation: 准备数据</span><br><span class="line">op2&#x3D;&gt;operation: 计算处理</span><br><span class="line">cond1&#x3D;&gt;condition: 是否正确?</span><br><span class="line"></span><br><span class="line">st-&gt;op1-&gt;op2-&gt;cond1</span><br><span class="line">cond1(yes)-&gt;e</span><br><span class="line">cond1(no)-&gt;op1</span><br></pre></td></tr></table></figure>
+
+<h3 id="以及时序图"><a href="#以及时序图" class="headerlink" title="以及时序图:"></a>以及时序图:</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">客户端-&gt;服务端: 给我姓名叫张三的员工信息</span><br><span class="line">Note right of 服务端: 服务端响应</span><br><span class="line">服务端--&gt;客户端: 给你张三的信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="LaTeX-公式"><a href="#LaTeX-公式" class="headerlink" title="LaTeX 公式"></a>LaTeX 公式</h3><p>可以创建行内公式，例如 $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。或者块级公式：</p>
+<p>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MIUI退回12.0.6欧洲版</title>
+    <url>/2022/07/20/miui%E9%80%80%E5%9B%9E12-0-6%E6%AC%A7%E6%B4%B2%E7%89%88/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/5981675588449_.pic_hd.jpg"></p>
+<blockquote>
+<p>苦于小米11 ultra 的火龙，升级MIUI 13 之后烫手，决定回滚版本。<br>结果逛论坛发现都在跪求12.0.6版本。遂有了本文</p>
+</blockquote>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
+<li>解锁bl</li>
+<li>刷机</li>
+<li>再点解锁bl</li>
+<li>重启</li>
+</ul>
+<h3 id="资源包"><a href="#资源包" class="headerlink" title="资源包"></a>资源包</h3><ul>
+<li><p><a href="https://xiaomirom.com/rom/mi-11-pro-ultra-11-ultra-star-europe-fastboot-recovery-rom/">小米 11 Ultra / 11 Pro (star) 欧洲版 (欧版) (EEA) Fastboot 线刷包 &amp; Recovery 卡刷包 ROM</a></p>
+</li>
+<li><p><a href="https://www.miui.com/unlock/index.html">申请解锁小米手机</a></p>
+</li>
+<li><p><a href="http://bigota.d.miui.com/tools/MiFlash2018-5-28-0.zip">刷机工具</a></p>
+</li>
+</ul>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li>一开始会提示此版本不适配，然后无限重启，我以为是我刷失败了，然后我想解锁bl再刷个官方版本，结果点了解锁重启之后就ok了<blockquote>
+<p>也许是因为像<a href="https://zhuanlan.zhihu.com/p/408114647">小米手机 MIUI 国际版/EU 刷机教程 - 知乎</a> 中说的是在刷机时要点全部删除。这个没有再验证</p>
+</blockquote>
+</li>
+<li>还有个问题是刷了欧洲版之后无法用nfc门禁功能了，要root还是安装小米钱包，都比较麻烦，等有空再弄<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3></li>
+<li><a href="https://zhuanlan.zhihu.com/p/408114647">小米手机 MIUI 国际版/EU 刷机教程 - 知乎</a></li>
+<li><a href="https://web.vip.miui.com/page/info/mio/mio/detail?postId=37093637&app_version=dev.20051">MIUI刷机说明帖·论坛</a></li>
+<li><a href="https://web.vip.miui.com/page/info/mio/mio/detail?postId=17936575&app_version=dev.20051">[教程] 小米手机解BL锁、线刷详细教程，适用于小米全系列手机</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>刷机</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx upstream配置说明负载均衡</title>
+    <url>/2022/01/17/nginx/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gygfkmfk8nj31hc0u07ij.jpeg"><br><code>nginx 一定不要放在中文目录下 否则起不来</code></p>
+<blockquote>
+<p>假设Nginx只能代理一台服务器的话，那它也不可能像今天这么火。Nginx能够配置代理多台服务器。当一台服务器宕机之后。仍能保持系统可用。详细配置步骤例如以下：</p>
+</blockquote>
+<ol>
+<li>在http节点下，加入upstream节点。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc &#123; </span><br><span class="line">      server 10.0.6.108:7080; </span><br><span class="line">      server 10.0.0.85:8980; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>将server节点下的location节点中的proxy_pass配置为：http:// + upstream名称，即</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">location / &#123; </span><br><span class="line">            root  html; </span><br><span class="line">            index  index.html index.htm; </span><br><span class="line">            proxy_pass http:<span class="comment">//linuxidc; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>如今负载均衡初步完毕了。upstream依照轮询（默认）方式进行负载，每一个请求按时间顺序逐一分配到不同的后端服务器。假设后端服务器down掉。能自己主动剔除。尽管这样的方式简便、成本低廉。但缺点是：可靠性低和负载分配不均衡。</li>
+</ol>
+<p>适用于图片服务器集群和纯静态页面服务器集群。 除此之外，upstream还有其他的分配策略，分别例如以下：<strong>weight（权重）</strong>指定轮询几率，weight和訪问比率成正比，用于后端服务器性能不均的情况。例如以下所看到的。10.0.0.88的訪问比率要比10.0.0.77的訪问比率高一倍。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream linuxidc&#123; </span><br><span class="line">      server 10.0.0.77 weight&#x3D;5; </span><br><span class="line">      server 10.0.0.88 weight&#x3D;10; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ip_hash（访问ip）</strong>， 每一个请求按訪问ip的hash结果分配。这样每一个訪客固定訪问一个后端服务器，能够解决session的问题。</p>
+<blockquote>
+<p> ip_hash还能和weight共用，详见最下面。但是在nginx版本1.3.1之前，不能在ip_hash中使用权重（weight）。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream favresin&#123; </span><br><span class="line">     ip_hash; </span><br><span class="line">     server 10.0.0.10:8080; </span><br><span class="line">     server 10.0.0.11:8080; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>fair（第三方）</strong>，按后端服务器的响应时间来分配请求。响应时间短的优先分配。与weight分配策略相似。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> upstream favresin&#123;      </span><br><span class="line">      server 10.0.0.10:8080; </span><br><span class="line">      server 10.0.0.11:8080; </span><br><span class="line">      fair; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>所有方式</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">轮询</th>
+<th align="center">方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">weight</td>
+<td align="center">权重方式</td>
+</tr>
+<tr>
+<td align="center">ip_hash</td>
+<td align="center">依据ip分配方式</td>
+</tr>
+<tr>
+<td align="center">least_conn</td>
+<td align="center">最少连接方式</td>
+</tr>
+<tr>
+<td align="center">fair(第三方)</td>
+<td align="center">相应时间方式</td>
+</tr>
+<tr>
+<td align="center">url_hash(第三方)</td>
+<td align="center">依据url分配方式</td>
+</tr>
+</tbody></table>
+<p>upstream还能够为每一个设备设置状态值，这些状态值的含义分别例如以下：</p>
+<ol>
+<li>down 表示单前的server临时不參与负载.</li>
+<li>weight 默觉得1.weight越大，负载的权重就越大。</li>
+<li>max_fails ：同意请求失败的次数默觉得1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误.</li>
+<li>fail_timeout : max_fails次失败后。暂停的时间。</li>
+</ol>
+<p><strong>backup：</strong> 其他全部的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream bakend&#123; <span class="comment">#定义负载均衡设备的Ip及设备状态 </span></span><br><span class="line">      ip_hash; </span><br><span class="line">      server 10.0.0.11:9090 down; </span><br><span class="line">      server 10.0.0.11:8080 weight=2; </span><br><span class="line">      server 10.0.0.11:6060; </span><br><span class="line">      server 10.0.0.11:7070 backup; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue父子传值</title>
+    <url>/2020/06/21/vue%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng8ipk65ej31rq13ae82.jpg"><br>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
+<p>但是经过一下午的努力奋战，<br>我完成了<br>并且我对vue的父子传值有了更深的认识和理解<br>其实就是三把斧<br>很开心</p>
+<h3 id="父传子（父页面调子页面）："><a href="#父传子（父页面调子页面）：" class="headerlink" title="父传子（父页面调子页面）："></a>父传子（父页面调子页面）：</h3><h4 id="prop方法"><a href="#prop方法" class="headerlink" title="$prop方法"></a>$prop方法</h4><p><strong>父组件</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">child</span> <span class="attr">:activeSon</span>=<span class="string">&quot;fatherMethod()&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">import</span> child <span class="keyword">from</span> <span class="string">&#x27;@/components/child&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    components: &#123;</span><br><span class="line">      child</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">fatherMethod</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&#x27;father组件&#x27;</span>);</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>子组件</strong></p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> @<span class="attr">click</span>=<span class="string">&quot;activeBtn&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">  props:&#123;</span><br><span class="line">    activeSon:  &#123;</span><br><span class="line"><span class="javascript">        type: <span class="built_in">Function</span>,</span></span><br><span class="line"><span class="javascript">        <span class="keyword">default</span>: <span class="literal">null</span></span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line"><span class="javascript">      <span class="function"><span class="title">activeBtn</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.activeSon()</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="ref方式"><a href="#ref方式" class="headerlink" title="ref方式"></a>ref方式</h4><p><strong>父页面</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;adminList ref&#x3D;&quot;addModule&quot;</span><br><span class="line">                 @func&#x3D;&quot;getmessage&quot; &gt;&lt;&#x2F;adminList&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import adminList from &#39;.&#x2F;set-as-admin-list&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">components: &#123;</span><br><span class="line">      adminList</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<p>在方法里，这里一定要别拉下this.$nextTick(()=&gt;{})</p>
+<p>因为这个地方相当于子组件的一个延迟加载方法，否则会报undefined<br>详情原因见 </p>
+<p><a href="https://blog.csdn.net/weixin_41888813/article/details/84776896">Vue父组件引用子组件方法显示undefined问题原因及解决方法</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">this.$nextTick(() &#x3D;&gt; &#123;</span><br><span class="line">          this.$refs.addModule.init(this.struId, this.organId, false)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这里的$refs.addModule,相当于操作dom，就是操作子组件的里面的方法或者值</p>
+<p><strong>子页面</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">init (struId, organId, isAdmin) &#123;</span><br><span class="line">       debugger</span><br><span class="line">       this.isAdmin &#x3D; isAdmin</span><br><span class="line">       this.struId &#x3D; struId</span><br><span class="line">       this.organId &#x3D; organId</span><br><span class="line">       this.getPersonList(struId)</span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
+<p>上面就是把父页面的struId，organId，false传给了子页面，并且，还顺便调用了子页面的方法。<br>并且值得注意的是，可以同一个组件在父页面用好几遍，只不过,ref=”不同的值”。</p>
+<h5 id="父页面"><a href="#父页面" class="headerlink" title="父页面"></a>父页面</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">adminList</span> <span class="attr">ref</span>=<span class="string">&quot;authorizationModal&quot;</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">func</span>=<span class="string">&quot;getmessage&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">adminList</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="子传父"><a href="#子传父" class="headerlink" title="子传父"></a>子传父</h3><h4 id="子页面"><a href="#子页面" class="headerlink" title="子页面"></a>子页面</h4><p>在方法里</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">this.$emit(&#x27;func&#x27;, data)</span><br></pre></td></tr></table></figure>
+
+<h4 id="父页面去接"><a href="#父页面去接" class="headerlink" title="父页面去接"></a>父页面去接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">adminList</span> <span class="attr">ref</span>=<span class="string">&quot;authorizationModal&quot;</span></span></span><br><span class="line"><span class="tag">               @<span class="attr">func</span>=<span class="string">&quot;getmessage&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">adminList</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中func是要传的key</p>
+<p>value就是用”getmessage”去接收，这里是方法</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">getmessage (data) &#123;</span><br><span class="line">       this.authorizationVisible = data</span><br><span class="line">  </span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
+<p>这样就把子页面的data传给了父页面</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Health</title>
+    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="哦，这是无效的密码,请检查并重试." data-whm="哦，这些解密的内容无法验证，但是您仍然可以看看.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="141dcfc3a8ea145a435008c69cea6735e678706a8fafbf7869c394b4d976e699">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e3b48900055026377feba46a05aa72238aab5a06da8998faa15a17746588d10e82b5ffe1b83e04ffd4f1b0149689f35b67567f5a642a6448d456c14e0407593936748c8fb04321865bd863a6716ec570456de87396595fba97472ee7252728c776e5e935d78f4b7a649c16c21bb36af36e2a693393ac777b2e7f74353f90d582e349746d755e18aef58253d38907235efda723f9adb73bd05437d8237a092906fceb8b8d0311456f1b25099f954d2b2114cf1081ea8e098c08be14874a7260ced09e4901a91bfc98245e575410c9f38c21a5127d114444f500da4d691aa8ce9ee38ef2d82a73b2248c06c95877eb5f9a48eb61f3e70c7468ee54b619e5a30d08aabf290e73653bb39467c192063ecacb6071394cec7e954a59db6a2bc01845da667592ddef5e1d7710d941d7ad27f9b535769f5847fd283bca35316c46ebf7508674eaa6f81869c16cef96d912b3f28e84d9343b70ae674e1359f2107ba9f215b3eda67d5788a2e1198e83daaea0a31b44001f769b875c3513a15c1b9121efa3b17b02f0412c7e3096a62f8e04edf439846cb3a789056e7138e4a095e65a4e350654fc3b333688653aabaeeefa820a7c41376f576300b02f2abd91952b3a64fd4d26f339720737381673b1fa70aadfe97b4083df8b38ae1510ababd3ea9a2c6698eaba0e9be794c0306e942279467cc81b2f25757f6980999f920b1e99049eb77ebe7dca628f6237074bb3a40397bf4009dd139bbb475d289d9d7cad2a6be0d57333d198b0c1c609ae69e85d821d14aec52e2ac633a9e39de16bdb82108606816fc76b3913967d4fcfd88a0e8572bdc034d5dad3a9815a360dbc887e190d95819b2034096e36f9bb639514baef0e367635203f8e537cbd04d7655857ebb45a03dae07731a753c971374c084f403885034f72feb99b2e083af083a97cca3918096e70380f0ef7add7811ef1085501d62e4f37d70c8f41c25496cbd9969fddc7d996d43863d2a5c15a20aa9d1106f4c5266c3f99559fed21856291c32d6b7524b7346f0b3945be5d8e933b72e53ef4588614cca54d70e86409b88689ddcd60688cd9f9e0dd26a0335a3755d7128964be529bbebf6bd893313a2489bfe2327d65d9b4be0d0a767fe0c3773892e9255faa294282a47d136967778e19568c98515387b3937200a2b3af9e0b36e10b7e09ba993efc4eed980432e5d18a53eaee5c6974d188bebbb74627b3e9f9110a26ba4c2cb46661a787ea9cae1b9cdd8c01bd30abdfe4d0e11210336aa7630b03e844b30783e17e4bc8473aadddc5b401771da46adc90317017f23ef82477e658aba6fa75780ff76670494b7b8aa1f8b57b8f9674b2e136dbae9cc71563822a5f2aeb0cf773f1e7a6371bf436539d4ce1a67cc0339c2bbe45c0b119e1f448e87047b9d2fc84d847fc0ea5d3acdfe0b2ea6592a58dea6e1f26d9c48c58a0afb5826113001678809d1823c17d146b1b8ed24cf544488fc25d8f77715d5f53544749ba9bfcd50dd437b3f056d2eaff7f72c93b9f78889f0fbbf8bce1322ee1e7bffb6eee18f376c47b769337fef6ae466bd489da15e43498c3b2cccc4798e14eb521283c1985d</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Abbreviation of my love.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>diary</category>
+      </categories>
+      <tags>
+        <tag>health</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mac下安装es</title>
+    <url>/2019/06/13/%E5%AE%89%E8%A3%85es&amp;kibana/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-1pqkz1_1280x800.png"></p>
+<h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在安装es5.6.16，启动时如果报错，<a href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
+
+<p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
+<h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
+<table>
+<thead>
+<tr>
+<th>header 1</th>
+<th>Elasticsearch</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Datebases</td>
+<td>Indices</td>
+</tr>
+<tr>
+<td>Tables</td>
+<td>Types</td>
+</tr>
+<tr>
+<td>Rows</td>
+<td>Documents</td>
+</tr>
+<tr>
+<td>Columns</td>
+<td>Fields</td>
+</tr>
+</tbody></table>
+<p>用命令建立一个索引之后，然后首页填上索引名称，点击下一步就ok了</p>
+<h3 id="elasticsearch-head"><a href="#elasticsearch-head" class="headerlink" title="elasticsearch head"></a>elasticsearch head</h3><p>直接用chrome的插件安装就行，<a href="https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm">ElasticSearch Head</a>，十分简单，开箱即用</p>
+<h3 id="使用java开发"><a href="#使用java开发" class="headerlink" title="使用java开发"></a>使用java开发</h3><h4 id="Spring-Data-Elasticsearch与基础版ES的"><a href="#Spring-Data-Elasticsearch与基础版ES的" class="headerlink" title="Spring Data Elasticsearch与基础版ES的"></a>Spring Data Elasticsearch与基础版ES的</h4><p><a href="https://zhuanlan.zhihu.com/p/34487302">关系</a></p>
+]]></content>
+      <categories>
+        <category>es</category>
+      </categories>
+      <tags>
+        <tag>es</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>装机心得</title>
+    <url>/2020/12/13/%E8%A3%85%E6%9C%BA%E5%BF%83%E5%BE%97/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng99uo214j31oi15ox6r.jpg"></p>
+<h3 id="用时16h"><a href="#用时16h" class="headerlink" title="用时16h"></a>用时16h</h3><ul>
+<li>小白装机点亮：2020年12月12日 20：00~2020年12月13日 06：00</li>
+<li>软件、超频：2020年12月14日 20：00~2020年12月15日 04：00</li>
+</ul>
+<h3 id="装机"><a href="#装机" class="headerlink" title="装机"></a>装机</h3><ul>
+<li>失误/问题</li>
+</ul>
+<ol>
+<li>主板2机箱 有两颗螺丝和其他的不一致</li>
+<li>水冷头 用电动螺丝刀 一转手脱了，水冷头甩到主板上，万幸是水冷头仅外侧有个细小划痕，主板没问题</li>
+</ol>
+<ul>
+<li>复盘</li>
+</ul>
+<ol>
+<li>应该提前先把螺丝找到，再无脑安装</li>
+<li>这种容易摔的 应该放稳 或者不用电动螺丝刀</li>
+</ol>
+<ul>
+<li>心得</li>
+</ul>
+<p><code>总算是一键点亮：cpu、gpu等卡扣‘啪’一声很清脆，舒服了</code></p>
+<ul>
+<li>插入cpu之前先把那个细铁柱打开</li>
+<li>风扇的argb是可以串联的，套娃警告</li>
+<li>后面理线的确是 一开始能理就理了，因为到后面你线多了 外加累 你搞不清哪个是哪个。所以需要一开始就把一起的给聚到一起：比如开机线那些，一开始就把一起的给绑到一起先</li>
+<li>基本所有的接口都有防呆设计（比如L，3针空一针，一侧多出一点），所有的螺丝只要能拧上 很顺畅就行</li>
+<li>显卡和内存是最好换的；cpu水冷那块应该也还好，所以更新换代的话 显卡-&gt;内存-&gt;cpu</li>
+</ul>
+<h3 id="装系统、超频"><a href="#装系统、超频" class="headerlink" title="装系统、超频"></a>装系统、超频</h3><ul>
+<li>软件方面</li>
+<li>都是去msi官网下载相应驱动</li>
+<li>首先安装wifi，老版本的win10不支持，所以需要下载尽量❤新一点系统，msdn itellyou win10 默认的是2015版的 安装wifi巨难，最后下载2020版的win10搞定</li>
+<li>安装（升级或降级）bios 是从bios flash安装u盘里下载好的微星官网bios，需要注意的是，安装完bios之后，有可能会找不到固态和硬盘，需要点下开启CSM，BIOS设置里 BOOT MODE： Legacy 跟UEFI 区别</li>
+<li>cpu烤机 ：aida64 | cpu-z</li>
+<li>显卡烤机：甜甜圈</li>
+<li>硬件方面</li>
+<li>主板上的电子（电池）是控制主板bios的配置的，如果超频失败，把电池扣下来 就恢复默认了 小时候电脑电子没电 按f1开机就是这么回事</li>
+<li>风扇风速是可以从bios中或者msi主板调灯的地方修改</li>
+<li>电源的最右下角还有个插argb电源的地方，这样可以把argb串联套娃中间再加一环节</li>
+</ul>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>京东装机大师</p>
+<ul>
+<li>cpu ：AMD5800x</li>
+<li>显卡：技嘉雪鹰3070 OC (由于高频尖啸 退了 入了 影驰大将 1066)</li>
+<li>主板：微星x570</li>
+<li>水冷：EK</li>
+<li>电源：振华850w ARGB金牌</li>
+</ul>
+<h3 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h3><blockquote>
+<p>鸣谢：公开表示谢意</p>
+</blockquote>
+<p>码码群：装机大神弟弟</p>
+<p>一直陪我安装通宵，其中机箱设计不合理（风扇和水冷头；电源和机械硬盘）；超频；反复直到完美</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>computer</tag>
       </tags>
   </entry>
 </search>
