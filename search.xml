@@ -50,6 +50,27 @@
       </tags>
   </entry>
   <entry>
+    <title>bind(this)</title>
+    <url>/2017/12/13/bind(this)/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpeg"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
+<blockquote>
+<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
+</blockquote>
+<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TENET</title>
     <url>/2020/09/03/TENET/</url>
     <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1goeqgik8qoj30h308kmxs.jpg"></p>
@@ -237,25 +258,70 @@
       </tags>
   </entry>
   <entry>
-    <title>bind(this)</title>
-    <url>/2017/12/13/bind(this)/</url>
-    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpeg"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
-<blockquote>
-<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
-</blockquote>
-<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
-<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
+    <title>chmod的那些事</title>
+    <url>/2023/02/25/chmod%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-zypzrw.jpeg"><br>在 <code>chmod +x</code> 命令中，<code>x</code> 表示可执行权限。文件的可执行权限允许用户执行（运行）该文件。在Linux和Unix系统中，每个文件都有一个与之相关联的权限集，指定了哪些用户可以对该文件进行哪些操作。文件权限通常由三组权限标志组成，分别是文件所有者权限、文件所属组权限和其他用户权限，它们分别用三个字符 rwx 表示：</p>
+<ul>
+<li>r (read)：读权限，允许用户查看文件内容。</li>
+<li>w (write)：写权限，允许用户修改文件内容。</li>
+<li>x (execute)：可执行权限，允许用户运行该文件。</li>
+</ul>
+<p>因此，通过在文件的权限集中添加 <code>x</code> 标志，你可以为该文件添加可执行权限，从而允许用户运行该文件。</p>
+<h3 id="号是什么意思"><a href="#号是什么意思" class="headerlink" title="+号是什么意思"></a>+号是什么意思</h3><p>在 <code>chmod</code> 命令中，<code>+</code> 符号表示添加权限。使用 <code>chmod +x filename</code> 命令，表示给文件添加可执行权限。类似的，如果你想要添加读权限和写权限，可以使用 <code>chmod +rw filename</code> 命令。</p>
+<p>如果不使用 <code>+</code> 符号，而是使用 <code>-</code> 符号，那么就表示移除相应的权限。例如，<code>chmod -x filename</code> 命令会移除文件的可执行权限，使得该文件不再可以被执行。</p>
+<p>除了 <code>+</code> 和 <code>-</code> 符号外，还可以使用 <code>=</code> 符号，来显式地设置文件的权限。例如，<code>chmod u=rw,g=r,o=r filename</code> 命令表示设置文件的权限，使得文件所有者拥有读写权限，文件所属组和其他用户拥有读权限。</p>
+<h3 id="755-777-等怎么对应的rwx"><a href="#755-777-等怎么对应的rwx" class="headerlink" title="755 777 等怎么对应的rwx"></a>755 777 等怎么对应的rwx</h3><p>在Linux和Unix系统中，文件的权限由三组权限标记组成，分别是文件所有者权限、文件所属组权限和其他用户权限，每组权限由三个字符表示，分别表示可读、可写、可执行权限，顺序为 <code>rwx</code>，其中：</p>
+<ul>
+<li><code>r</code> 表示可读权限，允许用户读取文件的内容。</li>
+<li><code>w</code> 表示可写权限，允许用户修改文件的内容。</li>
+<li><code>x</code> 表示可执行权限，允许用户执行（运行）该文件。</li>
+</ul>
+<p>在Linux和Unix系统中，通常使用数字来表示不同的权限设置，每个数字对应一种权限组合。其中，最常见的数字权限设置包括：</p>
+<ul>
+<li><code>7</code>：对应权限组合 <code>rwx</code>，表示所有用户都拥有读、写和执行权限。</li>
+<li><code>6</code>：对应权限组合 <code>rw-</code>，表示文件所有者拥有读写权限，但其他用户没有任何权限。</li>
+<li><code>5</code>：对应权限组合 <code>r-x</code>，表示文件所有者拥有读权限和执行权限，但没有写权限，其他用户只有读和执行权限。</li>
+<li><code>4</code>：对应权限组合 <code>r--</code>，表示文件所有者拥有读权限，但没有写和执行权限，其他用户没有任何权限。</li>
+<li><code>0</code>：对应权限组合 <code>---</code>，表示所有用户都没有任何权限。</li>
+</ul>
+<p>因此，<code>755</code> 权限表示文件所有者有读、写和执行权限，文件所属组和其他用户都只有读和执行权限；而 <code>777</code> 权限表示所有用户都拥有读、写和执行权限。</p>
+<h3 id="是怎么分出来的7-6-5"><a href="#是怎么分出来的7-6-5" class="headerlink" title="是怎么分出来的7 6 5"></a>是怎么分出来的7 6 5</h3><p>在 Linux 和 Unix 系统中，文件的权限用一个三位的八进制数来表示。每一位都代表一组权限标记，从左到右依次为文件所有者权限、文件所属组权限和其他用户权限。每个权限标记位上的值可以是 0、1、2、4、5、6 或 7。</p>
+<ul>
+<li>0 表示没有权限</li>
+<li>1 表示执行权限</li>
+<li>2 表示写权限</li>
+<li>3 表示写和执行权限</li>
+<li>4 表示读权限</li>
+<li>5 表示读和执行权限</li>
+<li>6 表示读和写权限</li>
+<li>7 表示读、写和执行权限</li>
+</ul>
+<p>因此，为了得到一个三位的八进制数，需要将每一组权限标记的值相加，例如：</p>
+<ul>
+<li>rwx 权限（读、写和执行权限）的值为 4 + 2 + 1 = 7。</li>
+<li>rw- 权限（读和写权限）的值为 4 + 2 + 0 = 6。</li>
+<li>r-x 权限（读和执行权限）的值为 4 + 0 + 1 = 5。</li>
+</ul>
+<p>因此，当你想要为一个文件设置特定的权限时，需要将每个权限标记的值相加，得到一个三位的八进制数，然后使用 <code>chmod</code> 命令设置文件的权限。例如，使用 <code>chmod 755 filename</code> 命令，将文件的权限设置为 rwxr-xr-x。</p>
+]]></content>
       <categories>
-        <category>js</category>
+        <category>chat</category>
       </categories>
       <tags>
-        <tag>前端</tag>
+        <tag>linux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>计算机网络</title>
+    <url>/2018/12/13/computer/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-qzzdwl_1280x800.png"></p>
+<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"></p>
+<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
+<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次 &gt; ，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
+<blockquote>
+<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
+</blockquote>
+]]></content>
   </entry>
   <entry>
     <title>如何发布blog</title>
@@ -280,18 +346,6 @@
       <tags>
         <tag>blog</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>计算机网络</title>
-    <url>/2018/12/13/computer/</url>
-    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-qzzdwl_1280x800.png"></p>
-<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="TCP三次握手过程-TCP四次挥手过程"><a href="#TCP三次握手过程-TCP四次挥手过程" class="headerlink" title="TCP三次握手过程+TCP四次挥手过程"></a>TCP三次握手过程+TCP四次挥手过程</h2><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"></p>
-<h3 id="为什么一定要三次握手？"><a href="#为什么一定要三次握手？" class="headerlink" title="为什么一定要三次握手？"></a>为什么一定要三次握手？</h3><p>前2次握手<br>如果这2次握手就establish了，有可能服务器端==&gt;客户 网络阻塞，第二次握手没握上，而就开始建立连接了，导致数据丢失。<br>其实这种三次握手就是确保客户端到服务器网络顺畅，服务器到客户网络顺畅，最后客户端向服务器反馈收到</p>
-<h3 id="关闭四次挥手"><a href="#关闭四次挥手" class="headerlink" title="关闭四次挥手"></a>关闭四次挥手</h3><p><img src="http://ww1.sinaimg.cn/large/006s5QLMly1fpegk4ix9lj30fk0azwg5.jpg"><br>简单来说就是2次 &gt; ，客户端首先发出关闭请求，然后等待2MSL，接收到服务器的关闭消息，最后close</p>
-<blockquote>
-<p>第二次挥手完成后，A到B方向的连接已经释放，B不会再接收数据，A也不会再发送数据。<code>但B到A方向的连接仍然存在，B可以继续向A发送数据。 </code><br>为什么A要先进入TIME-WAIT状态，等待2MSL时间后才进入CLOSED状态？<br>为了保证B能收到A的确认应答。<br>若A发完确认应答后直接进入CLOSED状态，那么如果该应答丢失，B等待超时后就会重新发送连接释放请求，但此时A已经关闭了，不会作出任何响应，因此B永远无法正常关闭。</p>
-</blockquote>
-]]></content>
   </entry>
   <entry>
     <title>blog</title>
