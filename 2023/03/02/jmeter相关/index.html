@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shinyhero521.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.2.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="总体报告参数： Samples：测试中发送的请求总数。 Average：所有请求的平均响应时间。 Median：所有请求的中位数响应时间。 90% Line：所有请求的第90个百分位数响应时间。 95% Line：所有请求的第95个百分位数响应时间。 99% Line：所有请求的第99个百分位数响应时间。 Min：所有请求的最小响应时间。 Max：所有请求的最大响应时间。 Error%：所有请求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jmeter相关">
+<meta property="og:url" content="https://shinyhero521.github.io/2023/03/02/jmeter%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="Hao&#39;s Notes">
+<meta property="og:description" content="总体报告参数： Samples：测试中发送的请求总数。 Average：所有请求的平均响应时间。 Median：所有请求的中位数响应时间。 90% Line：所有请求的第90个百分位数响应时间。 95% Line：所有请求的第95个百分位数响应时间。 99% Line：所有请求的第99个百分位数响应时间。 Min：所有请求的最小响应时间。 Max：所有请求的最大响应时间。 Error%：所有请求">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-l8yxgp.png">
+<meta property="article:published_time" content="2023-03-02T11:49:10.000Z">
+<meta property="article:modified_time" content="2023-03-02T12:11:58.929Z">
+<meta property="article:author" content="Patrick">
+<meta property="article:tag" content="测试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-l8yxgp.png">
+
+
+<link rel="canonical" href="https://shinyhero521.github.io/2023/03/02/jmeter%E7%9B%B8%E5%85%B3/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>jmeter相关 | Hao's Notes</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hao's Notes</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E6%8A%A5%E5%91%8A%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">总体报告参数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">一些常见的配置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%B8%ADramp-up-period%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.</span> <span class="nav-text">其中ramp-up period是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%B8%ADaverage%E7%9A%84%E5%8D%95%E4%BD%8D%E6%98%AF"><span class="nav-number">4.</span> <span class="nav-text">其中average的单位是</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%B8%ADnumber-of-threads%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">5.</span> <span class="nav-text">其中number of threads是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qps%E6%98%AF%E4%BB%80%E4%B9%88-%E4%B8%80%E8%88%AC%E6%98%AF%E5%A4%9A%E5%B0%91"><span class="nav-number">6.</span> <span class="nav-text">qps是什么 一般是多少</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loop-Count"><span class="nav-number">7.</span> <span class="nav-text">Loop Count</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#infinite"><span class="nav-number">8.</span> <span class="nav-text">infinite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jmeter%E5%90%AF%E5%8A%A8%E7%9A%84jvm%E5%8F%82%E6%95%B0%E5%A6%82%E4%BD%95%E8%B0%83%E5%A4%A7"><span class="nav-number">9.</span> <span class="nav-text">jmeter启动的jvm参数如何调大</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Patrick"
+      src="/images/shinyhero.png">
+  <p class="site-author-name" itemprop="name">Patrick</p>
+  <div class="site-description" itemprop="description">愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shinyhero521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shinyhero521" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:211296237@qq.com" title="E-Mail → mailto:211296237@qq.com" rel="noopener" target="_blank">E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-nd.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2023/03/02/jmeter%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shinyhero.png">
+      <meta itemprop="name" content="Patrick">
+      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hao's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          jmeter相关
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-02 19:49:10 / 修改时间：20:11:58" itemprop="dateCreated datePublished" datetime="2023-03-02T19:49:10+08:00">2023-03-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/chat/" itemprop="url" rel="index"><span itemprop="name">chat</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-l8yxgp.png"></p>
+<h3 id="总体报告参数："><a href="#总体报告参数：" class="headerlink" title="总体报告参数："></a>总体报告参数：</h3><ul>
+<li>Samples：测试中发送的请求总数。</li>
+<li>Average：所有请求的平均响应时间。</li>
+<li>Median：所有请求的中位数响应时间。</li>
+<li>90% Line：所有请求的第90个百分位数响应时间。</li>
+<li>95% Line：所有请求的第95个百分位数响应时间。</li>
+<li>99% Line：所有请求的第99个百分位数响应时间。</li>
+<li>Min：所有请求的最小响应时间。</li>
+<li>Max：所有请求的最大响应时间。</li>
+<li>Error%：所有请求中出错的百分比。</li>
+<li>Throughput：每秒钟发送的请求数量。</li>
+<li>Received KB/sec：每秒钟接收的数据量。</li>
+<li>Sent KB/sec：每秒钟发送的数据量。</li>
+</ul>
+<h3 id="一些常见的配置参数"><a href="#一些常见的配置参数" class="headerlink" title="一些常见的配置参数"></a>一些常见的配置参数</h3><ol>
+<li>线程数：指同时模拟的用户或请求的数量。线程数的设置应根据应用程序的负载和服务器的配置进行调整。</li>
+<li>Ramp-up Period（ramp-up时间）：指线程组中启动线程的时间间隔。ramp-up时间的设置可以模拟用户逐渐增加的情况，以免服务器突然承受过大的负载。</li>
+<li>循环次数：指线程组中每个线程要执行的请求或操作的次数。循环次数的设置可以模拟多个请求或操作的情况，以评估系统的性能表现。</li>
+<li>目标服务器或应用程序的URL地址：指被测试的服务器或应用程序的URL地址。测试人员应该确保这个地址是正确的，并能够正确地连接到被测试的服务器或应用程序。</li>
+<li>HTTP请求方法：指在测试中使用的HTTP请求方法，如GET、POST、PUT、DELETE等。测试人员应该根据被测试的应用程序选择适当的请求方法。</li>
+<li>请求参数：指在请求中包含的参数，如用户名、密码、查询条件等。测试人员应该根据测试需求和被测试的应用程序，正确地设置请求参数。</li>
+<li>断言：指在测试过程中验证响应的内容和结果是否正确。测试人员可以使用断言来验证响应的状态码、响应时间、返回数据等内容。</li>
+</ol>
+<h3 id="其中ramp-up-period是什么"><a href="#其中ramp-up-period是什么" class="headerlink" title="其中ramp-up period是什么"></a>其中ramp-up period是什么</h3><p>ramp-up period（逐渐增加的时间段）指的是在JMeter测试计划运行期间，测试线程从初始状态开始逐渐增加到目标并发数的时间段。换句话说，ramp-up period是指从启动测试到达到最大并发数所需的时间。</p>
+<p>在JMeter中，ramp-up period可以通过设置线程组的属性来定义。例如，如果你希望在1分钟内将并发用户数从0增加到100，你可以将线程组的“Number of Threads”属性设置为100，并将“Ramp-up period”属性设置为60秒。</p>
+<p>通过逐渐增加测试负载的方式，可以更好地模拟实际使用情况，并且有助于避免过度负载服务器。如果一下子将所有测试线程全部启动，可能会对服务器造成过度压力，从而导致性能测试结果不准确。</p>
+<p>需要注意的是，ramp-up period设置的时间应该足够长，以确保所有线程都有足够的时间启动和运行。如果ramp-up period设置得太短，可能会导致某些线程在测试开始时失败。</p>
+<h3 id="其中average的单位是"><a href="#其中average的单位是" class="headerlink" title="其中average的单位是"></a>其中average的单位是</h3><p>在JMeter的测试报告中，响应时间的平均值（average）的单位是毫秒（ms）。这个值表示所有请求的平均响应时间，是所有请求响应时间之和除以请求总数的结果。</p>
+<p>例如，如果一次测试中发送了100个请求，它们的响应时间分别为10ms、20ms、30ms……900ms，那么这100个请求的平均响应时间就是(10+20+30+…+900)/100=455ms。</p>
+<p>平均响应时间是性能测试中常用的一个指标，它可以用来评估系统的响应速度。较短的平均响应时间通常意味着系统的性能更好，而较长的平均响应时间可能表明系统存在性能问题或负载过高。</p>
+<p>需要注意的是，平均响应时间只是性能测试报告中的一个指标，不能单独用来评估系统性能。在性能测试中，还需要结合其他指标来综合评估系统的性能。</p>
+<h3 id="其中number-of-threads是什么"><a href="#其中number-of-threads是什么" class="headerlink" title="其中number of threads是什么"></a>其中number of threads是什么</h3><p>在JMeter中，number of threads（线程数）指的是同时模拟的用户或请求的数量。线程是JMeter中模拟并发用户或请求的基本单位，它们可以在测试计划中运行多个线程以模拟多个并发用户或请求。</p>
+<p>例如，如果你的应用程序需要支持100个并发用户，你可以在JMeter中创建一个线程组，并将线程组的“Number of Threads”属性设置为100。当测试计划开始运行时，JMeter会创建100个线程，并同时模拟100个并发用户向服务器发送请求。</p>
+<p>需要注意的是，线程数不应该过高或过低。如果线程数太低，可能无法充分测试应用程序的性能；如果线程数太高，可能会对服务器造成过度压力，从而导致测试结果不准确。一般来说，线程数应该根据应用程序的负载和服务器的配置进行调整。</p>
+<p>在性能测试中，线程数是一个重要的指标之一。通过调整线程数，可以模拟不同的并发负载，评估应用程序在不同负载下的性能表现。同时，线程数还可以用来确定测试计划的总并发量。</p>
+<h3 id="qps是什么-一般是多少"><a href="#qps是什么-一般是多少" class="headerlink" title="qps是什么 一般是多少"></a>qps是什么 一般是多少</h3><p>QPS（Queries Per Second）是一个用于衡量系统性能的指标，表示每秒钟处理的请求数量。在计算机领域，QPS通常用于衡量服务器、数据库、Web应用程序等系统的吞吐量和性能。</p>
+<p>QPS的计算方法是将一段时间内处理的请求数量除以该时间段的秒数，得到的结果即为每秒处理的请求数量。例如，如果一个系统在1秒钟内处理了100个请求，那么它的QPS为100。</p>
+<p>QPS的大小取决于系统的负载、配置和性能等因素。一般来说，QPS越高表示系统性能越好，但是过高的QPS可能会对系统造成过度压力，导致系统性能下降或系统崩溃。因此，在设计和评估系统性能时，需要综合考虑QPS和其他指标，以确定系统的最佳性能表现。</p>
+<p>具体而言，不同的系统和应用程序对QPS的要求也不同。例如，一些轻量级Web应用程序的QPS可能只有几百或几千，而高性能的数据库或消息队列可能需要支持每秒数十万或数百万的QPS。因此，在确定QPS时，需要考虑具体的应用场景和需求。</p>
+<h3 id="Loop-Count"><a href="#Loop-Count" class="headerlink" title="Loop Count"></a>Loop Count</h3><p>循环次数的英文是 “Loop Count”。在性能测试工具（如JMeter）中，循环次数通常可以在线程组中设置。</p>
+<p>循环次数是指在性能测试中，一个线程要执行多少次特定的操作或请求。循环次数的设置非常重要，因为它会直接影响到测试的结果和准确性。</p>
+<p>循环次数的设置应该根据具体的测试需求和被测试的应用程序来确定。一般来说，如果被测试的应用程序需要进行多个请求或操作才能完成一个完整的业务流程，那么循环次数就应该设置为相应的值。例如，如果需要在应用程序中完成登录、搜索、添加、编辑等多个操作，那么循环次数就应该设置为相应的次数，以保证测试能够覆盖所有的操作流程。</p>
+<p>另外，循环次数还应考虑到应用程序的负载和性能。如果应用程序本身性能较差或者服务器配置不高，那么循环次数就应该设置为相对较少的次数，以避免对系统造成过度压力。</p>
+<p>需要注意的是，循环次数的设置应该与线程数和ramp-up时间相互协调，以保证测试的准确性和可靠性。一般来说，线程数和循环次数越多，测试的负载就越大，测试结果也就越真实。但是如果线程数和循环次数设置过高，就可能对被测试的应用程序或服务器造成过度压力，导致测试结果不准确或系统崩溃。因此，在设置循环次数时需要根据具体情况进行综合考虑。</p>
+<h3 id="infinite"><a href="#infinite" class="headerlink" title="infinite"></a>infinite</h3><p>“Infinite” 是一个英文单词，意思是无限的、无穷的，也可以表示没有限制、没有终止点等。在性能测试中，”Infinite” 通常被用来指代循环次数设置为无限循环，即执行无限次特定的操作或请求。在JMeter等性能测试工具中，循环次数可以设置为 “Infinite”，表示循环次数没有限制。但是在实际测试中，建议不要将循环次数设置为无限循环，以免对被测试的应用程序或服务器造成过度压力。</p>
+<h3 id="jmeter启动的jvm参数如何调大"><a href="#jmeter启动的jvm参数如何调大" class="headerlink" title="jmeter启动的jvm参数如何调大"></a>jmeter启动的jvm参数如何调大</h3><p>JMeter启动时会默认使用JVM的一组参数，这些参数会影响JMeter的性能和稳定性。如果需要提高JMeter的性能，可以尝试通过调整JVM的参数来实现。</p>
+<p>下面是一些常用的JVM参数，可以在启动JMeter时加入：</p>
+<ol>
+<li>-Xms: 设置JVM的初始堆大小。可以使用-Xms参数来指定，例如：-Xms2048m 表示将初始堆大小设置为2GB。</li>
+<li>-Xmx: 设置JVM的最大堆大小。可以使用-Xmx参数来指定，例如：-Xmx4096m 表示将最大堆大小设置为4GB。</li>
+<li>-XX:MaxPermSize: 设置JVM的最大永久代大小。可以使用-XX:MaxPermSize参数来指定，例如：-XX:MaxPermSize=512m 表示将最大永久代大小设置为512MB。</li>
+<li>-XX:MaxMetaspaceSize: 设置JVM的最大元空间大小。可以使用-XX:MaxMetaspaceSize参数来指定，例如：-XX:MaxMetaspaceSize=512m 表示将最大元空间大小设置为512MB。</li>
+<li>-XX:+UseG1GC: 使用G1垃圾收集器。可以使用-XX:+UseG1GC参数来启用G1垃圾收集器。</li>
+<li>-XX:+HeapDumpOnOutOfMemoryError: 当JVM发生内存溢出错误时，自动生成一个堆转储文件。可以使用-XX:+HeapDumpOnOutOfMemoryError参数来启用。</li>
+</ol>
+<p>在Windows系统中，可以通过修改jmeter.bat文件来修改JVM参数。在jmeter.bat文件中，可以找到以下两行代码：</p>
+<p>set HEAP=-Xms512m -Xmx512m set NEW=-XX:NewSize=128m -XX:MaxNewSize=128m</p>
+<p>可以根据实际情况修改这些参数的值，以提高JMeter的性能。在Linux系统中，可以通过设置环境变量来修改JVM参数。例如，在Bash Shell中可以使用以下命令来设置JVM参数：</p>
+<p>export HEAP=”-Xms2048m -Xmx4096m” export NEW=”-XX:NewSize=512m -XX:MaxNewSize=512m”</p>
+<p>这些命令将JVM的初始堆大小设置为2GB，最大堆大小设置为4GB，新生代大小设置为512MB。需要注意的是，修改JVM参数可能会影响到JMeter的稳定性和性能，因此需要谨慎调整。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>您的鼓励，继续创作！</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.jpg" alt="Patrick 微信扫一扫">
+        <span>微信扫一扫</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Patrick
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://shinyhero521.github.io/2023/03/02/jmeter%E7%9B%B8%E5%85%B3/" title="jmeter相关">https://shinyhero521.github.io/2023/03/02/jmeter相关/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag"># 测试</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/02/25/chmod%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" rel="prev" title="chmod的那些事">
+                  <i class="fa fa-chevron-left"></i> chmod的那些事
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="90" alpha="0.3" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: false
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('.gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'b38074db2f7b9006226d',
+      clientSecret: 'ade1fe2f9bc4f412dd576e90264b4e62b2af97aa',
+      repo        : 'BlogComments',
+      owner       : 'shinyhero521',
+      admin       : ['shinyhero521'],
+      id          : '9c574f8bd4a09b273bdc61aaf4bc5480',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render(document.querySelector('.gitalk-container'));
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

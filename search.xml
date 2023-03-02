@@ -50,27 +50,6 @@
       </tags>
   </entry>
   <entry>
-    <title>bind(this)</title>
-    <url>/2017/12/13/bind(this)/</url>
-    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpeg"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
-<blockquote>
-<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
-</blockquote>
-<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
-<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>TENET</title>
     <url>/2020/09/03/TENET/</url>
     <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1goeqgik8qoj30h308kmxs.jpg"></p>
@@ -255,6 +234,27 @@
 ]]></content>
       <tags>
         <tag>movie</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>bind(this)</title>
+    <url>/2017/12/13/bind(this)/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpeg"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
+<blockquote>
+<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
+</blockquote>
+<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -464,6 +464,78 @@
       </tags>
   </entry>
   <entry>
+    <title>jmeter相关</title>
+    <url>/2023/03/02/jmeter%E7%9B%B8%E5%85%B3/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-l8yxgp.png"></p>
+<h3 id="总体报告参数："><a href="#总体报告参数：" class="headerlink" title="总体报告参数："></a>总体报告参数：</h3><ul>
+<li>Samples：测试中发送的请求总数。</li>
+<li>Average：所有请求的平均响应时间。</li>
+<li>Median：所有请求的中位数响应时间。</li>
+<li>90% Line：所有请求的第90个百分位数响应时间。</li>
+<li>95% Line：所有请求的第95个百分位数响应时间。</li>
+<li>99% Line：所有请求的第99个百分位数响应时间。</li>
+<li>Min：所有请求的最小响应时间。</li>
+<li>Max：所有请求的最大响应时间。</li>
+<li>Error%：所有请求中出错的百分比。</li>
+<li>Throughput：每秒钟发送的请求数量。</li>
+<li>Received KB/sec：每秒钟接收的数据量。</li>
+<li>Sent KB/sec：每秒钟发送的数据量。</li>
+</ul>
+<h3 id="一些常见的配置参数"><a href="#一些常见的配置参数" class="headerlink" title="一些常见的配置参数"></a>一些常见的配置参数</h3><ol>
+<li>线程数：指同时模拟的用户或请求的数量。线程数的设置应根据应用程序的负载和服务器的配置进行调整。</li>
+<li>Ramp-up Period（ramp-up时间）：指线程组中启动线程的时间间隔。ramp-up时间的设置可以模拟用户逐渐增加的情况，以免服务器突然承受过大的负载。</li>
+<li>循环次数：指线程组中每个线程要执行的请求或操作的次数。循环次数的设置可以模拟多个请求或操作的情况，以评估系统的性能表现。</li>
+<li>目标服务器或应用程序的URL地址：指被测试的服务器或应用程序的URL地址。测试人员应该确保这个地址是正确的，并能够正确地连接到被测试的服务器或应用程序。</li>
+<li>HTTP请求方法：指在测试中使用的HTTP请求方法，如GET、POST、PUT、DELETE等。测试人员应该根据被测试的应用程序选择适当的请求方法。</li>
+<li>请求参数：指在请求中包含的参数，如用户名、密码、查询条件等。测试人员应该根据测试需求和被测试的应用程序，正确地设置请求参数。</li>
+<li>断言：指在测试过程中验证响应的内容和结果是否正确。测试人员可以使用断言来验证响应的状态码、响应时间、返回数据等内容。</li>
+</ol>
+<h3 id="其中ramp-up-period是什么"><a href="#其中ramp-up-period是什么" class="headerlink" title="其中ramp-up period是什么"></a>其中ramp-up period是什么</h3><p>ramp-up period（逐渐增加的时间段）指的是在JMeter测试计划运行期间，测试线程从初始状态开始逐渐增加到目标并发数的时间段。换句话说，ramp-up period是指从启动测试到达到最大并发数所需的时间。</p>
+<p>在JMeter中，ramp-up period可以通过设置线程组的属性来定义。例如，如果你希望在1分钟内将并发用户数从0增加到100，你可以将线程组的“Number of Threads”属性设置为100，并将“Ramp-up period”属性设置为60秒。</p>
+<p>通过逐渐增加测试负载的方式，可以更好地模拟实际使用情况，并且有助于避免过度负载服务器。如果一下子将所有测试线程全部启动，可能会对服务器造成过度压力，从而导致性能测试结果不准确。</p>
+<p>需要注意的是，ramp-up period设置的时间应该足够长，以确保所有线程都有足够的时间启动和运行。如果ramp-up period设置得太短，可能会导致某些线程在测试开始时失败。</p>
+<h3 id="其中average的单位是"><a href="#其中average的单位是" class="headerlink" title="其中average的单位是"></a>其中average的单位是</h3><p>在JMeter的测试报告中，响应时间的平均值（average）的单位是毫秒（ms）。这个值表示所有请求的平均响应时间，是所有请求响应时间之和除以请求总数的结果。</p>
+<p>例如，如果一次测试中发送了100个请求，它们的响应时间分别为10ms、20ms、30ms……900ms，那么这100个请求的平均响应时间就是(10+20+30+…+900)/100=455ms。</p>
+<p>平均响应时间是性能测试中常用的一个指标，它可以用来评估系统的响应速度。较短的平均响应时间通常意味着系统的性能更好，而较长的平均响应时间可能表明系统存在性能问题或负载过高。</p>
+<p>需要注意的是，平均响应时间只是性能测试报告中的一个指标，不能单独用来评估系统性能。在性能测试中，还需要结合其他指标来综合评估系统的性能。</p>
+<h3 id="其中number-of-threads是什么"><a href="#其中number-of-threads是什么" class="headerlink" title="其中number of threads是什么"></a>其中number of threads是什么</h3><p>在JMeter中，number of threads（线程数）指的是同时模拟的用户或请求的数量。线程是JMeter中模拟并发用户或请求的基本单位，它们可以在测试计划中运行多个线程以模拟多个并发用户或请求。</p>
+<p>例如，如果你的应用程序需要支持100个并发用户，你可以在JMeter中创建一个线程组，并将线程组的“Number of Threads”属性设置为100。当测试计划开始运行时，JMeter会创建100个线程，并同时模拟100个并发用户向服务器发送请求。</p>
+<p>需要注意的是，线程数不应该过高或过低。如果线程数太低，可能无法充分测试应用程序的性能；如果线程数太高，可能会对服务器造成过度压力，从而导致测试结果不准确。一般来说，线程数应该根据应用程序的负载和服务器的配置进行调整。</p>
+<p>在性能测试中，线程数是一个重要的指标之一。通过调整线程数，可以模拟不同的并发负载，评估应用程序在不同负载下的性能表现。同时，线程数还可以用来确定测试计划的总并发量。</p>
+<h3 id="qps是什么-一般是多少"><a href="#qps是什么-一般是多少" class="headerlink" title="qps是什么 一般是多少"></a>qps是什么 一般是多少</h3><p>QPS（Queries Per Second）是一个用于衡量系统性能的指标，表示每秒钟处理的请求数量。在计算机领域，QPS通常用于衡量服务器、数据库、Web应用程序等系统的吞吐量和性能。</p>
+<p>QPS的计算方法是将一段时间内处理的请求数量除以该时间段的秒数，得到的结果即为每秒处理的请求数量。例如，如果一个系统在1秒钟内处理了100个请求，那么它的QPS为100。</p>
+<p>QPS的大小取决于系统的负载、配置和性能等因素。一般来说，QPS越高表示系统性能越好，但是过高的QPS可能会对系统造成过度压力，导致系统性能下降或系统崩溃。因此，在设计和评估系统性能时，需要综合考虑QPS和其他指标，以确定系统的最佳性能表现。</p>
+<p>具体而言，不同的系统和应用程序对QPS的要求也不同。例如，一些轻量级Web应用程序的QPS可能只有几百或几千，而高性能的数据库或消息队列可能需要支持每秒数十万或数百万的QPS。因此，在确定QPS时，需要考虑具体的应用场景和需求。</p>
+<h3 id="Loop-Count"><a href="#Loop-Count" class="headerlink" title="Loop Count"></a>Loop Count</h3><p>循环次数的英文是 “Loop Count”。在性能测试工具（如JMeter）中，循环次数通常可以在线程组中设置。</p>
+<p>循环次数是指在性能测试中，一个线程要执行多少次特定的操作或请求。循环次数的设置非常重要，因为它会直接影响到测试的结果和准确性。</p>
+<p>循环次数的设置应该根据具体的测试需求和被测试的应用程序来确定。一般来说，如果被测试的应用程序需要进行多个请求或操作才能完成一个完整的业务流程，那么循环次数就应该设置为相应的值。例如，如果需要在应用程序中完成登录、搜索、添加、编辑等多个操作，那么循环次数就应该设置为相应的次数，以保证测试能够覆盖所有的操作流程。</p>
+<p>另外，循环次数还应考虑到应用程序的负载和性能。如果应用程序本身性能较差或者服务器配置不高，那么循环次数就应该设置为相对较少的次数，以避免对系统造成过度压力。</p>
+<p>需要注意的是，循环次数的设置应该与线程数和ramp-up时间相互协调，以保证测试的准确性和可靠性。一般来说，线程数和循环次数越多，测试的负载就越大，测试结果也就越真实。但是如果线程数和循环次数设置过高，就可能对被测试的应用程序或服务器造成过度压力，导致测试结果不准确或系统崩溃。因此，在设置循环次数时需要根据具体情况进行综合考虑。</p>
+<h3 id="infinite"><a href="#infinite" class="headerlink" title="infinite"></a>infinite</h3><p>“Infinite” 是一个英文单词，意思是无限的、无穷的，也可以表示没有限制、没有终止点等。在性能测试中，”Infinite” 通常被用来指代循环次数设置为无限循环，即执行无限次特定的操作或请求。在JMeter等性能测试工具中，循环次数可以设置为 “Infinite”，表示循环次数没有限制。但是在实际测试中，建议不要将循环次数设置为无限循环，以免对被测试的应用程序或服务器造成过度压力。</p>
+<h3 id="jmeter启动的jvm参数如何调大"><a href="#jmeter启动的jvm参数如何调大" class="headerlink" title="jmeter启动的jvm参数如何调大"></a>jmeter启动的jvm参数如何调大</h3><p>JMeter启动时会默认使用JVM的一组参数，这些参数会影响JMeter的性能和稳定性。如果需要提高JMeter的性能，可以尝试通过调整JVM的参数来实现。</p>
+<p>下面是一些常用的JVM参数，可以在启动JMeter时加入：</p>
+<ol>
+<li>-Xms: 设置JVM的初始堆大小。可以使用-Xms参数来指定，例如：-Xms2048m 表示将初始堆大小设置为2GB。</li>
+<li>-Xmx: 设置JVM的最大堆大小。可以使用-Xmx参数来指定，例如：-Xmx4096m 表示将最大堆大小设置为4GB。</li>
+<li>-XX:MaxPermSize: 设置JVM的最大永久代大小。可以使用-XX:MaxPermSize参数来指定，例如：-XX:MaxPermSize=512m 表示将最大永久代大小设置为512MB。</li>
+<li>-XX:MaxMetaspaceSize: 设置JVM的最大元空间大小。可以使用-XX:MaxMetaspaceSize参数来指定，例如：-XX:MaxMetaspaceSize=512m 表示将最大元空间大小设置为512MB。</li>
+<li>-XX:+UseG1GC: 使用G1垃圾收集器。可以使用-XX:+UseG1GC参数来启用G1垃圾收集器。</li>
+<li>-XX:+HeapDumpOnOutOfMemoryError: 当JVM发生内存溢出错误时，自动生成一个堆转储文件。可以使用-XX:+HeapDumpOnOutOfMemoryError参数来启用。</li>
+</ol>
+<p>在Windows系统中，可以通过修改jmeter.bat文件来修改JVM参数。在jmeter.bat文件中，可以找到以下两行代码：</p>
+<p>set HEAP=-Xms512m -Xmx512m set NEW=-XX:NewSize=128m -XX:MaxNewSize=128m</p>
+<p>可以根据实际情况修改这些参数的值，以提高JMeter的性能。在Linux系统中，可以通过设置环境变量来修改JVM参数。例如，在Bash Shell中可以使用以下命令来设置JVM参数：</p>
+<p>export HEAP=”-Xms2048m -Xmx4096m” export NEW=”-XX:NewSize=512m -XX:MaxNewSize=512m”</p>
+<p>这些命令将JVM的初始堆大小设置为2GB，最大堆大小设置为4GB，新生代大小设置为512MB。需要注意的是，修改JVM参数可能会影响到JMeter的稳定性和性能，因此需要谨慎调整。</p>
+]]></content>
+      <categories>
+        <category>chat</category>
+      </categories>
+      <tags>
+        <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown示例</title>
     <url>/2018/12/13/markdown%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</url>
     <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1fn94zj31b1j30zk0k0wgu.jpg"></p>
@@ -524,45 +596,6 @@
       </categories>
       <tags>
         <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MIUI退回12.0.6欧洲版</title>
-    <url>/2022/07/20/miui%E9%80%80%E5%9B%9E12-0-6%E6%AC%A7%E6%B4%B2%E7%89%88/</url>
-    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/5981675588449_.pic_hd.jpg"></p>
-<blockquote>
-<p>苦于小米11 ultra 的火龙，升级MIUI 13 之后烫手，决定回滚版本。<br>结果逛论坛发现都在跪求12.0.6版本。遂有了本文</p>
-</blockquote>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
-<li>解锁bl</li>
-<li>刷机</li>
-<li>再点解锁bl</li>
-<li>重启</li>
-</ul>
-<h3 id="资源包"><a href="#资源包" class="headerlink" title="资源包"></a>资源包</h3><ul>
-<li><p><a href="https://xiaomirom.com/rom/mi-11-pro-ultra-11-ultra-star-europe-fastboot-recovery-rom/">小米 11 Ultra / 11 Pro (star) 欧洲版 (欧版) (EEA) Fastboot 线刷包 &amp; Recovery 卡刷包 ROM</a></p>
-</li>
-<li><p><a href="https://www.miui.com/unlock/index.html">申请解锁小米手机</a></p>
-</li>
-<li><p><a href="http://bigota.d.miui.com/tools/MiFlash2018-5-28-0.zip">刷机工具</a></p>
-</li>
-</ul>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
-<li>一开始会提示此版本不适配，然后无限重启，我以为是我刷失败了，然后我想解锁bl再刷个官方版本，结果点了解锁重启之后就ok了<blockquote>
-<p>也许是因为像<a href="https://zhuanlan.zhihu.com/p/408114647">小米手机 MIUI 国际版/EU 刷机教程 - 知乎</a> 中说的是在刷机时要点全部删除。这个没有再验证</p>
-</blockquote>
-</li>
-<li>还有个问题是刷了欧洲版之后无法用nfc门禁功能了，要root还是安装小米钱包，都比较麻烦，等有空再弄<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3></li>
-<li><a href="https://zhuanlan.zhihu.com/p/408114647">小米手机 MIUI 国际版/EU 刷机教程 - 知乎</a></li>
-<li><a href="https://web.vip.miui.com/page/info/mio/mio/detail?postId=37093637&app_version=dev.20051">MIUI刷机说明帖·论坛</a></li>
-<li><a href="https://web.vip.miui.com/page/info/mio/mio/detail?postId=17936575&app_version=dev.20051">[教程] 小米手机解BL锁、线刷详细教程，适用于小米全系列手机</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>刷机</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
       </tags>
   </entry>
   <entry>
@@ -637,6 +670,45 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">upstream bakend&#123; <span class="comment">#定义负载均衡设备的Ip及设备状态 </span></span><br><span class="line">      ip_hash; </span><br><span class="line">      server 10.0.0.11:9090 down; </span><br><span class="line">      server 10.0.0.11:8080 weight=2; </span><br><span class="line">      server 10.0.0.11:6060; </span><br><span class="line">      server 10.0.0.11:7070 backup; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MIUI退回12.0.6欧洲版</title>
+    <url>/2022/07/20/miui%E9%80%80%E5%9B%9E12-0-6%E6%AC%A7%E6%B4%B2%E7%89%88/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/5981675588449_.pic_hd.jpg"></p>
+<blockquote>
+<p>苦于小米11 ultra 的火龙，升级MIUI 13 之后烫手，决定回滚版本。<br>结果逛论坛发现都在跪求12.0.6版本。遂有了本文</p>
+</blockquote>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
+<li>解锁bl</li>
+<li>刷机</li>
+<li>再点解锁bl</li>
+<li>重启</li>
+</ul>
+<h3 id="资源包"><a href="#资源包" class="headerlink" title="资源包"></a>资源包</h3><ul>
+<li><p><a href="https://xiaomirom.com/rom/mi-11-pro-ultra-11-ultra-star-europe-fastboot-recovery-rom/">小米 11 Ultra / 11 Pro (star) 欧洲版 (欧版) (EEA) Fastboot 线刷包 &amp; Recovery 卡刷包 ROM</a></p>
+</li>
+<li><p><a href="https://www.miui.com/unlock/index.html">申请解锁小米手机</a></p>
+</li>
+<li><p><a href="http://bigota.d.miui.com/tools/MiFlash2018-5-28-0.zip">刷机工具</a></p>
+</li>
+</ul>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li>一开始会提示此版本不适配，然后无限重启，我以为是我刷失败了，然后我想解锁bl再刷个官方版本，结果点了解锁重启之后就ok了<blockquote>
+<p>也许是因为像<a href="https://zhuanlan.zhihu.com/p/408114647">小米手机 MIUI 国际版/EU 刷机教程 - 知乎</a> 中说的是在刷机时要点全部删除。这个没有再验证</p>
+</blockquote>
+</li>
+<li>还有个问题是刷了欧洲版之后无法用nfc门禁功能了，要root还是安装小米钱包，都比较麻烦，等有空再弄<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3></li>
+<li><a href="https://zhuanlan.zhihu.com/p/408114647">小米手机 MIUI 国际版/EU 刷机教程 - 知乎</a></li>
+<li><a href="https://web.vip.miui.com/page/info/mio/mio/detail?postId=37093637&app_version=dev.20051">MIUI刷机说明帖·论坛</a></li>
+<li><a href="https://web.vip.miui.com/page/info/mio/mio/detail?postId=17936575&app_version=dev.20051">[教程] 小米手机解BL锁、线刷详细教程，适用于小米全系列手机</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>刷机</category>
+      </categories>
+      <tags>
+        <tag>刷机</tag>
       </tags>
   </entry>
   <entry>
