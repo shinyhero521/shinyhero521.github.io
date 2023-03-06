@@ -25,18 +25,23 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"shinyhero521.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.2.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="愿时光能缓，愿故人不散，愿你独闯的日子里不觉孤单">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hao&#39;s Notes">
-<meta property="og:url" content="https://shinyhero521.github.io/archives/2022/07/index.html">
+<meta name="description" content="utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么utf8mb4_unicode_ci 和 utf8mb4_general_ci 是两种常见的 MySQL 字符集和排序规则。它们的主要区别在于它们如何比较和排序字符，特别是对于一些语言和字符集，如 Unicode。 具体来说，utf8mb4_unicode_ci 使用 Unicode 官方的排序规则进行字符比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么">
+<meta property="og:url" content="https://shinyhero521.github.io/2023/03/06/utf8mb4-unicode-ci-%E5%92%8Cutf8mb4-general-ci%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/index.html">
 <meta property="og:site_name" content="Hao&#39;s Notes">
-<meta property="og:description" content="愿时光能缓，愿故人不散，愿你独闯的日子里不觉孤单">
+<meta property="og:description" content="utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么utf8mb4_unicode_ci 和 utf8mb4_general_ci 是两种常见的 MySQL 字符集和排序规则。它们的主要区别在于它们如何比较和排序字符，特别是对于一些语言和字符集，如 Unicode。 具体来说，utf8mb4_unicode_ci 使用 Unicode 官方的排序规则进行字符比">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-o5g6r7.png">
+<meta property="article:published_time" content="2023-03-06T11:37:09.000Z">
+<meta property="article:modified_time" content="2023-03-06T11:41:34.240Z">
 <meta property="article:author" content="Patrick">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-o5g6r7.png">
 
 
-<link rel="canonical" href="https://shinyhero521.github.io/archives/2022/07/">
+<link rel="canonical" href="https://shinyhero521.github.io/2023/03/06/utf8mb4-unicode-ci-%E5%92%8Cutf8mb4-general-ci%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/">
 
 
 <script class="page-configurations">
@@ -44,11 +49,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>归档 | Hao's Notes</title>
+<title>utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么 | Hao's Notes</title>
   
 
 
@@ -172,7 +177,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -185,6 +190,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#utf8mb4-unicode-ci-%E5%92%8Cutf8mb4-general-ci%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%B8%ADci%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D"><span class="nav-number">2.</span> <span class="nav-text">其中ci是什么意思</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-insensitive%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D"><span class="nav-number">3.</span> <span class="nav-text">case-insensitive是什么意思</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -252,50 +258,137 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 17 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2023/03/06/utf8mb4-unicode-ci-%E5%92%8Cutf8mb4-general-ci%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shinyhero.png">
+      <meta itemprop="name" content="Patrick">
+      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hao's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+
+      <time title="创建时间：2023-03-06 19:37:09 / 修改时间：19:41:34" itemprop="dateCreated datePublished" datetime="2023-03-06T19:37:09+08:00">2023-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/chat/" itemprop="url" rel="index"><span itemprop="name">chat</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-o5g6r7.png"></p>
+<h3 id="utf8mb4-unicode-ci-和utf8mb4-general-ci的区别是什么"><a href="#utf8mb4-unicode-ci-和utf8mb4-general-ci的区别是什么" class="headerlink" title="utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么"></a>utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么</h3><p><code>utf8mb4_unicode_ci</code> 和 <code>utf8mb4_general_ci</code> 是两种常见的 MySQL 字符集和排序规则。它们的主要区别在于它们如何比较和排序字符，特别是对于一些语言和字符集，如 Unicode。</p>
+<p>具体来说，<code>utf8mb4_unicode_ci</code> 使用 Unicode 官方的排序规则进行字符比较和排序，因此更准确地反映了各种语言和字符集的规则。例如，它会将不同形式的相同字符视为相同，如大小写不同的字母和不同的变音符号。</p>
+<p>而 <code>utf8mb4_general_ci</code> 则使用一种更简单的排序规则，它不考虑字符的语言或文化背景，仅仅比较字符的基本值。这种排序方式不会考虑一些特殊字符，如 Unicode 表情符号，因此在某些情况下可能会产生错误的排序结果。</p>
+<p>综上所述，如果您需要对不同语言和字符集进行排序和比较，建议使用 <code>utf8mb4_unicode_ci</code>，因为它提供了更准确和可靠的排序方式。而如果您处理的是比较基本的字符集，可以使用 <code>utf8mb4_general_ci</code> 以提高性能。</p>
+<h3 id="其中ci是什么意思"><a href="#其中ci是什么意思" class="headerlink" title="其中ci是什么意思"></a>其中ci是什么意思</h3><p>在MySQL中，<code>ci</code>是指不区分大小写（case-insensitive），意味着在排序或比较时，字符的大小写不会影响结果。因此，<code>utf8mb4_unicode_ci</code> 和 <code>utf8mb4_general_ci</code> 的区别在于它们如何比较和排序字符，以及如何处理大小写。<code>ci</code>后缀通常用于排序规则的名称中，用于表示不区分大小写。相对的，MySQL还提供了带有<code>cs</code>后缀的排序规则，表示区分大小写（case-sensitive）。</p>
+<h3 id="case-insensitive是什么意思"><a href="#case-insensitive是什么意思" class="headerlink" title="case-insensitive是什么意思"></a>case-insensitive是什么意思</h3><p><code>case-insensitive</code> 是一个术语，指的是在比较字符时，不考虑字符的大小写。例如，当使用 <code>case-insensitive</code> 方式比较字符串 “hello” 和 “HELLO” 时，它们会被视为相同，因为这种比较方式不会考虑字符的大小写。</p>
+<p>相对的，<code>case-sensitive</code> 比较则会考虑字符的大小写，因此 “hello” 和 “HELLO” 在 <code>case-sensitive</code> 比较中被视为不同的字符串。</p>
+<p>在计算机编程中，<code>case-insensitive</code> 通常用于文本搜索和排序等场景，以提高用户体验和准确性。例如，当用户在搜索引擎或电子邮件中输入关键词时，常常会使用 <code>case-insensitive</code> 比较来匹配查询和搜索结果，以确保无论用户输入的是大写还是小写字符，都能获得正确的结果。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-07-20T23:33:48+08:00"
-              content="2022-07-20">
-          07-20
-        </time>
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>您的鼓励，继续创作！</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.jpg" alt="Patrick 微信扫一扫">
+        <span>微信扫一扫</span>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/07/20/miui%E9%80%80%E5%9B%9E12-0-6%E6%AC%A7%E6%B4%B2%E7%89%88/" itemprop="url">
-            <span itemprop="name">MIUI退回12.0.6欧洲版</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-
-    </div>
   </div>
-  
-  
-  
+</div>
 
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Patrick
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://shinyhero521.github.io/2023/03/06/utf8mb4-unicode-ci-%E5%92%8Cutf8mb4-general-ci%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/" title="utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么">https://shinyhero521.github.io/2023/03/06/utf8mb4-unicode-ci-和utf8mb4-general-ci的区别是什么/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/02/jmeter%E7%9B%B8%E5%85%B3/" rel="prev" title="jmeter相关">
+                  <i class="fa fa-chevron-left"></i> jmeter相关
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -378,6 +471,25 @@
 
 
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('.gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'b38074db2f7b9006226d',
+      clientSecret: 'ade1fe2f9bc4f412dd576e90264b4e62b2af97aa',
+      repo        : 'BlogComments',
+      owner       : 'shinyhero521',
+      admin       : ['shinyhero521'],
+      id          : '8110f94af07a9cc5f2249231a64e1afe',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render(document.querySelector('.gitalk-container'));
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>

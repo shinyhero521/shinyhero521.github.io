@@ -200,7 +200,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -213,7 +213,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -253,6 +253,88 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2023/03/06/utf8mb4-unicode-ci-%E5%92%8Cutf8mb4-general-ci%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shinyhero.png">
+      <meta itemprop="name" content="Patrick">
+      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hao's Notes">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/06/utf8mb4-unicode-ci-%E5%92%8Cutf8mb4-general-ci%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88/" class="post-title-link" itemprop="url">utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-06 19:37:09 / 修改时间：19:41:34" itemprop="dateCreated datePublished" datetime="2023-03-06T19:37:09+08:00">2023-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/chat/" itemprop="url" rel="index"><span itemprop="name">chat</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-o5g6r7.png"></p>
+<h3 id="utf8mb4-unicode-ci-和utf8mb4-general-ci的区别是什么"><a href="#utf8mb4-unicode-ci-和utf8mb4-general-ci的区别是什么" class="headerlink" title="utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么"></a>utf8mb4_unicode_ci 和utf8mb4_general_ci的区别是什么</h3><p><code>utf8mb4_unicode_ci</code> 和 <code>utf8mb4_general_ci</code> 是两种常见的 MySQL 字符集和排序规则。它们的主要区别在于它们如何比较和排序字符，特别是对于一些语言和字符集，如 Unicode。</p>
+<p>具体来说，<code>utf8mb4_unicode_ci</code> 使用 Unicode 官方的排序规则进行字符比较和排序，因此更准确地反映了各种语言和字符集的规则。例如，它会将不同形式的相同字符视为相同，如大小写不同的字母和不同的变音符号。</p>
+<p>而 <code>utf8mb4_general_ci</code> 则使用一种更简单的排序规则，它不考虑字符的语言或文化背景，仅仅比较字符的基本值。这种排序方式不会考虑一些特殊字符，如 Unicode 表情符号，因此在某些情况下可能会产生错误的排序结果。</p>
+<p>综上所述，如果您需要对不同语言和字符集进行排序和比较，建议使用 <code>utf8mb4_unicode_ci</code>，因为它提供了更准确和可靠的排序方式。而如果您处理的是比较基本的字符集，可以使用 <code>utf8mb4_general_ci</code> 以提高性能。</p>
+<h3 id="其中ci是什么意思"><a href="#其中ci是什么意思" class="headerlink" title="其中ci是什么意思"></a>其中ci是什么意思</h3><p>在MySQL中，<code>ci</code>是指不区分大小写（case-insensitive），意味着在排序或比较时，字符的大小写不会影响结果。因此，<code>utf8mb4_unicode_ci</code> 和 <code>utf8mb4_general_ci</code> 的区别在于它们如何比较和排序字符，以及如何处理大小写。<code>ci</code>后缀通常用于排序规则的名称中，用于表示不区分大小写。相对的，MySQL还提供了带有<code>cs</code>后缀的排序规则，表示区分大小写（case-sensitive）。</p>
+<h3 id="case-insensitive是什么意思"><a href="#case-insensitive是什么意思" class="headerlink" title="case-insensitive是什么意思"></a>case-insensitive是什么意思</h3><p><code>case-insensitive</code> 是一个术语，指的是在比较字符时，不考虑字符的大小写。例如，当使用 <code>case-insensitive</code> 方式比较字符串 “hello” 和 “HELLO” 时，它们会被视为相同，因为这种比较方式不会考虑字符的大小写。</p>
+<p>相对的，<code>case-sensitive</code> 比较则会考虑字符的大小写，因此 “hello” 和 “HELLO” 在 <code>case-sensitive</code> 比较中被视为不同的字符串。</p>
+<p>在计算机编程中，<code>case-insensitive</code> 通常用于文本搜索和排序等场景，以提高用户体验和准确性。例如，当用户在搜索引擎或电子邮件中输入关键词时，常常会使用 <code>case-insensitive</code> 比较来匹配查询和搜索结果，以确保无论用户输入的是大写还是小写字符，都能获得正确的结果。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1474,131 +1556,6 @@
 <p>value就是用”getmessage”去接收，这里是方法</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getmessage (data) &#123;</span><br><span class="line">       this.authorizationVisible = data</span><br><span class="line">  </span><br><span class="line">     &#125;,</span><br></pre></td></tr></table></figure>
 <p>这样就把子页面的data传给了父页面</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2019/06/13/%E5%AE%89%E8%A3%85es&kibana/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/shinyhero.png">
-      <meta itemprop="name" content="Patrick">
-      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hao's Notes">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/06/13/%E5%AE%89%E8%A3%85es&kibana/" class="post-title-link" itemprop="url">mac下安装es</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-06-13 17:28:19" itemprop="dateCreated datePublished" datetime="2019-06-13T17:28:19+08:00">2019-06-13</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2023-02-06 16:59:53" itemprop="dateModified" datetime="2023-02-06T16:59:53+08:00">2023-02-06</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/es/" itemprop="url" rel="index"><span itemprop="name">es</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-1pqkz1_1280x800.png"></p>
-<h3 id="安装es-amp-kibana"><a href="#安装es-amp-kibana" class="headerlink" title="安装es&amp;kibana"></a>安装es&amp;kibana</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ brew update</span><br><span class="line"></span><br><span class="line">$ brew install elasticsearch</span><br><span class="line"></span><br><span class="line">$ brew install kibana</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">brew list &#x2F;&#x2F;查看brew列表</span><br><span class="line">brew uninstall elasticsearch&#x2F;&#x2F;卸载es，这种卸载方法不是很干净，建议通过brew info elasticsearch,找到相关路径，删除之后再重装</span><br><span class="line">brew search elasticsearch&#x2F;&#x2F;查看es版本有哪些</span><br><span class="line">brew install elasticsearch@6.5</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在安装es5.6.16，启动时如果报错，<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/55122277/elasticsearch-5-6-cannot-start-on-mac-os">解决方法</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv elasticsearch.keystore elasticsearch.keystore.old   </span><br><span class="line">elasticsearch-keystore create</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="中文分词器"><a href="#中文分词器" class="headerlink" title="中文分词器"></a>中文分词器</h3><p><a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/tree/v5.6.0">官方使用文档地址</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;var&#x2F;elasticsearch&#x2F;plugins&#x2F;        &#x2F;&#x2F;这个是插件的目录</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;elasticsearch@5.6&#x2F;5.6.16&#x2F;bin     &#x2F;&#x2F;mac下的es的安装目录</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;elasticsearch-plugin install https:&#x2F;&#x2F;github.com&#x2F;medcl&#x2F;elasticsearch-analysis-ik&#x2F;releases&#x2F;download&#x2F;v5.6.16&#x2F;elasticsearch-analysis-ik-5.6.16.zip</span><br><span class="line">&#x2F;&#x2F;首先找到elasticsearch的安装路径，找到bin目录下 然后执行上面</span><br></pre></td></tr></table></figure>
-
-<p>注意要版本一致，我的elasticsearch是5.6.16，那么ik分词器也应该是5.6.16，否则会失败</p>
-<h3 id="kibana"><a href="#kibana" class="headerlink" title="kibana"></a>kibana</h3><p>而一开始kibana安装好之后你感觉会报错，怎么点都下一步弄不好，其实是因为没有建立好索引，下面是一张和mysql的对比图</p>
-<table>
-<thead>
-<tr>
-<th>header 1</th>
-<th>Elasticsearch</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Datebases</td>
-<td>Indices</td>
-</tr>
-<tr>
-<td>Tables</td>
-<td>Types</td>
-</tr>
-<tr>
-<td>Rows</td>
-<td>Documents</td>
-</tr>
-<tr>
-<td>Columns</td>
-<td>Fields</td>
-</tr>
-</tbody></table>
-<p>用命令建立一个索引之后，然后首页填上索引名称，点击下一步就ok了</p>
-<h3 id="elasticsearch-head"><a href="#elasticsearch-head" class="headerlink" title="elasticsearch head"></a>elasticsearch head</h3><p>直接用chrome的插件安装就行，<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/elasticsearch-head/ffmkiejjmecolpfloofpjologoblkegm">ElasticSearch Head</a>，十分简单，开箱即用</p>
-<h3 id="使用java开发"><a href="#使用java开发" class="headerlink" title="使用java开发"></a>使用java开发</h3><h4 id="Spring-Data-Elasticsearch与基础版ES的"><a href="#Spring-Data-Elasticsearch与基础版ES的" class="headerlink" title="Spring Data Elasticsearch与基础版ES的"></a>Spring Data Elasticsearch与基础版ES的</h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34487302">关系</a></p>
 
       
     </div>
