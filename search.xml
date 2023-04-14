@@ -50,6 +50,27 @@
       </tags>
   </entry>
   <entry>
+    <title>bind(this)</title>
+    <url>/2017/12/13/bind(this)/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpeg"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
+<blockquote>
+<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
+</blockquote>
+<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>js</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TENET</title>
     <url>/2020/09/03/TENET/</url>
     <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1goeqgik8qoj30h308kmxs.jpg"></p>
@@ -237,27 +258,6 @@
       </tags>
   </entry>
   <entry>
-    <title>bind(this)</title>
-    <url>/2017/12/13/bind(this)/</url>
-    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng8dwqdhyj31oe11ox6r.jpeg"><br><strong>对我来说，好记性不如烂笔记，博客是我的大脑扩容硬盘</strong></p>
-<blockquote>
-<p>“对我来说，博客首先是一种知识管理工具，其次才是传播工具。我的技术文章，主要用来整理我还不懂的知识。我只写那些我还没有完全掌握的东西，那些我精通的东西，往往没有动力写。炫耀从来不是我的动机，好奇才是。”    -阮一峰</p>
-</blockquote>
-<h2 id="bind-this-用法解释"><a href="#bind-this-用法解释" class="headerlink" title="bind(this)用法解释"></a>bind(this)用法解释</h2><p>直接上代码</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">/* 首先是bind的用法 */</span></span></span><br><span class="line">    alert();</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> post = &#123;<span class="attr">id</span>: <span class="number">1</span>,&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> UI = &#123;</span></span><br><span class="line"><span class="javascript">        render: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.id);<span class="comment">//1</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> r = UI.render.bind(post);<span class="comment">//相当于把post扔到render方法里</span></span></span><br><span class="line">    r();</span><br><span class="line"><span class="javascript">    <span class="comment">/* 再是bind（this）的用法 */</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> foo = &#123;</span></span><br><span class="line">        bar: 1,</span><br><span class="line"><span class="javascript">        eventBind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&#x27;.someClass&#x27;</span>).on(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/* Act on the event */</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="built_in">this</span>.bar);      <span class="comment">//1</span></span></span><br><span class="line"><span class="javascript">            &#125;.bind(<span class="built_in">this</span>));<span class="comment">//相当于把foo传入click事件</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>相当于bind（this）外面的绑定到里面去了，这样里面就有this.bar的值了。如果不加，就不会有值，里面是undefined</p>
-<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><p><a href="http://www.10tiao.com/html/59/201804/2651553996/2.html">es6常用语法</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.assign(target, ...sources)  <span class="comment">//对象拼接</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">1</span>, <span class="attr">c</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o3 = &#123; <span class="attr">c</span>: <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.assign(&#123;&#125;, o1, o2, o3);<span class="comment">// 最好这样写，最前面加个&#123;&#125;，这样不会覆盖原有的o1,o2,o3的值</span></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: 2, c: 3 &#125;</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="built_in">Object</span>.assign(o3,o2,o1)</span><br><span class="line"><span class="built_in">console</span>.log(foo) <span class="comment">// &#123; a: 1, b: 1, c: 1 &#125;  //顺序不同，后面覆盖前面的</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>js</category>
-      </categories>
-      <tags>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>chmod的那些事</title>
     <url>/2023/02/25/chmod%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</url>
     <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-zypzrw.jpeg"><br>在 <code>chmod +x</code> 命令中，<code>x</code> 表示可执行权限。文件的可执行权限允许用户执行（运行）该文件。在Linux和Unix系统中，每个文件都有一个与之相关联的权限集，指定了哪些用户可以对该文件进行哪些操作。文件权限通常由三组权限标志组成，分别是文件所有者权限、文件所属组权限和其他用户权限，它们分别用三个字符 rwx 表示：</p>
@@ -348,6 +348,122 @@
       </tags>
   </entry>
   <entry>
+    <title>blog</title>
+    <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg"></p>
+<blockquote>
+<p>全程都是基于npm，没有使用git方式（除了hexo deploy）</p>
+</blockquote>
+<blockquote>
+<p>基于最新的hexo和next主题升级博客，主要是把配置分离_config.yml 和 _config.next.yml；这样就可以方便hexo和next升级，解决之前升级版本得调很多东西，并且更加简单使用。</p>
+</blockquote>
+<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
+<li><a href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
+<p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
+<h3 id="如果迁移need"><a href="#如果迁移need" class="headerlink" title="如果迁移need"></a>如果迁移need</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb &#x2F;&#x2F;next 的本地搜索</span><br><span class="line">npm install hexo-deployer-git --save &#x2F;&#x2F;开启hexo deploy</span><br><span class="line">npm install hexo-blog-encrypt &#x2F;&#x2F;开启加密</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
+<li>pjax：这个暂时关闭，因为与gitalk冲突</li>
+<li>darkmode：可以根据夜晚变黑</li>
+<li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
+<li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
+<li><a href="https://blog.csdn.net/qq_43701912/article/details/107018127">加密</a><br><a href="https://github.com/D0n9X1n/hexo-blog-encrypt#encrypt-theme">改进后官方方法</a><br>为了适配微信内置浏览器，只能使用默认主题</li>
+<li><a href="https://github.com/iissnan/hexo-theme-next/issues/1742">顶部按钮跟那个百分比</a></li>
+</ul>
+<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
+<li>如果没写日期，会默认使用创建日期和修改日期</li>
+<li>添加密码功能后，只能在https下才可以使用</li>
+</ul>
+<h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><ul>
+<li>统计紫薯和阅读量（因为阅读量不多）</li>
+<li>谷歌搜索（等文章量上来）</li>
+<li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
+<li>评论系统有bug</li>
+</ul>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java只有值传递</title>
+    <url>/2021/05/11/java%E5%8F%AA%E6%9C%89%E5%80%BC%E4%BC%A0%E9%80%92/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gygfeof883j31hc0u148a.jpg"></p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Java中只有值传递</p>
+<ol>
+<li><a href="https://blog.csdn.net/Coding_Zhu/article/details/53096178">基本数据类型</a>参数传值：就是你cv我</li>
+<li>引用数据类型参数传值：你cv了我的”对象的地址”：<blockquote>
+<p>具体点就是你复制了一个新的栈，但指针指向相同的堆内容，只要你不拆我家，那么咱俩都不变；你若改了，那我也改了。有点像引用传递，但是不是(咱俩是两个栈)只是恰好这种机制用了一个堆内存。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li><strong>值传递</strong>（pass by value）是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。</li>
+</ul>
+<ul>
+<li><p><strong>引用传递</strong>（pass by reference）是指在调用函数时将实际参数的地址直接传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
+</li>
+<li><p>简单粗暴</p>
+<blockquote>
+<p>值传递： 就是我不变，你cv了我，你和我同值，你模仿我</p>
+</blockquote>
+<blockquote>
+<p>引用传递：就是把我给你了</p>
+</blockquote>
+</li>
+<li><p>理解</p>
+</li>
+</ul>
+<blockquote>
+<p>你有一把钥匙，当你的朋友想要去你家的时候，如果你直接把你的钥匙给他了，这就是<code>引用传递</code>。这种情况下，如果他对这把钥匙做了什么事情，比如他在钥匙上刻下了自己名字，那么这把钥匙还给你的时候，你自己的钥匙上也会多出他刻的名字。</p>
+</blockquote>
+<blockquote>
+<p>你有一把钥匙，当你的朋友想要去你家的时候，你复刻了一把新钥匙给他，自己的还在自己手里，这就是<code>值传递</code>。这种情况下，他对这把钥匙做什么都不会影响你手里的这把钥匙。</p>
+</blockquote>
+<blockquote>
+<p>但是在引用数据类型传值时：你的朋友拿着你给他的钥匙，进到你的家里，把你家的电视砸了。那你说你会不会受到影响？而我们在pass方法中，改变user对象的name属性的值的时候，不就是在“砸电视”么。你改变的不是那把钥匙，而是钥匙打开的房子。</p>
+</blockquote>
+<h3 id="题海"><a href="#题海" class="headerlink" title="题海"></a>题海</h3><h4 id="1"><a href="#1" class="headerlink" title="1"></a>1</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">   pt.pass(i );</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , i is &quot;</span> + i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">   j = <span class="number">20</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , j is &quot;</span> + j);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// print in pass , j is 20</span></span><br><span class="line"><span class="comment">// print in main , i is 10</span></span><br></pre></td></tr></table></figure>
+<h4 id="2"><a href="#2" class="headerlink" title="2"></a>2</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3"><a href="#3" class="headerlink" title="3"></a>3</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   String name = <span class="string">&quot;Hollis&quot;</span>;</span><br><span class="line">   pt.pass(name);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">   name = <span class="string">&quot;hollischuang&quot;</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , name is hollischuang</span></span><br><span class="line"><span class="comment">//print in main , name is Hollis</span></span><br></pre></td></tr></table></figure>
+<h4 id="4"><a href="#4" class="headerlink" title="4"></a>4</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user = <span class="keyword">new</span> User();</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   user.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;Hollis&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="5"><a href="#5" class="headerlink" title="5"></a>5</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gqea9d2d6ej32c03404r6.jpg"></p>
+<h4 id="6"><a href="#6" class="headerlink" title="6"></a>6</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gqeaadsan8j30ot0j1di6.jpg"></p>
+<h4 id="7"><a href="#7" class="headerlink" title="7"></a>7</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> X = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateVlue</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;  <span class="comment">// 传入基本数据类型</span></span><br><span class="line">       value = value + <span class="number">1</span>;</span><br><span class="line">       System.out.println(<span class="string">&quot;变量value: &quot;</span>+value);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateObject</span><span class="params">(Person person)</span></span>&#123; <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person E = person;</span><br><span class="line">       E.setAge(<span class="number">21</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swapObject</span><span class="params">(Person A,Person B)</span></span>&#123;  <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person C = A;</span><br><span class="line">       A = B;</span><br><span class="line">       B = C;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 例子 1</span></span><br><span class="line">       Main main = <span class="keyword">new</span> Main();</span><br><span class="line">       <span class="keyword">int</span> X = <span class="number">1</span>;</span><br><span class="line">       main.updateVlue(X);</span><br><span class="line">       System.out.println(<span class="string">&quot;X 的值：&quot;</span>+X); <span class="comment">// X = 1</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 2</span></span><br><span class="line">       Person A = <span class="keyword">new</span> Person(<span class="string">&quot;张三&quot;</span>,<span class="number">20</span>);</span><br><span class="line">       main.updateObject(A);</span><br><span class="line">       System.out.println(<span class="string">&quot;A: &quot;</span>+A.toString());  <span class="comment">// A: Person&#123;name=&#x27;张三&#x27;, age=21&#125;</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 3</span></span><br><span class="line">       Person C = <span class="keyword">new</span> Person(<span class="string">&quot;C&quot;</span>,<span class="number">10</span>);</span><br><span class="line">       Person D = <span class="keyword">new</span> Person(<span class="string">&quot;D&quot;</span>,<span class="number">15</span>);</span><br><span class="line">       main.swapObject(C,D);</span><br><span class="line">       System.out.println(<span class="string">&quot;C: &quot;</span>+ C.toString());  <span class="comment">// C: Person&#123;name=&#x27;C&#x27;, age=10&#125;</span></span><br><span class="line">       System.out.println(<span class="string">&quot;D: &quot;</span>+ D.toString());  <span class="comment">// D: Person&#123;name=&#x27;D&#x27;, age=15&#125;</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="8"><a href="#8" class="headerlink" title="8"></a>8</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gqeak3tmi4j30tz140tda.jpg"></p>
+<h4 id="9"><a href="#9" class="headerlink" title="9"></a>9</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">test3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String a = <span class="string">&quot;123&quot;</span>;</span><br><span class="line">        doTest3(a);</span><br><span class="line">        <span class="keyword">return</span> TextUtils.equals(<span class="string">&quot;123&quot;</span>, a);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doTest3</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        str = str + <span class="string">&quot;123&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// true :return TextUtils.equals(&quot;123&quot;, &quot;123&quot;);</span></span><br><span class="line"><span class="comment">//因为你没改变我 str（第二个 ：str + &quot;123&quot;;），第一个str（str = ） 相当于一个新的</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/a220315410/article/details/27743607">String是引用类型</a></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a href="https://mp.weixin.qq.com/s/OfkwrsoE6OPagWiFlaGcVg">为什么说Java中只有值传递</a></li>
+<li>《实战java程序设计》</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java原理</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>jmeter相关</title>
     <url>/2023/03/02/jmeter%E7%9B%B8%E5%85%B3/</url>
     <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-l8yxgp.png"></p>
@@ -417,122 +533,6 @@
       </categories>
       <tags>
         <tag>测试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java只有值传递</title>
-    <url>/2021/05/11/java%E5%8F%AA%E6%9C%89%E5%80%BC%E4%BC%A0%E9%80%92/</url>
-    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gygfeof883j31hc0u148a.jpg"></p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Java中只有值传递</p>
-<ol>
-<li><a href="https://blog.csdn.net/Coding_Zhu/article/details/53096178">基本数据类型</a>参数传值：就是你cv我</li>
-<li>引用数据类型参数传值：你cv了我的”对象的地址”：<blockquote>
-<p>具体点就是你复制了一个新的栈，但指针指向相同的堆内容，只要你不拆我家，那么咱俩都不变；你若改了，那我也改了。有点像引用传递，但是不是(咱俩是两个栈)只是恰好这种机制用了一个堆内存。</p>
-</blockquote>
-</li>
-</ol>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
-<li><strong>值传递</strong>（pass by value）是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。</li>
-</ul>
-<ul>
-<li><p><strong>引用传递</strong>（pass by reference）是指在调用函数时将实际参数的地址直接传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
-</li>
-<li><p>简单粗暴</p>
-<blockquote>
-<p>值传递： 就是我不变，你cv了我，你和我同值，你模仿我</p>
-</blockquote>
-<blockquote>
-<p>引用传递：就是把我给你了</p>
-</blockquote>
-</li>
-<li><p>理解</p>
-</li>
-</ul>
-<blockquote>
-<p>你有一把钥匙，当你的朋友想要去你家的时候，如果你直接把你的钥匙给他了，这就是<code>引用传递</code>。这种情况下，如果他对这把钥匙做了什么事情，比如他在钥匙上刻下了自己名字，那么这把钥匙还给你的时候，你自己的钥匙上也会多出他刻的名字。</p>
-</blockquote>
-<blockquote>
-<p>你有一把钥匙，当你的朋友想要去你家的时候，你复刻了一把新钥匙给他，自己的还在自己手里，这就是<code>值传递</code>。这种情况下，他对这把钥匙做什么都不会影响你手里的这把钥匙。</p>
-</blockquote>
-<blockquote>
-<p>但是在引用数据类型传值时：你的朋友拿着你给他的钥匙，进到你的家里，把你家的电视砸了。那你说你会不会受到影响？而我们在pass方法中，改变user对象的name属性的值的时候，不就是在“砸电视”么。你改变的不是那把钥匙，而是钥匙打开的房子。</p>
-</blockquote>
-<h3 id="题海"><a href="#题海" class="headerlink" title="题海"></a>题海</h3><h4 id="1"><a href="#1" class="headerlink" title="1"></a>1</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">   pt.pass(i );</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , i is &quot;</span> + i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">   j = <span class="number">20</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , j is &quot;</span> + j);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// print in pass , j is 20</span></span><br><span class="line"><span class="comment">// print in main , i is 10</span></span><br></pre></td></tr></table></figure>
-<h4 id="2"><a href="#2" class="headerlink" title="2"></a>2</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
-<h4 id="3"><a href="#3" class="headerlink" title="3"></a>3</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   String name = <span class="string">&quot;Hollis&quot;</span>;</span><br><span class="line">   pt.pass(name);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">   name = <span class="string">&quot;hollischuang&quot;</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , name is hollischuang</span></span><br><span class="line"><span class="comment">//print in main , name is Hollis</span></span><br></pre></td></tr></table></figure>
-<h4 id="4"><a href="#4" class="headerlink" title="4"></a>4</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user = <span class="keyword">new</span> User();</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   user.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print in pass , user is User&#123;name=&#x27;hollischuang&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br><span class="line"><span class="comment">//print in main , user is User&#123;name=&#x27;Hollis&#x27;, gender=&#x27;Male&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
-<h4 id="5"><a href="#5" class="headerlink" title="5"></a>5</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gqea9d2d6ej32c03404r6.jpg"></p>
-<h4 id="6"><a href="#6" class="headerlink" title="6"></a>6</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gqeaadsan8j30ot0j1di6.jpg"></p>
-<h4 id="7"><a href="#7" class="headerlink" title="7"></a>7</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> X = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateVlue</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;  <span class="comment">// 传入基本数据类型</span></span><br><span class="line">       value = value + <span class="number">1</span>;</span><br><span class="line">       System.out.println(<span class="string">&quot;变量value: &quot;</span>+value);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateObject</span><span class="params">(Person person)</span></span>&#123; <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person E = person;</span><br><span class="line">       E.setAge(<span class="number">21</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swapObject</span><span class="params">(Person A,Person B)</span></span>&#123;  <span class="comment">// 传入引用类型</span></span><br><span class="line">       Person C = A;</span><br><span class="line">       A = B;</span><br><span class="line">       B = C;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 例子 1</span></span><br><span class="line">       Main main = <span class="keyword">new</span> Main();</span><br><span class="line">       <span class="keyword">int</span> X = <span class="number">1</span>;</span><br><span class="line">       main.updateVlue(X);</span><br><span class="line">       System.out.println(<span class="string">&quot;X 的值：&quot;</span>+X); <span class="comment">// X = 1</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 2</span></span><br><span class="line">       Person A = <span class="keyword">new</span> Person(<span class="string">&quot;张三&quot;</span>,<span class="number">20</span>);</span><br><span class="line">       main.updateObject(A);</span><br><span class="line">       System.out.println(<span class="string">&quot;A: &quot;</span>+A.toString());  <span class="comment">// A: Person&#123;name=&#x27;张三&#x27;, age=21&#125;</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 例子 3</span></span><br><span class="line">       Person C = <span class="keyword">new</span> Person(<span class="string">&quot;C&quot;</span>,<span class="number">10</span>);</span><br><span class="line">       Person D = <span class="keyword">new</span> Person(<span class="string">&quot;D&quot;</span>,<span class="number">15</span>);</span><br><span class="line">       main.swapObject(C,D);</span><br><span class="line">       System.out.println(<span class="string">&quot;C: &quot;</span>+ C.toString());  <span class="comment">// C: Person&#123;name=&#x27;C&#x27;, age=10&#125;</span></span><br><span class="line">       System.out.println(<span class="string">&quot;D: &quot;</span>+ D.toString());  <span class="comment">// D: Person&#123;name=&#x27;D&#x27;, age=15&#125;</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="8"><a href="#8" class="headerlink" title="8"></a>8</h4><p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gqeak3tmi4j30tz140tda.jpg"></p>
-<h4 id="9"><a href="#9" class="headerlink" title="9"></a>9</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">test3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String a = <span class="string">&quot;123&quot;</span>;</span><br><span class="line">        doTest3(a);</span><br><span class="line">        <span class="keyword">return</span> TextUtils.equals(<span class="string">&quot;123&quot;</span>, a);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doTest3</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        str = str + <span class="string">&quot;123&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// true :return TextUtils.equals(&quot;123&quot;, &quot;123&quot;);</span></span><br><span class="line"><span class="comment">//因为你没改变我 str（第二个 ：str + &quot;123&quot;;），第一个str（str = ） 相当于一个新的</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://blog.csdn.net/a220315410/article/details/27743607">String是引用类型</a></p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
-<li><a href="https://mp.weixin.qq.com/s/OfkwrsoE6OPagWiFlaGcVg">为什么说Java中只有值传递</a></li>
-<li>《实战java程序设计》</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java原理</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>blog</title>
-    <url>/2021/02/08/hexo-next%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E4%B9%8B%E9%87%8D%E8%A3%85%E4%BF%AEblog/</url>
-    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng89k2ctjj31me0vo1l0.jpg"></p>
-<blockquote>
-<p>全程都是基于npm，没有使用git方式（除了hexo deploy）</p>
-</blockquote>
-<blockquote>
-<p>基于最新的hexo和next主题升级博客，主要是把配置分离_config.yml 和 _config.next.yml；这样就可以方便hexo和next升级，解决之前升级版本得调很多东西，并且更加简单使用。</p>
-</blockquote>
-<h3 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h3><p><a href="https://hexo.io/zh-cn/docs/index.html">使用文档</a>注意在mac中需要sudo打头</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-
-<h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><ul>
-<li><a href="https://theme-next.js.org/docs/getting-started/">next使用文档</a></li>
-<li><a href="https://theme-next.iissnan.com/">next中文使用文档（但不是最新的 最新的以上面为准）</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-theme-next &#x2F;&#x2F;在根目录下</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;hexo&#x2F;_config.yml</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><a href="https://theme-next.js.org/docs/getting-started/configuration.html">主题配置</a>其中需要用到hexo的新版备用配置 <a href="https://hexo.io/docs/configuration.html#Using-an-Alternate-Config">可使用原因</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp node_modules&#x2F;hexo-theme-next&#x2F;_config.yml _config.next.yml</span><br></pre></td></tr></table></figure>
-
-<h3 id="提交到github生成"><a href="#提交到github生成" class="headerlink" title="提交到github生成"></a><a href="https://hexo.io/zh-cn/docs/one-command-deployment.html">提交到github生成</a></h3><p><a href="https://zhuanlan.zhihu.com/p/348581472/">需要提前弄好ssh </a></p>
-<p>原理是mac生成一个密钥，然后把密钥加到github上（允许通过），这样git就可以不用输密码就push提交</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d &#x2F;&#x2F; &#x3D; hexo g hexo d</span><br></pre></td></tr></table></figure>
-<h3 id="如果迁移need"><a href="#如果迁移need" class="headerlink" title="如果迁移need"></a>如果迁移need</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb &#x2F;&#x2F;next 的本地搜索</span><br><span class="line">npm install hexo-deployer-git --save &#x2F;&#x2F;开启hexo deploy</span><br><span class="line">npm install hexo-blog-encrypt &#x2F;&#x2F;开启加密</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="使用了什么"><a href="#使用了什么" class="headerlink" title="使用了什么"></a>使用了什么</h3><ul>
-<li>pjax：这个暂时关闭，因为与gitalk冲突</li>
-<li>darkmode：可以根据夜晚变黑</li>
-<li><a href="https://xring.info/2018/hexo-category-and-tag-page.html">categories 和 tags 页面</a></li>
-<li><a href="https://www.jianshu.com/p/02fc71f3633f">评论:使用默认的gitalk</a></li>
-<li><a href="https://blog.csdn.net/qq_43701912/article/details/107018127">加密</a><br><a href="https://github.com/D0n9X1n/hexo-blog-encrypt#encrypt-theme">改进后官方方法</a><br>为了适配微信内置浏览器，只能使用默认主题</li>
-<li><a href="https://github.com/iissnan/hexo-theme-next/issues/1742">顶部按钮跟那个百分比</a></li>
-</ul>
-<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><ul>
-<li>如果没写日期，会默认使用创建日期和修改日期</li>
-<li>添加密码功能后，只能在https下才可以使用</li>
-</ul>
-<h3 id="把生成博客弄到git上"><a href="#把生成博客弄到git上" class="headerlink" title="把生成博客弄到git上"></a>把生成博客弄到git上</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin git@github.com:shinyhero521&#x2F;blog-generate.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;Initial commit&quot;</span><br><span class="line">git fetch &#x2F;&#x2F;为了刷新下远程的仓库，为了下一个命令做准备</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;main master &#x2F;&#x2F;前面origin&#x2F;main是fetch之后可以看到的远程仓库 后面master是自己的分支</span><br><span class="line">git pull origin main --allow-unrelated-histories &#x2F;&#x2F;为了解决Git中fatal: refusing to merge unrelated histories</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><ul>
-<li>统计紫薯和阅读量（因为阅读量不多）</li>
-<li>谷歌搜索（等文章量上来）</li>
-<li>插入网易云音乐（先专注内容，防止别人打开有惊吓音）</li>
-<li>评论系统有bug</li>
-</ul>
-]]></content>
-      <categories>
-        <category>blog</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
@@ -732,28 +732,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Health</title>
-    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="哦，这是无效的密码,请检查并重试." data-whm="哦，这些解密的内容无法验证，但是您仍然可以看看.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="141dcfc3a8ea145a435008c69cea6735e678706a8fafbf7869c394b4d976e699">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e3b48900055026377feba46a05aa72238aab5a06da8998faa15a17746588d10e82b5ffe1b83e04ffd4f1b0149689f35b67567f5a642a6448d456c14e0407593936748c8fb04321865bd863a6716ec570456de87396595fba97472ee7252728c776e5e935d78f4b7a649c16c21bb36af36e2a693393ac777b2e7f74353f90d582e349746d755e18aef58253d38907235efda723f9adb73bd05437d8237a092906fceb8b8d0311456f1b25099f954d2b2114cf1081ea8e098c08be14874a7260ced09e4901a91bfc98245e575410c9f38c21a5127d114444f500da4d691aa8ce9ee38ef2d82a73b2248c06c95877eb5f9a48eb61f3e70c7468ee54b619e5a30d08aabf290e73653bb39467c192063ecacb6071394cec7e954a59db6a2bc01845da667592ddef5e1d7710d941d7ad27f9b535769f5847fd283bca35316c46ebf7508674eaa6f81869c16cef96d912b3f28e84d9343b70ae674e1359f2107ba9f215b3eda67d5788a2e1198e83daaea0a31b44001f769b875c3513a15c1b9121efa3b17b02f0412c7e3096a62f8e04edf439846cb3a789056e7138e4a095e65a4e350654fc3b333688653aabaeeefa820a7c41376f576300b02f2abd91952b3a64fd4d26f339720737381673b1fa70aadfe97b4083df8b38ae1510ababd3ea9a2c6698eaba0e9be794c0306e942279467cc81b2f25757f6980999f920b1e99049eb77ebe7dca628f6237074bb3a40397bf4009dd139bbb475d289d9d7cad2a6be0d57333d198b0c1c609ae69e85d821d14aec52e2ac633a9e39de16bdb82108606816fc76b3913967d4fcfd88a0e8572bdc034d5dad3a9815a360dbc887e190d95819b2034096e36f9bb639514baef0e367635203f8e537cbd04d7655857ebb45a03dae07731a753c971374c084f403885034f72feb99b2e083af083a97cca3918096e70380f0ef7add7811ef1085501d62e4f37d70c8f41c25496cbd9969fddc7d996d43863d2a5c15a20aa9d1106f4c5266c3f99559fed21856291c32d6b7524b7346f0b3945be5d8e933b72e53ef4588614cca54d70e86409b88689ddcd60688cd9f9e0dd26a0335a3755d7128964be529bbebf6bd893313a2489bfe2327d65d9b4be0d0a767fe0c3773892e9255faa294282a47d136967778e19568c98515387b3937200a2b3af9e0b36e10b7e09ba993efc4eed980432e5d18a53eaee5c6974d188bebbb74627b3e9f9110a26ba4c2cb46661a787ea9cae1b9cdd8c01bd30abdfe4d0e11210336aa7630b03e844b30783e17e4bc8473aadddc5b401771da46adc90317017f23ef82477e658aba6fa75780ff76670494b7b8aa1f8b57b8f9674b2e136dbae9cc71563822a5f2aeb0cf773f1e7a6371bf436539d4ce1a67cc0339c2bbe45c0b119e1f448e87047b9d2fc84d847fc0ea5d3acdfe0b2ea6592a58dea6e1f26d9c48c58a0afb5826113001678809d1823c17d146b1b8ed24cf544488fc25d8f77715d5f53544749ba9bfcd50dd437b3f056d2eaff7f72c93b9f78889f0fbbf8bce1322ee1e7bffb6eee18f376c47b769337fef6ae466bd489da15e43498c3b2cccc4798e14eb521283c1985d</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Abbreviation of my love.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>diary</category>
-      </categories>
-      <tags>
-        <tag>health</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>vue父子传值</title>
     <url>/2020/06/21/vue%E7%88%B6%E5%AD%90%E4%BC%A0%E5%80%BC/</url>
     <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/006s5QLMly1gng8ipk65ej31rq13ae82.jpg"><br>今天让我写个基于vue的系统管理员授权拆分的功能，一开始我是真的难，非常难过，因为这块代码很乱，功能其实客户需求还是可以的，只不过从原代码改造，非常恶心。</p>
@@ -793,6 +771,102 @@
       </categories>
       <tags>
         <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Health</title>
+    <url>/2018/01/02/%E5%81%A5%E5%BA%B7/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="哦，这是无效的密码,请检查并重试." data-whm="哦，这些解密的内容无法验证，但是您仍然可以看看.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="141dcfc3a8ea145a435008c69cea6735e678706a8fafbf7869c394b4d976e699">5cf44de4dd79991d3cc91487a8cab735e97f0602e7333a38caebfae6aeb467255578be7007210aada18dc60ee1f281f10518cf3a8dc0c13f3f5c207f971ea7b7e2101e20438c26be43eea11d3dc3820d6eae437975a77d6f23d155b9f1ec6e4c78d0e55b06486aef0f1d5470d8b586dd145be4af1bdb2d8f6cb4cd86415ffa8e3b48900055026377feba46a05aa72238aab5a06da8998faa15a17746588d10e82b5ffe1b83e04ffd4f1b0149689f35b67567f5a642a6448d456c14e0407593936748c8fb04321865bd863a6716ec570456de87396595fba97472ee7252728c776e5e935d78f4b7a649c16c21bb36af36e2a693393ac777b2e7f74353f90d582e349746d755e18aef58253d38907235efda723f9adb73bd05437d8237a092906fceb8b8d0311456f1b25099f954d2b2114cf1081ea8e098c08be14874a7260ced09e4901a91bfc98245e575410c9f38c21a5127d114444f500da4d691aa8ce9ee38ef2d82a73b2248c06c95877eb5f9a48eb61f3e70c7468ee54b619e5a30d08aabf290e73653bb39467c192063ecacb6071394cec7e954a59db6a2bc01845da667592ddef5e1d7710d941d7ad27f9b535769f5847fd283bca35316c46ebf7508674eaa6f81869c16cef96d912b3f28e84d9343b70ae674e1359f2107ba9f215b3eda67d5788a2e1198e83daaea0a31b44001f769b875c3513a15c1b9121efa3b17b02f0412c7e3096a62f8e04edf439846cb3a789056e7138e4a095e65a4e350654fc3b333688653aabaeeefa820a7c41376f576300b02f2abd91952b3a64fd4d26f339720737381673b1fa70aadfe97b4083df8b38ae1510ababd3ea9a2c6698eaba0e9be794c0306e942279467cc81b2f25757f6980999f920b1e99049eb77ebe7dca628f6237074bb3a40397bf4009dd139bbb475d289d9d7cad2a6be0d57333d198b0c1c609ae69e85d821d14aec52e2ac633a9e39de16bdb82108606816fc76b3913967d4fcfd88a0e8572bdc034d5dad3a9815a360dbc887e190d95819b2034096e36f9bb639514baef0e367635203f8e537cbd04d7655857ebb45a03dae07731a753c971374c084f403885034f72feb99b2e083af083a97cca3918096e70380f0ef7add7811ef1085501d62e4f37d70c8f41c25496cbd9969fddc7d996d43863d2a5c15a20aa9d1106f4c5266c3f99559fed21856291c32d6b7524b7346f0b3945be5d8e933b72e53ef4588614cca54d70e86409b88689ddcd60688cd9f9e0dd26a0335a3755d7128964be529bbebf6bd893313a2489bfe2327d65d9b4be0d0a767fe0c3773892e9255faa294282a47d136967778e19568c98515387b3937200a2b3af9e0b36e10b7e09ba993efc4eed980432e5d18a53eaee5c6974d188bebbb74627b3e9f9110a26ba4c2cb46661a787ea9cae1b9cdd8c01bd30abdfe4d0e11210336aa7630b03e844b30783e17e4bc8473aadddc5b401771da46adc90317017f23ef82477e658aba6fa75780ff76670494b7b8aa1f8b57b8f9674b2e136dbae9cc71563822a5f2aeb0cf773f1e7a6371bf436539d4ce1a67cc0339c2bbe45c0b119e1f448e87047b9d2fc84d847fc0ea5d3acdfe0b2ea6592a58dea6e1f26d9c48c58a0afb5826113001678809d1823c17d146b1b8ed24cf544488fc25d8f77715d5f53544749ba9bfcd50dd437b3f056d2eaff7f72c93b9f78889f0fbbf8bce1322ee1e7bffb6eee18f376c47b769337fef6ae466bd489da15e43498c3b2cccc4798e14eb521283c1985d</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Abbreviation of my love.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>diary</category>
+      </categories>
+      <tags>
+        <tag>health</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何在mac中添加github的ssh密钥</title>
+    <url>/2023/04/14/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B7%BB%E5%8A%A0github%E7%9A%84ssh%E5%AF%86%E9%92%A5/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-l8z7rq.jpeg"></p>
+<h3 id="如何在mac中添加github的ssh密钥"><a href="#如何在mac中添加github的ssh密钥" class="headerlink" title="如何在mac中添加github的ssh密钥"></a>如何在mac中添加github的ssh密钥</h3><p>在Mac中添加Github的SSH密钥可以按照以下步骤进行：</p>
+<ol>
+<li>打开终端应用程序。</li>
+<li>输入以下命令，检查是否已经存在SSH密钥对：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Copy Codels -al ~&#x2F;.ssh</span><br></pre></td></tr></table></figure>
+
+<p>如果您看到了一个名为<code>id_rsa.pub</code>的文件，则表示您已经有了SSH密钥。否则，请转到下一步。</p>
+<ol start="3">
+<li>输入以下命令，创建新的SSH密钥对：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Copy Codessh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在此命令中，将“<a href="mailto:&#x79;&#111;&#117;&#x72;&#95;&#x65;&#109;&#97;&#105;&#x6c;&#x40;&#x65;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;">&#x79;&#111;&#117;&#x72;&#95;&#x65;&#109;&#97;&#105;&#x6c;&#x40;&#x65;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;</a>”替换为您在Github上使用的电子邮件地址。按Enter键后，提示输入要保存密钥的文件名和位置。默认值是 ~/.ssh/id_rsa。如果您希望使用不同的文件名和位置，请在此处输入正确的信息。</p>
+<ol start="4">
+<li>输入以下命令，将公钥复制到剪贴板中：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Copy Codepbcopy &lt; ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>登录您的Github帐户，单击右上角的个人资料图标，然后选择“Settings”。</li>
+<li>在左侧导航菜单中，单击“SSH and GPG keys”。</li>
+<li>单击“New SSH key”按钮。</li>
+<li>在“Title”字段中输入一个描述性名称，例如“我的Mac电脑”。</li>
+<li>将刚才复制到剪贴板中的公钥粘贴到“Key”字段中。</li>
+<li>单击“Add SSH key”按钮。</li>
+</ol>
+<h3 id="提示错误"><a href="#提示错误" class="headerlink" title="提示错误"></a>提示错误</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">@</span>    <span class="attr">WARNING:</span> <span class="string">REMOTE</span> <span class="string">HOST</span> <span class="string">IDENTIFICATION</span> <span class="string">HAS</span> <span class="string">CHANGED!</span>     <span class="string">@</span></span><br><span class="line">			<span class="string">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span></span><br><span class="line">			<span class="string">IT</span> <span class="string">IS</span> <span class="string">POSSIBLE</span> <span class="string">THAT</span> <span class="string">SOMEONE</span> <span class="string">IS</span> <span class="string">DOING</span> <span class="string">SOMETHING</span> <span class="string">NASTY!</span></span><br><span class="line">			<span class="string">Someone</span> <span class="string">could</span> <span class="string">be</span> <span class="string">eavesdropping</span> <span class="string">on</span> <span class="string">you</span> <span class="string">right</span> <span class="string">now</span> <span class="string">(man-in-the-middle</span> <span class="string">attack)!</span></span><br><span class="line">			<span class="string">It</span> <span class="string">is</span> <span class="string">also</span> <span class="string">possible</span> <span class="string">that</span> <span class="string">a</span> <span class="string">host</span> <span class="string">key</span> <span class="string">has</span> <span class="string">just</span> <span class="string">been</span> <span class="string">changed.</span></span><br><span class="line">			<span class="string">The</span> <span class="string">fingerprint</span> <span class="string">for</span> <span class="string">the</span> <span class="string">RSA</span> <span class="string">key</span> <span class="string">sent</span> <span class="string">by</span> <span class="string">the</span> <span class="string">remote</span> <span class="string">host</span> <span class="string">is</span></span><br><span class="line">			<span class="string">SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.</span></span><br><span class="line">			<span class="string">Please</span> <span class="string">contact</span> <span class="string">your</span> <span class="string">system</span> <span class="string">administrator.</span></span><br><span class="line">			<span class="string">Add</span> <span class="string">correct</span> <span class="string">host</span> <span class="string">key</span> <span class="string">in</span> <span class="string">/Users/boom_hao/.ssh/known_hosts</span> <span class="string">to</span> <span class="string">get</span> <span class="string">rid</span> <span class="string">of</span> <span class="string">this</span> <span class="string">message.</span></span><br><span class="line">			<span class="string">Offending</span> <span class="string">RSA</span> <span class="string">key</span> <span class="string">in</span> <span class="string">/Users/boom_hao/.ssh/known_hosts:1</span></span><br><span class="line">			<span class="string">Host</span> <span class="string">key</span> <span class="string">for</span> <span class="string">github.com</span> <span class="string">has</span> <span class="string">changed</span> <span class="string">and</span> <span class="string">you</span> <span class="string">have</span> <span class="string">requested</span> <span class="string">strict</span> <span class="string">checking.</span></span><br><span class="line">			<span class="string">Host</span> <span class="string">key</span> <span class="string">verification</span> <span class="string">failed.</span></span><br><span class="line">			<span class="string">Could</span> <span class="string">not</span> <span class="string">read</span> <span class="string">from</span> <span class="string">remote</span> <span class="string">repository.</span></span><br><span class="line">			<span class="string">Please</span> <span class="string">make</span> <span class="string">sure</span> <span class="string">you</span> <span class="string">have</span> <span class="string">the</span> <span class="string">correct</span> <span class="string">access</span> <span class="string">rights</span></span><br><span class="line">			<span class="string">and</span> <span class="string">the</span> <span class="string">repository</span> <span class="string">exists.</span></span><br></pre></td></tr></table></figure>
+<p>这个错误提示表明您尝试连接的远程主机（可能是Github）的SSH密钥已更改，或者出现了中间人攻击的情况。因此，系统无法验证主机的真实性，导致了此错误。</p>
+<p>为了解决此问题，您需要更新您本地计算机上的known_hosts文件，该文件存储与之前连接过的所有SSH服务器的公钥指纹。在这种情况下，您需要删除旧的密钥，并将新的密钥添加到known_hosts文件中。</p>
+<p>以下是可以执行的步骤：</p>
+<ol>
+<li>打开终端应用程序。</li>
+<li>在命令行中输入以下命令来编辑known_hosts文件：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Copy Codenano ~&#x2F;.ssh&#x2F;known_hosts</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>使用箭头键找到与Github相关的行，然后删除它，或者将其注释掉，例如：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Copy Code# github.com:22 SSH-2.0-OpenSSH_7.3p1 Debian-1</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>按Ctrl+X，然后按Y和Enter键保存文件并退出nano。</li>
+<li>尝试再次进行Git操作，您应该会看到一个询问是否信任新的SSH密钥的消息。请确认指纹是否匹配，如果匹配，请输入“yes”以添加新的密钥。这将把新密钥添加到known_hosts文件中。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>chat</category>
+      </categories>
+      <tags>
+        <tag>mac</tag>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>什么是上行短信和下行短信</title>
+    <url>/2023/04/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8A%E8%A1%8C%E7%9F%AD%E4%BF%A1%E5%92%8C%E4%B8%8B%E8%A1%8C%E7%9F%AD%E4%BF%A1/</url>
+    <content><![CDATA[<p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-ex32dk.png"></p>
+<h3 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h3><p>上行短信和下行短信是指短信的发送和接收的方向。上行短信是指用户发送给电信服务提供商或者SP（服务提供商）的短信，一般需要付费。下行短信是指电信服务提供商或者SP发送给用户的短信，一般免费¹⁴。例如，你给10086发了一条查询话费的短信，这就是上行短信；10086回复你话费余额的短信，这就是下行短信。</p>
+<h3 id="如何区分"><a href="#如何区分" class="headerlink" title="如何区分"></a>如何区分</h3><p>区分上下行的原因可能有多种，根据不同的领域和场景，可能有不同的解释。比如，在铁路中，区分上下行是为了方便管理和调度列车，一般以北京为中心，靠近北京方向为上行，远离北京方向为下行¹。在道路中，区分上下行是为了确定桩号的大小和方向，一般桩号从小到大的一侧是上行²。在通信中，区分上下行是为了提高数据传输的效率和降低时延，一般可以采用上下行解耦技术，在不同的载波或频段进行数据发送和接收³。</p>
+<h3 id="one-more-thing"><a href="#one-more-thing" class="headerlink" title="one more thing"></a>one more thing</h3><p>下行速率和下行包是网络通信中的概念。下行速率是指基站向移动终端发送信息时的传输速率，比如手机或笔记本等无线终端从基站或者网络下载数据的速率³。下行包是指基站向移动终端发送的数据包，每个数据包都有一定的大小和序号。下行速率和下行包之间有一定的关系，一般来说，下行速率越高，下行包的数量和大小也越大。</p>
+]]></content>
+      <categories>
+        <category>chat</category>
+      </categories>
+      <tags>
+        <tag>概念</tag>
       </tags>
   </entry>
   <entry>

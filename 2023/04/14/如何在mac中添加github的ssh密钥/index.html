@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shinyhero521.github.io","root":"/","images":"/images","scheme":"Mist","version":"8.2.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="如何在mac中添加github的ssh密钥在Mac中添加Github的SSH密钥可以按照以下步骤进行：  打开终端应用程序。 输入以下命令，检查是否已经存在SSH密钥对：  1Copy Codels -al ~&#x2F;.ssh  如果您看到了一个名为id_rsa.pub的文件，则表示您已经有了SSH密钥。否则，请转到下一步。  输入以下命令，创建新的SSH密钥对：  1Copy Codess">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在mac中添加github的ssh密钥">
+<meta property="og:url" content="https://shinyhero521.github.io/2023/04/14/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B7%BB%E5%8A%A0github%E7%9A%84ssh%E5%AF%86%E9%92%A5/index.html">
+<meta property="og:site_name" content="Hao&#39;s Notes">
+<meta property="og:description" content="如何在mac中添加github的ssh密钥在Mac中添加Github的SSH密钥可以按照以下步骤进行：  打开终端应用程序。 输入以下命令，检查是否已经存在SSH密钥对：  1Copy Codels -al ~&#x2F;.ssh  如果您看到了一个名为id_rsa.pub的文件，则表示您已经有了SSH密钥。否则，请转到下一步。  输入以下命令，创建新的SSH密钥对：  1Copy Codess">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-l8z7rq.jpeg">
+<meta property="article:published_time" content="2023-04-14T10:39:30.000Z">
+<meta property="article:modified_time" content="2023-04-14T10:45:55.987Z">
+<meta property="article:author" content="Patrick">
+<meta property="article:tag" content="mac">
+<meta property="article:tag" content="github">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-l8z7rq.jpeg">
+
+
+<link rel="canonical" href="https://shinyhero521.github.io/2023/04/14/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B7%BB%E5%8A%A0github%E7%9A%84ssh%E5%AF%86%E9%92%A5/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>如何在mac中添加github的ssh密钥 | Hao's Notes</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hao's Notes</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B7%BB%E5%8A%A0github%E7%9A%84ssh%E5%AF%86%E9%92%A5"><span class="nav-number">1.</span> <span class="nav-text">如何在mac中添加github的ssh密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA%E9%94%99%E8%AF%AF"><span class="nav-number">2.</span> <span class="nav-text">提示错误</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Patrick"
+      src="/images/shinyhero.png">
+  <p class="site-author-name" itemprop="name">Patrick</p>
+  <div class="site-description" itemprop="description">愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shinyhero521" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shinyhero521" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:211296237@qq.com" title="E-Mail → mailto:211296237@qq.com" rel="noopener" target="_blank">E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-nd.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://shinyhero521.github.io/2023/04/14/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B7%BB%E5%8A%A0github%E7%9A%84ssh%E5%AF%86%E9%92%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/shinyhero.png">
+      <meta itemprop="name" content="Patrick">
+      <meta itemprop="description" content="愿时光能缓，愿故人不散，<br />愿你独闯的日子里不觉孤单">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hao's Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何在mac中添加github的ssh密钥
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-04-14 18:39:30 / 修改时间：18:45:55" itemprop="dateCreated datePublished" datetime="2023-04-14T18:39:30+08:00">2023-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/chat/" itemprop="url" rel="index"><span itemprop="name">chat</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://shinyhero.oss-cn-beijing.aliyuncs.com/wallhaven-l8z7rq.jpeg"></p>
+<h3 id="如何在mac中添加github的ssh密钥"><a href="#如何在mac中添加github的ssh密钥" class="headerlink" title="如何在mac中添加github的ssh密钥"></a>如何在mac中添加github的ssh密钥</h3><p>在Mac中添加Github的SSH密钥可以按照以下步骤进行：</p>
+<ol>
+<li>打开终端应用程序。</li>
+<li>输入以下命令，检查是否已经存在SSH密钥对：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Copy Codels -al ~&#x2F;.ssh</span><br></pre></td></tr></table></figure>
+
+<p>如果您看到了一个名为<code>id_rsa.pub</code>的文件，则表示您已经有了SSH密钥。否则，请转到下一步。</p>
+<ol start="3">
+<li>输入以下命令，创建新的SSH密钥对：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Copy Codessh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在此命令中，将“<a href="mailto:&#x79;&#111;&#117;&#x72;&#95;&#x65;&#109;&#97;&#105;&#x6c;&#x40;&#x65;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;">&#x79;&#111;&#117;&#x72;&#95;&#x65;&#109;&#97;&#105;&#x6c;&#x40;&#x65;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#101;&#x2e;&#x63;&#111;&#109;</a>”替换为您在Github上使用的电子邮件地址。按Enter键后，提示输入要保存密钥的文件名和位置。默认值是 ~/.ssh/id_rsa。如果您希望使用不同的文件名和位置，请在此处输入正确的信息。</p>
+<ol start="4">
+<li>输入以下命令，将公钥复制到剪贴板中：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Copy Codepbcopy &lt; ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>登录您的Github帐户，单击右上角的个人资料图标，然后选择“Settings”。</li>
+<li>在左侧导航菜单中，单击“SSH and GPG keys”。</li>
+<li>单击“New SSH key”按钮。</li>
+<li>在“Title”字段中输入一个描述性名称，例如“我的Mac电脑”。</li>
+<li>将刚才复制到剪贴板中的公钥粘贴到“Key”字段中。</li>
+<li>单击“Add SSH key”按钮。</li>
+</ol>
+<h3 id="提示错误"><a href="#提示错误" class="headerlink" title="提示错误"></a>提示错误</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">@</span>    <span class="attr">WARNING:</span> <span class="string">REMOTE</span> <span class="string">HOST</span> <span class="string">IDENTIFICATION</span> <span class="string">HAS</span> <span class="string">CHANGED!</span>     <span class="string">@</span></span><br><span class="line">			<span class="string">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span></span><br><span class="line">			<span class="string">IT</span> <span class="string">IS</span> <span class="string">POSSIBLE</span> <span class="string">THAT</span> <span class="string">SOMEONE</span> <span class="string">IS</span> <span class="string">DOING</span> <span class="string">SOMETHING</span> <span class="string">NASTY!</span></span><br><span class="line">			<span class="string">Someone</span> <span class="string">could</span> <span class="string">be</span> <span class="string">eavesdropping</span> <span class="string">on</span> <span class="string">you</span> <span class="string">right</span> <span class="string">now</span> <span class="string">(man-in-the-middle</span> <span class="string">attack)!</span></span><br><span class="line">			<span class="string">It</span> <span class="string">is</span> <span class="string">also</span> <span class="string">possible</span> <span class="string">that</span> <span class="string">a</span> <span class="string">host</span> <span class="string">key</span> <span class="string">has</span> <span class="string">just</span> <span class="string">been</span> <span class="string">changed.</span></span><br><span class="line">			<span class="string">The</span> <span class="string">fingerprint</span> <span class="string">for</span> <span class="string">the</span> <span class="string">RSA</span> <span class="string">key</span> <span class="string">sent</span> <span class="string">by</span> <span class="string">the</span> <span class="string">remote</span> <span class="string">host</span> <span class="string">is</span></span><br><span class="line">			<span class="string">SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.</span></span><br><span class="line">			<span class="string">Please</span> <span class="string">contact</span> <span class="string">your</span> <span class="string">system</span> <span class="string">administrator.</span></span><br><span class="line">			<span class="string">Add</span> <span class="string">correct</span> <span class="string">host</span> <span class="string">key</span> <span class="string">in</span> <span class="string">/Users/boom_hao/.ssh/known_hosts</span> <span class="string">to</span> <span class="string">get</span> <span class="string">rid</span> <span class="string">of</span> <span class="string">this</span> <span class="string">message.</span></span><br><span class="line">			<span class="string">Offending</span> <span class="string">RSA</span> <span class="string">key</span> <span class="string">in</span> <span class="string">/Users/boom_hao/.ssh/known_hosts:1</span></span><br><span class="line">			<span class="string">Host</span> <span class="string">key</span> <span class="string">for</span> <span class="string">github.com</span> <span class="string">has</span> <span class="string">changed</span> <span class="string">and</span> <span class="string">you</span> <span class="string">have</span> <span class="string">requested</span> <span class="string">strict</span> <span class="string">checking.</span></span><br><span class="line">			<span class="string">Host</span> <span class="string">key</span> <span class="string">verification</span> <span class="string">failed.</span></span><br><span class="line">			<span class="string">Could</span> <span class="string">not</span> <span class="string">read</span> <span class="string">from</span> <span class="string">remote</span> <span class="string">repository.</span></span><br><span class="line">			<span class="string">Please</span> <span class="string">make</span> <span class="string">sure</span> <span class="string">you</span> <span class="string">have</span> <span class="string">the</span> <span class="string">correct</span> <span class="string">access</span> <span class="string">rights</span></span><br><span class="line">			<span class="string">and</span> <span class="string">the</span> <span class="string">repository</span> <span class="string">exists.</span></span><br></pre></td></tr></table></figure>
+<p>这个错误提示表明您尝试连接的远程主机（可能是Github）的SSH密钥已更改，或者出现了中间人攻击的情况。因此，系统无法验证主机的真实性，导致了此错误。</p>
+<p>为了解决此问题，您需要更新您本地计算机上的known_hosts文件，该文件存储与之前连接过的所有SSH服务器的公钥指纹。在这种情况下，您需要删除旧的密钥，并将新的密钥添加到known_hosts文件中。</p>
+<p>以下是可以执行的步骤：</p>
+<ol>
+<li>打开终端应用程序。</li>
+<li>在命令行中输入以下命令来编辑known_hosts文件：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Copy Codenano ~&#x2F;.ssh&#x2F;known_hosts</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>使用箭头键找到与Github相关的行，然后删除它，或者将其注释掉，例如：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Copy Code# github.com:22 SSH-2.0-OpenSSH_7.3p1 Debian-1</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>按Ctrl+X，然后按Y和Enter键保存文件并退出nano。</li>
+<li>尝试再次进行Git操作，您应该会看到一个询问是否信任新的SSH密钥的消息。请确认指纹是否匹配，如果匹配，请输入“yes”以添加新的密钥。这将把新密钥添加到known_hosts文件中。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>您的鼓励，继续创作！</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat.jpg" alt="Patrick 微信扫一扫">
+        <span>微信扫一扫</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Patrick
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://shinyhero521.github.io/2023/04/14/%E5%A6%82%E4%BD%95%E5%9C%A8mac%E4%B8%AD%E6%B7%BB%E5%8A%A0github%E7%9A%84ssh%E5%AF%86%E9%92%A5/" title="如何在mac中添加github的ssh密钥">https://shinyhero521.github.io/2023/04/14/如何在mac中添加github的ssh密钥/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-ND</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/mac/" rel="tag"># mac</a>
+              <a href="/tags/github/" rel="tag"># github</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/04/14/%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8A%E8%A1%8C%E7%9F%AD%E4%BF%A1%E5%92%8C%E4%B8%8B%E8%A1%8C%E7%9F%AD%E4%BF%A1/" rel="prev" title="什么是上行短信和下行短信">
+                  <i class="fa fa-chevron-left"></i> 什么是上行短信和下行短信
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="90" alpha="0.3" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: false
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script>
+NexT.utils.loadComments('.gitalk-container', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'b38074db2f7b9006226d',
+      clientSecret: 'ade1fe2f9bc4f412dd576e90264b4e62b2af97aa',
+      repo        : 'BlogComments',
+      owner       : 'shinyhero521',
+      admin       : ['shinyhero521'],
+      id          : '4a7b38a190970332ca9fa0066191813d',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render(document.querySelector('.gitalk-container'));
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
